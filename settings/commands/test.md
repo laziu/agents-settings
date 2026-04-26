@@ -1,19 +1,19 @@
 ---
-description: Run TDD workflow — write failing tests, implement, verify. For bugs, use the Prove-It pattern.
+description: TDD workflow and bug Prove-It pattern.
 ---
 
 Invoke `test-driven-development`.
 
-For new features:
-1. Write tests that describe the expected behavior (they should FAIL)
-2. Implement the code to make them pass
-3. Refactor while keeping tests green
+New behavior:
+1. Write a failing behavior test.
+2. Implement minimum code to pass.
+3. Refactor with tests green.
 
-For bug fixes (Prove-It pattern):
-1. Write a test that reproduces the bug (must FAIL)
-2. Confirm the test fails
-3. Implement the fix
-4. Confirm the test passes
-5. Run the full test suite for regressions
+Bug fix:
+1. Write a failing reproduction.
+2. Confirm failure.
+3. Fix.
+4. Confirm pass.
+5. Run regression checks.
 
-For browser-related issues, also invoke `browser-testing-with-devtools` to verify with Chrome DevTools MCP.
+For browser behavior, also invoke `browser-testing-with-devtools`.

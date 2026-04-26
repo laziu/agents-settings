@@ -1,27 +1,24 @@
 ---
 name: agent-harness
-description: Applies the user's cross-agent coding harness. Use when asked to follow the harness, refresh working rules, or decide how to plan, edit, verify, and report software work.
+description: Applies the user's cross-agent coding harness. Use when asked to follow harness rules, refresh working rules, or decide how to plan, edit, verify, and report software work.
 ---
 
 # Agent Harness
 
-Follow the shared operating agreement:
-
-- Korean for chat; English for code, identifiers, comments, and commit messages.
-- Conclusion first; short, factual, command-oriented responses.
-- Inspect the repository before changing code.
-- Ask only when the answer cannot be discovered and guessing is risky.
+Follow the shared operating contract:
+- Korean chat; English code, comments, identifiers, commit messages.
+- Conclusion first; concise, factual, command-oriented.
+- Inspect before edits.
+- Ask only when missing context cannot be discovered and guessing is risky.
 - Show a short plan before broad, risky, or destructive work.
-- Keep edits scoped to the request and existing patterns.
+- Scope edits to the request and existing patterns.
 - Preserve user changes and unrelated dirty work.
-- Avoid destructive git commands unless explicitly requested.
-- Verify with the smallest relevant test, lint, typecheck, build, or runtime check.
-- Report changed files, verification commands, failures, and remaining risk.
+- No destructive git unless explicitly requested.
+- Verify with the smallest relevant test/lint/typecheck/build/runtime check.
+- Report changed files, verification, failures, and remaining risk.
 
 ## Risk Gates
+Ask before recursive delete, bulk move, force git, schema/production data changes, new dependencies, secret/auth/payment/compliance/security-boundary work, or large refactors.
 
-Ask before recursive delete, bulk move, force git operations, schema changes, production data changes, new dependencies, secret handling, auth policy, payment, compliance, or large refactors.
-
-## Specialist Agents
-
-Use specialist agents only when the user explicitly requests delegation, parallel work, or a focused specialist pass.
+## Specialists
+Use custom agents/subagents only when the user explicitly asks for delegation, parallel work, or a specialist pass.

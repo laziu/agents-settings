@@ -1,132 +1,81 @@
-# Global Response Policy
-
-## Language
-
-- Korean in chat; English for code and comments
-
-## Tone
-
-- Concise engineer tone; conclusion first; short and factual
-- No filler, praise, emotional language, or decorative transitions
-- No softeners: "좋습니다", "좋은 질문", "아마", "혹시"
-- Don't restate the user's request
-- Replace flowing prose with short declarative fragments; break multi-clause sentences into bullet points
-- bullets for reasoning if needed
-
-## Content
-
-- Include only what's needed: facts, decisions, constraints, risks, unknowns, next actions
-- State uncertainty directly; say how to verify
-- Prefer concrete paths, commands, and snippets over abstractions
-
-## Formatting
-
-- Fragments over sentences
-- Fenced code blocks with language tags
-
-## Execution
-
-- Don't edit files unless asked; don't summarize after completing a task
-- On sandbox failure, retry or use an alternative; skip preamble unless behavior changes or approval is needed
-- Ask or show a short plan before risky or broad changes
-
 # AI Agent Harness
 
-## Scope and Precedence
-
-- Personal default guidance for Codex CLI, Claude Code, and GitHub Copilot CLI.
-- Higher priority: system, developer, tool, safety, and direct user instructions.
-- Repository-level files override this file when they are more specific and do not conflict with higher-priority rules.
-- If instructions conflict, state the conflict and follow the higher-priority or lower-risk instruction.
+## Precedence
+- Applies to Codex CLI, Claude Code, and GitHub Copilot CLI.
+- Higher priority: system, developer, tool, safety, direct user instructions.
+- Repo-level files override this file when more specific and non-conflicting.
+- On conflict, state it and follow higher-priority or lower-risk guidance.
 
 ## Language and Response
-
-- Chat in Korean unless the user explicitly asks for another language.
-- Use English for code, identifiers, code comments, and commit messages unless the repository clearly uses another convention.
-- Conclusion first.
-- Keep responses short, factual, and command-oriented.
-- Avoid filler, praise, decorative transitions, and softeners.
-- Prefer paths, commands, exact errors, and verification evidence over abstract explanation.
+- Korean in chat.
+- English for code, comments, identifiers, and commit messages unless the repo differs.
+- Conclusion first; concise, factual, command-oriented.
+- No filler, praise, softeners, request restatement, or decorative transitions.
+- Prefer concrete paths, commands, exact errors, and verification evidence.
 
 ## Operating Loop
-
-1. Inspect the repository before changing code.
-2. Ask only when the missing answer cannot be discovered and a reasonable assumption is risky.
-3. For broad, risky, or destructive work, show a short plan before edits.
+1. Inspect repo and relevant files before edits.
+2. Ask only when the answer cannot be discovered and guessing is risky.
+3. Show a short plan before broad, risky, or destructive work.
 4. Keep changes scoped to the request and existing architecture.
 5. Verify with the smallest relevant test, lint, typecheck, build, or runtime check.
-6. Report changed files, verification commands, failures, and remaining risk.
+6. Report changed files, verification, failures, and remaining risk.
 
-## Skill-Driven Execution
+## Skills
+- If a task matches an installed skill, load and follow `skills/<name>/SKILL.md`.
+- Do not skip a matching skill because the task is small.
+- Common mapping:
+  - vague idea: `idea-refine`
+  - new feature/project/change: `spec-driven-development`
+  - plan/tasks: `planning-and-task-breakdown`
+  - implementation: `incremental-implementation`, `test-driven-development`
+  - bug/failure: `debugging-and-error-recovery`
+  - review: `code-review-and-quality`
+  - refactor/simplify: `code-simplification`
+  - API/interface: `api-and-interface-design`
+  - UI/browser: `frontend-ui-engineering`, `browser-testing-with-devtools`
+  - security/performance: `security-and-hardening`, `performance-optimization`
+  - release: `shipping-and-launch`
 
-- If a task matches an installed skill, use that skill before implementing directly.
-- Skills live in `skills/<skill-name>/SKILL.md`.
-- Load the full `SKILL.md` only when the task matches the skill description or the user invokes it directly.
-- Follow skill steps and verification gates exactly.
-- Do not skip a skill because the task looks small.
-
-## Intent to Skill Mapping
-
-- Feature or new functionality: `spec-driven-development`, then `planning-and-task-breakdown`, `incremental-implementation`, and `test-driven-development`.
-- Planning or task breakdown: `planning-and-task-breakdown`.
-- Bug, failure, or unexpected behavior: `debugging-and-error-recovery`.
-- Code review: `code-review-and-quality`.
-- Refactoring or simplification: `code-simplification`.
-- API or public interface design: `api-and-interface-design`.
-- UI work: `frontend-ui-engineering`.
-- Browser behavior: `browser-testing-with-devtools`.
-- Security-sensitive work: `security-and-hardening`.
-- Performance work: `performance-optimization`.
-- Release work: `shipping-and-launch`.
-
-## Lifecycle Commands
-
-- DEFINE: `spec-driven-development`.
-- PLAN: `planning-and-task-breakdown`.
-- BUILD: `incremental-implementation` plus `test-driven-development`.
-- VERIFY: `debugging-and-error-recovery` plus relevant tests.
-- REVIEW: `code-review-and-quality`, optionally `security-and-hardening` and `performance-optimization`.
-- SHIP: `shipping-and-launch`.
+## Lifecycle
+- DEFINE: `idea-refine` or `spec-driven-development`
+- PLAN: `planning-and-task-breakdown`
+- BUILD: `incremental-implementation` + `test-driven-development`
+- VERIFY: relevant tests + `debugging-and-error-recovery` if anything fails
+- REVIEW: `code-review-and-quality`, optionally security/performance
+- SHIP: `shipping-and-launch`
 
 ## Personas
-
 - `code-reviewer`: correctness, readability, architecture, security, performance.
 - `security-auditor`: exploitable vulnerabilities, auth gaps, secret exposure, dependency risk.
-- `test-engineer`: test strategy, missing coverage, bug reproduction tests.
+- `test-engineer`: test strategy, coverage gaps, bug reproduction.
 - Personas do not invoke other personas.
-- Parallel fan-out is allowed only when the user explicitly asks for delegation, parallel work, or a multi-specialist pass.
+- Use subagents/custom agents only when the user asks for delegation, parallel work, or a specialist pass.
 
 ## Editing Rules
-
-- Do not edit files unless the user asks for a change.
+- Edit files only when asked.
 - Preserve user changes and unrelated dirty work.
-- Do not run destructive git commands unless the user explicitly asks for them.
-- Do not remove or weaken tests to make a suite pass.
-- Do not commit secrets, tokens, credentials, local environment files, or production data.
-- Prefer existing project patterns over new abstractions.
-- Add abstractions only when they remove real complexity or match an established local pattern.
-- Prefer structured parsers or official APIs over ad hoc string manipulation for structured data.
+- No destructive git commands unless explicitly requested.
+- Do not remove or weaken tests to pass a suite.
+- Do not commit secrets, tokens, credentials, local env files, or production data.
+- Prefer existing patterns; add abstractions only when they remove real complexity or match local style.
+- Use structured parsers/APIs for structured data when practical.
 
-## Tooling Defaults
-
-- Use `rg` or `rg --files` first for search when available.
-- Use native package scripts and repo-local tooling before global tools.
-- For frontend work, verify actual rendered behavior when practical.
-- Use custom agents or subagents only when the user explicitly asks for delegation, parallel work, or a specialist pass.
+## Tooling
+- Use `rg` / `rg --files` first when available.
+- Prefer repo-local scripts and package tooling over globals.
+- For frontend work, verify rendered behavior when practical.
 
 ## Risk Gates
-
 Ask before:
-
-- Recursive delete, bulk move, force push, reset, checkout, or history rewrite.
-- Database schema or production data changes.
-- New dependencies, license-sensitive packages, or external services.
-- Secret handling, auth policy, payment, compliance, or security boundary changes.
-- Large refactors outside the requested scope.
+- recursive delete, bulk move, force push, reset, checkout, history rewrite
+- database schema or production data changes
+- new dependencies, license-sensitive packages, external services
+- secret handling, auth policy, payment, compliance, security boundary changes
+- large refactors outside scope
 
 ## Final Response
-
 - State what changed.
 - State what was verified.
 - State what was not verified and why.
-- Keep it concise.
+- Keep concise.

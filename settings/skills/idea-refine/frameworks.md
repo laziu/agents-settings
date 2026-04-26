@@ -1,99 +1,67 @@
-# Ideation Frameworks Reference
+# Ideation Frameworks
 
-Use these frameworks selectively. Pick the lens that fits the idea — don't mechanically run every framework. The goal is to unlock thinking, not to follow a checklist.
+Use selectively. Pick the lens that fits the idea.
 
 ## SCAMPER
+Transform an existing idea:
+- Substitute: swap tech, audience, process, business model.
+- Combine: merge with adjacent ideas.
+- Adapt: borrow from another industry/domain.
+- Modify: magnify, minimize, exaggerate, strip down.
+- Put to other uses: new user/context/problem.
+- Eliminate: remove steps/features/config.
+- Reverse/Rearrange: invert order, roles, or value chain.
 
-A structured way to transform an existing idea by applying seven different operations:
+Best for improving existing products/features.
 
-- **Substitute:** What component, material, or process could you swap out? What if you replaced the core technology? The target audience? The business model?
-- **Combine:** What if you merged this with another product, service, or idea? What two things that don't usually go together would create something new?
-- **Adapt:** What else is like this? What ideas from other industries, domains, or time periods could you borrow? What parallel exists in nature?
-- **Modify (Magnify/Minimize):** What if you made it 10x bigger? 10x smaller? What if you exaggerated one feature? What if you stripped it to the absolute minimum?
-- **Put to other uses:** Who else could use this? What other problems could it solve? What happens if you use it in a completely different context?
-- **Eliminate:** What happens if you remove a feature entirely? What's the version with zero configuration? What would it look like with half the steps?
-- **Reverse/Rearrange:** What if you did the steps in the opposite order? What if the user did the work instead of the system (or vice versa)? What if you reversed the value chain?
+## How Might We
+Reframe pain as opportunity:
+`How might we [desired outcome] for [specific user] without [constraint]?`
 
-**Best for:** Improving or reimagining existing products/features. Less useful for greenfield ideas.
+Good HMW:
+- actionable but not solution-prescriptive
+- contains a real user and tension
+- avoids broad "make users happy" framing
 
-## How Might We (HMW)
+Best when anchored on a premature solution.
 
-Reframe problems as opportunities using the "How Might We..." format:
+## First Principles
+1. What is actually true?
+2. What are assumptions?
+3. Which assumptions are convention, not law?
+4. Rebuild from truths.
 
-- Start with an observation or pain point
-- Reframe it as "How might we [desired outcome] for [specific user] without [key constraint]?"
-- Generate multiple HMW framings of the same problem — different framings unlock different solutions
+Best for escaping incremental thinking.
 
-**Good HMW qualities:**
-- Narrow enough to be actionable ("...help new users find relevant content in their first 5 minutes")
-- Broad enough to allow creative solutions (not "...add a recommendation sidebar")
-- Contains a tension or constraint that forces creativity
+## Jobs to Be Done
+Format:
+`When I [situation], I want to [motivation], so I can [outcome].`
 
-**Bad HMW qualities:**
-- Too broad: "How might we make users happy?"
-- Too narrow: "How might we add a button to the settings page?"
-- Solution-embedded: "How might we build a chatbot for support?"
+Check functional, emotional, and social jobs. The competitor is often the current workaround.
 
-**Best for:** Reframing stuck thinking. When someone is anchored on a solution, pull them back to the problem.
+Best for finding the real problem.
 
-## First Principles Thinking
+## Constraint-Based
+Impose limits to force clarity:
+- one day
+- one feature
+- no obvious technology
+- free forever
+- non-expert user
+- 10 users vs 1 billion
 
-Break the idea down to its fundamental truths, then rebuild from there:
+Best for cutting complexity.
 
-1. **What do we know is true?** (not assumed, not conventional — actually true)
-2. **What are we assuming?** List every assumption, even the ones that feel obvious
-3. **Which assumptions can we challenge?** For each, ask: "Is this actually a law of physics, or just how it's been done?"
-4. **Rebuild from the truths.** If you only had the fundamental truths, what would you build?
+## Pre-Mortem
+Assume failure 12 months later:
+- What went wrong?
+- Which failures are preventable?
+- Which kill the idea?
+- Which risks are acceptable?
 
-**Best for:** Breaking out of incremental thinking. When every idea feels like a small improvement on the status quo.
-
-## Jobs to Be Done (JTBD)
-
-Focus on what the user is trying to accomplish, not what they say they want:
-
-- **Functional job:** What task are they trying to complete?
-- **Emotional job:** How do they want to feel?
-- **Social job:** How do they want to be perceived?
-
-Format: "When I [situation], I want to [motivation], so I can [expected outcome]."
-
-**Key insight:** People don't buy products — they hire them to do a job. The competing product isn't always in the same category. (Netflix competes with sleep, not just other streaming services.)
-
-**Best for:** Understanding the real problem. When you're not sure if you're solving the right thing.
-
-## Constraint-Based Ideation
-
-Deliberately impose constraints to force creative solutions:
-
-- **Time constraint:** "What if you only had 1 day to build this?"
-- **Feature constraint:** "What if it could only have one feature?"
-- **Tech constraint:** "What if you couldn't use [the obvious technology]?"
-- **Cost constraint:** "What if it had to be free forever?"
-- **Audience constraint:** "What if your user had never used a computer before?"
-- **Scale constraint:** "What if it needed to work for 1 billion users? What about just 10?"
-
-**Best for:** Cutting through complexity. When the idea is growing too large or too vague.
-
-## Pre-mortem
-
-Imagine the idea has already failed. Work backwards:
-
-1. It's 12 months from now. The project shipped and flopped. What went wrong?
-2. List every plausible reason for failure — technical, market, team, timing
-3. For each failure mode: Is this preventable? Is this a signal the idea needs to change?
-4. Which failure modes are you willing to accept? Which ones would kill the project?
-
-**Best for:** Phase 2 evaluation. Stress-testing ideas that feel good but haven't been pressure-tested.
+Best for Phase 2 stress-testing.
 
 ## Analogous Inspiration
+Find structural analogies from other domains, companies, natural systems, or history. Avoid surface "Uber for X" copies.
 
-Look at how other domains solved similar problems:
-
-- What industry has already solved a version of this problem?
-- What would this look like if [specific company/product] built it?
-- What natural system works this way?
-- What historical precedent exists?
-
-The key is finding *structural* similarities, not surface-level ones. "Uber for X" is surface-level. "A two-sided marketplace that solves a trust problem between strangers" is structural.
-
-**Best for:** Phase 1 expansion. Generating variations that feel genuinely different from the obvious approach.
+Best for generating non-obvious variations.

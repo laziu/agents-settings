@@ -1,22 +1,17 @@
 ---
-description: Simplify code for clarity and maintainability — reduce complexity without changing behavior
+description: Simplify code without behavior changes.
 ---
 
 Invoke `code-simplification`.
 
-Simplify recently changed code (or the specified scope) while preserving exact behavior:
+Scope: recently changed code unless the user specifies broader scope.
 
-1. Read CLAUDE.md and study project conventions
-2. Identify the target code — recent changes unless a broader scope is specified
-3. Understand the code's purpose, callers, edge cases, and test coverage before touching it
-4. Scan for simplification opportunities:
-   - Deep nesting → guard clauses or extracted helpers
-   - Long functions → split by responsibility
-   - Nested ternaries → if/else or switch
-   - Generic names → descriptive names
-   - Duplicated logic → shared functions
-   - Dead code → remove after confirming
-5. Apply each simplification incrementally — run tests after each change
-6. Verify all tests pass, the build succeeds, and the diff is clean
+Process:
+1. Read project rules and neighboring patterns.
+2. Understand purpose, callers, edge cases, and tests.
+3. Simplify deep nesting, long functions, nested ternaries, generic names, duplication, and confirmed dead code.
+4. Apply changes incrementally.
+5. Run tests after each meaningful simplification.
+6. Verify build/lint and review the diff.
 
-If tests fail after a simplification, revert that change and reconsider. Use `code-review-and-quality` to review the result.
+If tests fail, revert that simplification and re-evaluate.

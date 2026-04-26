@@ -1,113 +1,81 @@
-# Refinement & Evaluation Criteria
+# Refinement and Evaluation Criteria
 
-Use this rubric during Phase 2 (Evaluate & Converge) to stress-test idea directions. Not every criterion applies to every idea — use judgment about which dimensions matter most for the specific context.
+Use during Phase 2. Apply only relevant dimensions.
 
-## Core Evaluation Dimensions
+## User Value
+If value is unclear, stop.
 
-### 1. User Value
+Painkiller:
+- acute/frequent problem
+- users have workarounds
+- users seek/pay/switch
 
-The most important dimension. If the value isn't clear, nothing else matters.
+Vitamin:
+- nice improvement
+- polite interest, no behavior change
 
-**Painkiller vs. Vitamin:**
-- **Painkiller:** Solves an acute, frequent problem. Users will actively seek this out. They'll switch from their current solution. Signs: people describe the problem with emotion, they've built workarounds, they'll pay for a solution.
-- **Vitamin:** Nice to have. Makes something marginally better. Users won't go out of their way. Signs: people nod politely, say "that's cool," then don't change behavior.
+Ask:
+- Name 3 people with this problem now.
+- What do they do today?
+- Why would they switch?
+- How often does it happen?
+- Is demand pulled by users or pushed by builders?
 
-**Questions to ask:**
-- Can you name 3 specific people who have this problem right now?
-- What are they doing today instead? (The real competitor is always the current workaround.)
-- Would they switch from their current approach? What would make them switch?
-- How often do they encounter this problem? (Daily problems > monthly problems)
-- Is this a "pull" problem (users are asking for this) or a "push" problem (you think they should want this)?
+Red flags:
+- "Everyone."
+- Marginal "X but better."
+- Real but rare problem.
 
-**Red flags:**
-- "Everyone could use this" — if you can't name a specific user, the value isn't clear
-- "It's like X but better" — marginal improvements rarely drive adoption
-- The problem is real but rare — high intensity but low frequency rarely justifies a product
+## Feasibility
+Check:
+- core tech exists and is reliable
+- hardest technical risk
+- third-party/data/control dependencies
+- MVP stack size
+- team/expertise/regulatory needs
+- time to user value
 
-### 2. Feasibility
+Red flags:
+- research breakthrough required
+- many dependencies must all work
+- MVP still takes months
 
-Can you actually build this? Not just technically, but practically.
+## Differentiation
+Ask:
+- What would users tell a friend?
+- What does this do that alternatives do not?
+- Is the difference durable?
+- Does the user care about the difference?
 
-**Technical feasibility:**
-- Does the core technology exist and work reliably?
-- What's the hardest technical problem? Is it a known-hard problem or a novel one?
-- Are there dependencies on third parties, APIs, or data sources you don't control?
-- What's the minimum technical stack needed? (If the answer is "a lot," that's a signal.)
+Strength order:
+1. new capability
+2. 10x improvement
+3. new audience
+4. new context
+5. dramatically better UX
+6. cheaper
 
-**Resource feasibility:**
-- What's the minimum team/effort to build an MVP?
-- Does it require specialized expertise you don't have?
-- Are there regulatory, legal, or compliance requirements?
-
-**Time-to-value:**
-- How quickly can you get something in front of users?
-- Is there a version that delivers value in days/weeks, not months?
-- What's the critical path? What has to happen first?
-
-**Red flags:**
-- "We just need to solve [very hard research problem] first"
-- Multiple dependencies that all need to work simultaneously
-- MVP still requires months of work — likely not minimal enough
-
-### 3. Differentiation
-
-What makes this genuinely different? Not better — *different*.
-
-**Questions to ask:**
-- If a user described this to a friend, what would they say? Is that description compelling?
-- What's the one thing this does that nothing else does? (If you can't name one, that's a problem.)
-- Is this differentiation durable? Can a competitor copy it in a week?
-- Is the difference something users actually care about, or just something builders find interesting?
-
-**Types of differentiation (strongest to weakest):**
-1. **New capability:** Does something that was previously impossible
-2. **10x improvement:** So much better on a key dimension that it changes behavior
-3. **New audience:** Brings an existing capability to people who were excluded
-4. **New context:** Works in a situation where existing solutions fail
-5. **Better UX:** Same capability, dramatically simpler experience
-6. **Cheaper:** Same thing, lower cost (weakest — easily competed away)
-
-**Red flags:**
-- Differentiation is entirely about technology, not user experience
-- "We're faster/cheaper/prettier" without a structural reason why
-- The feature that differentiates is not the feature users care most about
+Red flags:
+- tech-only differentiation
+- faster/cheaper/prettier without structural reason
+- differentiator is not the valued feature
 
 ## Assumption Audit
+- Must be true: wrong answer kills idea; validate first.
+- Should be true: affects approach; can adjust.
+- Might be true: secondary; validate later.
 
-For every idea direction, explicitly list assumptions in three categories:
+## Decision Matrix
+| | High feasibility | Low feasibility |
+|---|---|---|
+| High value | Do first | Worth risk |
+| Low value | Only if trivial | Do not do |
 
-### Must Be True (Dealbreakers)
-Assumptions that, if wrong, kill the idea entirely. These need validation before building.
+Use differentiation as tiebreaker.
 
-Example: "Users will share their data with us" — if they won't, the entire product doesn't work.
-
-### Should Be True (Important)
-Assumptions that significantly impact success but don't kill the idea. You can adjust the approach if these are wrong.
-
-Example: "Users prefer self-serve over talking to a person" — if wrong, you need a different go-to-market, but the core product can still work.
-
-### Might Be True (Nice to Have)
-Assumptions about secondary features or optimizations. Don't validate these until the core is proven.
-
-Example: "Users will want to share their results with teammates" — a growth feature, not a core value proposition.
-
-## Decision Framework
-
-When choosing between directions, rank on this matrix:
-
-|                    | High Feasibility | Low Feasibility |
-|--------------------|-------------------|-----------------|
-| **High Value**     | Do this first     | Worth the risk   |
-| **Low Value**      | Only if trivial   | Don't do this    |
-
-Then use differentiation as the tiebreaker between options in the same quadrant.
-
-## MVP Scoping Principles
-
-When defining MVP scope for the chosen direction:
-
-1. **One job, done well.** The MVP should nail exactly one user job. Not three jobs done partially.
-2. **The riskiest assumption first.** The MVP's primary purpose is to test the assumption most likely to be wrong.
-3. **Time-box, not feature-list.** "What can we build and test in [timeframe]?" is better than "What features do we need?"
-4. **The 'Not Doing' list is mandatory.** Explicitly name what you're cutting and why. This prevents scope creep and forces honest prioritization.
-5. **If it's not embarrassing, you waited too long.** The first version should feel incomplete to the builder. If it doesn't, you over-built.
+## MVP Scoping
+- One job done well.
+- Test riskiest assumption first.
+- Time-box before feature-list.
+- Mandatory Not Doing list.
+- First version should feel smaller than the builder wants.
