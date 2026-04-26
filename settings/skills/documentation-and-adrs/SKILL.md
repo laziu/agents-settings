@@ -74,6 +74,7 @@ For releases, record Added/Changed/Fixed and issue/PR references.
 
 ## Agent Context
 Keep rules files, specs, ADRs, and gotchas current so agents do not rediscover decisions.
+- Integrate clarification answers into existing sections; avoid standalone answer logs unless the template requires them
 
 ## Verification
 - ADRs cover significant decisions

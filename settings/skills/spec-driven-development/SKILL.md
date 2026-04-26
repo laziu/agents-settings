@@ -60,6 +60,7 @@ Use `incremental-implementation`, `test-driven-development`, and focused context
 
 ## Keep Spec Alive
 - Update spec before implementing changed decisions/scope
+- Merge clarification answers into relevant sections; remove resolved open questions
 - Commit spec with code
 - Reference spec sections in PRs
 

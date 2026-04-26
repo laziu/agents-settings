@@ -23,10 +23,11 @@
 ## Operating Loop
 1. Inspect the repository/depot/workspace and relevant files before edits
 2. Ask only when the answer cannot be discovered and guessing is risky
-3. Show a short plan before broad, risky, or destructive work
-4. Keep changes scoped to the request and existing architecture
-5. Verify with the smallest relevant test, lint, typecheck, build, or runtime check
-6. Report changed files, verification, failures, and remaining risk
+3. Merge clarification answers into existing docs; remove resolved questions and avoid answer/decision appendices unless required
+4. Show a short plan before broad, risky, or destructive work
+5. Keep changes scoped to the request and existing architecture
+6. Verify with the smallest relevant test, lint, typecheck, build, or runtime check
+7. Report changed files, verification, failures, and remaining risk
 
 ## Skills and Lifecycle
 - If a task matches an installed skill, load and follow `skills/<name>/SKILL.md`. Do not skip because the task is small.

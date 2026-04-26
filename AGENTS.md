@@ -12,6 +12,7 @@
 
 ## Content
 - Include only what's needed: facts, decisions, constraints, risks, unknowns, next actions
+- Merge clarification answers into existing docs; remove resolved questions and avoid answer/decision appendices unless required
 - State uncertainty directly; say how to verify
 - Prefer concrete paths, commands, and snippets over abstractions
 
