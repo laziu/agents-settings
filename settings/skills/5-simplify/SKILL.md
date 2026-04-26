@@ -1,10 +1,13 @@
 ---
-description: Simplify code without behavior changes.
+name: 5-simplify
+description: Wrapper workflow for explicit invocation. Use when the user calls 5-simplify or wants step 5 of the agent workflow to simplify code without changing behavior.
 ---
+
+# 5 Simplify
 
 Invoke `code-simplification`.
 
-Scope: recently changed code unless the user specifies broader scope.
+Scope to recently changed code unless the user specifies broader scope.
 
 Process:
 1. Read project rules and neighboring patterns

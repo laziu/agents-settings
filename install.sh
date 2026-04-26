@@ -101,7 +101,19 @@ abs_path() {
 
   dir="$(dirname "$path")"
   base="$(basename "$path")"
-  (cd "$dir" && printf '%s/%s\n' "$(pwd -P)" "$base")
+  if [ -d "$dir" ]; then
+    (cd "$dir" && printf '%s/%s\n' "$(pwd -P)" "$base")
+    return
+  fi
+
+  case "$path" in
+    /*|[A-Za-z]:*)
+      printf '%s\n' "$path"
+      ;;
+    *)
+      printf '%s/%s\n' "$PWD" "$path"
+      ;;
+  esac
 }
 
 resolve_link_target() {
@@ -174,6 +186,61 @@ link_path() {
   ln -s "$source_abs" "$destination"
 }
 
+remove_link_if_owned() {
+  local source="$1"
+  local destination="$2"
+  local source_abs
+  local current
+  local current_abs
+
+  if [ ! -e "$destination" ] && [ ! -L "$destination" ]; then
+    return
+  fi
+
+  if [ ! -L "$destination" ]; then
+    return
+  fi
+
+  source_abs="$(abs_path "$source")"
+  current="$(readlink "$destination")"
+  current_abs="$(resolve_link_target "$destination" "$current")"
+
+  if [ "$current_abs" != "$source_abs" ]; then
+    return
+  fi
+
+  printf 'REMOVE  %s\n' "$destination"
+  if [ "$DRY_RUN" -ne 1 ]; then
+    rm "$destination"
+  fi
+}
+
+remove_directory_links() {
+  local source_dir="$1"
+  local destination_dir="$2"
+  local legacy_specs="${3-}"
+  local destination_name
+  local source_path
+
+  if [ ! -e "$destination_dir" ] && [ ! -L "$destination_dir" ]; then
+    return
+  fi
+
+  if [ -L "$destination_dir" ]; then
+    remove_link_if_owned "$source_dir" "$destination_dir"
+    return
+  fi
+
+  if [ ! -d "$destination_dir" ]; then
+    return
+  fi
+
+  while IFS=$'\t' read -r destination_name source_path; do
+    [ -n "$destination_name" ] || continue
+    remove_link_if_owned "$source_path" "$destination_dir/$destination_name"
+  done <<< "$legacy_specs"
+}
+
 child_link_specs() {
   local source_dir="$1"
   local kind="$2"
@@ -209,6 +276,15 @@ shared_agent_legacy_specs() {
     [ -f "$source" ] || continue
     name="$(basename "$source" .agent.md)"
     printf '%s%s\t%s/%s.md\n' "$name" "$extension" "$legacy_source_dir" "$name"
+  done
+}
+
+obsolete_command_specs() {
+  local source_dir="$1"
+  local name
+
+  for name in build.md code-simplify.md plan.md review.md ship.md spec.md test.md; do
+    printf '%s\t%s/%s\n' "$name" "$source_dir" "$name"
   done
 }
 
@@ -303,7 +379,7 @@ CODEX_AGENTS_SOURCE="$ROOT/settings/agents/codex"
 COMMANDS_SOURCE="$ROOT/settings/commands"
 
 LEGACY_SKILL_LINKS="$(child_link_specs "$SKILLS_SOURCE" directory)"
-LEGACY_COMMAND_LINKS="$(child_link_specs "$COMMANDS_SOURCE" file "*.md")"
+OBSOLETE_COMMAND_LINKS="$(obsolete_command_specs "$COMMANDS_SOURCE")"
 LEGACY_CODEX_AGENT_LINKS="$(child_link_specs "$CODEX_AGENTS_SOURCE" file "*.toml")"
 LEGACY_CLAUDE_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" "$AGENTS_SOURCE" ".md")"
 LEGACY_COPILOT_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" "$AGENTS_SOURCE" ".agent.md")"
@@ -312,7 +388,8 @@ if has_target codex; then
   link_path "$POLICY_SOURCE" "$CODEX_HOME/AGENTS.md"
   link_directory "$SKILLS_SOURCE" "$AGENTS_HOME/skills" "$LEGACY_SKILL_LINKS"
   link_directory "$CODEX_AGENTS_SOURCE" "$CODEX_HOME/agents" "$LEGACY_CODEX_AGENT_LINKS"
-  link_directory "$COMMANDS_SOURCE" "$CODEX_HOME/commands" "$LEGACY_COMMAND_LINKS"
+  remove_directory_links "$COMMANDS_SOURCE" "$CODEX_HOME/commands" "$OBSOLETE_COMMAND_LINKS"
+  remove_directory_links "$COMMANDS_SOURCE" "$CODEX_HOME/prompts" "$OBSOLETE_COMMAND_LINKS"
 
   if [ "$INSTALL_CODEX_LEGACY_SKILLS" -eq 1 ]; then
     link_directory "$SKILLS_SOURCE" "$CODEX_HOME/skills" "$LEGACY_SKILL_LINKS"
@@ -323,7 +400,7 @@ if has_target claude; then
   link_path "$POLICY_SOURCE" "$CLAUDE_CONFIG_DIR/CLAUDE.md"
   link_directory "$SKILLS_SOURCE" "$CLAUDE_CONFIG_DIR/skills" "$LEGACY_SKILL_LINKS"
   link_directory "$SHARED_AGENTS_SOURCE" "$CLAUDE_CONFIG_DIR/agents" "$LEGACY_CLAUDE_AGENT_LINKS"
-  link_directory "$COMMANDS_SOURCE" "$CLAUDE_CONFIG_DIR/commands" "$LEGACY_COMMAND_LINKS"
+  remove_directory_links "$COMMANDS_SOURCE" "$CLAUDE_CONFIG_DIR/commands" "$OBSOLETE_COMMAND_LINKS"
 fi
 
 if has_target copilot; then

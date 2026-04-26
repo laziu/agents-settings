@@ -95,7 +95,19 @@ abs_path() {
 
   dir="$(dirname "$path")"
   base="$(basename "$path")"
-  (cd "$dir" && printf '%s/%s\n' "$(pwd -P)" "$base")
+  if [ -d "$dir" ]; then
+    (cd "$dir" && printf '%s/%s\n' "$(pwd -P)" "$base")
+    return
+  fi
+
+  case "$path" in
+    /*|[A-Za-z]:*)
+      printf '%s\n' "$path"
+      ;;
+    *)
+      printf '%s/%s\n' "$PWD" "$path"
+      ;;
+  esac
 }
 
 resolve_link_target() {
@@ -182,6 +194,15 @@ shared_agent_legacy_specs() {
   done
 }
 
+obsolete_command_specs() {
+  local source_dir="$1"
+  local name
+
+  for name in build.md code-simplify.md plan.md review.md ship.md spec.md test.md; do
+    printf '%s\t%s/%s\n' "$name" "$source_dir" "$name"
+  done
+}
+
 remove_directory_links() {
   local source_dir="$1"
   local destination_dir="$2"
@@ -224,7 +245,7 @@ CODEX_AGENTS_SOURCE="$ROOT/settings/agents/codex"
 COMMANDS_SOURCE="$ROOT/settings/commands"
 
 LEGACY_SKILL_LINKS="$(child_link_specs "$SKILLS_SOURCE" directory)"
-LEGACY_COMMAND_LINKS="$(child_link_specs "$COMMANDS_SOURCE" file "*.md")"
+OBSOLETE_COMMAND_LINKS="$(obsolete_command_specs "$COMMANDS_SOURCE")"
 LEGACY_CODEX_AGENT_LINKS="$(child_link_specs "$CODEX_AGENTS_SOURCE" file "*.toml")"
 LEGACY_CLAUDE_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" "$AGENTS_SOURCE" ".md")"
 LEGACY_COPILOT_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" "$AGENTS_SOURCE" ".agent.md")"
@@ -233,9 +254,9 @@ if has_target codex; then
   remove_link_if_owned "$POLICY_SOURCE" "$CODEX_HOME/AGENTS.md"
   remove_directory_links "$SKILLS_SOURCE" "$AGENTS_HOME/skills" "$LEGACY_SKILL_LINKS"
   remove_directory_links "$CODEX_AGENTS_SOURCE" "$CODEX_HOME/agents" "$LEGACY_CODEX_AGENT_LINKS"
-  remove_directory_links "$COMMANDS_SOURCE" "$CODEX_HOME/commands" "$LEGACY_COMMAND_LINKS"
+  remove_directory_links "$COMMANDS_SOURCE" "$CODEX_HOME/commands" "$OBSOLETE_COMMAND_LINKS"
   # Remove the legacy prompts link created by earlier installs.
-  remove_directory_links "$COMMANDS_SOURCE" "$CODEX_HOME/prompts" "$LEGACY_COMMAND_LINKS"
+  remove_directory_links "$COMMANDS_SOURCE" "$CODEX_HOME/prompts" "$OBSOLETE_COMMAND_LINKS"
 
   if [ "$INCLUDE_CODEX_LEGACY_SKILLS" -eq 1 ]; then
     remove_directory_links "$SKILLS_SOURCE" "$CODEX_HOME/skills" "$LEGACY_SKILL_LINKS"
@@ -246,7 +267,7 @@ if has_target claude; then
   remove_link_if_owned "$POLICY_SOURCE" "$CLAUDE_CONFIG_DIR/CLAUDE.md"
   remove_directory_links "$SKILLS_SOURCE" "$CLAUDE_CONFIG_DIR/skills" "$LEGACY_SKILL_LINKS"
   remove_directory_links "$SHARED_AGENTS_SOURCE" "$CLAUDE_CONFIG_DIR/agents" "$LEGACY_CLAUDE_AGENT_LINKS"
-  remove_directory_links "$COMMANDS_SOURCE" "$CLAUDE_CONFIG_DIR/commands" "$LEGACY_COMMAND_LINKS"
+  remove_directory_links "$COMMANDS_SOURCE" "$CLAUDE_CONFIG_DIR/commands" "$OBSOLETE_COMMAND_LINKS"
 fi
 
 if has_target copilot; then

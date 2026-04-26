@@ -127,6 +127,63 @@ function Install-Link {
     }
 }
 
+function Remove-LinkIfOwned {
+    param(
+        [Parameter(Mandatory = $true)][string]$Source,
+        [Parameter(Mandatory = $true)][string]$Destination
+    )
+
+    $destinationFull = [System.IO.Path]::GetFullPath($Destination)
+    $existing = Get-Item -LiteralPath $destinationFull -Force -ErrorAction SilentlyContinue
+    if ($null -eq $existing) {
+        return
+    }
+
+    $target = Get-ReparseTarget $existing
+    if ($null -eq $target) {
+        return
+    }
+
+    $sourceFull = Get-FullPath $Source
+    $targetFull = Resolve-LinkTargetPath -LinkPath $destinationFull -Target $target
+    if ($targetFull -ine $sourceFull) {
+        return
+    }
+
+    Write-Host "REMOVE  $destinationFull"
+    if (-not $DryRun) {
+        Remove-Item -LiteralPath $destinationFull -Force
+    }
+}
+
+function Remove-DirectoryLinks {
+    param(
+        [string]$DestinationDirectory,
+        [string]$SourceDirectory,
+        [object[]]$LegacyLinks = @()
+    )
+
+    $destinationFull = [System.IO.Path]::GetFullPath($DestinationDirectory)
+    $existing = Get-Item -LiteralPath $destinationFull -Force -ErrorAction SilentlyContinue
+    if ($null -eq $existing) {
+        return
+    }
+
+    if ($null -ne (Get-ReparseTarget $existing)) {
+        Remove-LinkIfOwned -Source $SourceDirectory -Destination $DestinationDirectory
+        return
+    }
+
+    if (-not $existing.PSIsContainer) {
+        return
+    }
+
+    foreach ($legacyLink in @($LegacyLinks)) {
+        $destination = Join-Path $DestinationDirectory $legacyLink.DestinationName
+        Remove-LinkIfOwned -Source $legacyLink.Source -Destination $destination
+    }
+}
+
 function Get-LegacyChildLinks {
     param(
         [string]$SourceDirectory,
@@ -290,7 +347,13 @@ $codexAgentsSource = Join-Path $repoRoot "settings\agents\codex"
 $commandsSource = Join-Path $repoRoot "settings\commands"
 
 $legacySkillLinks = Get-LegacyChildLinks -SourceDirectory $skillsSource -Kind Directory
-$legacyCommandLinks = Get-LegacyChildLinks -SourceDirectory $commandsSource -Kind File -Filter "*.md"
+$obsoleteCommandNames = @("build.md", "code-simplify.md", "plan.md", "review.md", "ship.md", "spec.md", "test.md")
+$obsoleteCommandLinks = @($obsoleteCommandNames | ForEach-Object {
+    [pscustomobject]@{
+        Source = Join-Path $commandsSource $_
+        DestinationName = $_
+    }
+})
 $legacyCodexAgentLinks = Get-LegacyChildLinks -SourceDirectory $codexAgentsSource -Kind File -Filter "*.toml"
 $legacyClaudeAgentLinks = Get-LegacySharedAgentLinks -SourceDirectory $sharedAgentsSource -LegacySourceDirectory $agentsSource -DestinationExtension ".md"
 $legacyCopilotAgentLinks = Get-LegacySharedAgentLinks -SourceDirectory $sharedAgentsSource -LegacySourceDirectory $agentsSource -DestinationExtension ".agent.md"
@@ -316,7 +379,8 @@ if ($requested -contains "codex") {
     Install-Link -Source $policySource -Destination (Join-Path $codexHome "AGENTS.md") -Kind File
     Add-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $sharedAgentsHome "skills") -LegacyLinks $legacySkillLinks
     Add-DirectoryLinks -SourceDirectory $codexAgentsSource -DestinationDirectory (Join-Path $codexHome "agents") -LegacyLinks $legacyCodexAgentLinks
-    Add-DirectoryLinks -SourceDirectory $commandsSource -DestinationDirectory (Join-Path $codexHome "commands") -LegacyLinks $legacyCommandLinks
+    Remove-DirectoryLinks -SourceDirectory $commandsSource -DestinationDirectory (Join-Path $codexHome "commands") -LegacyLinks $obsoleteCommandLinks
+    Remove-DirectoryLinks -SourceDirectory $commandsSource -DestinationDirectory (Join-Path $codexHome "prompts") -LegacyLinks $obsoleteCommandLinks
 
     if ($InstallCodexLegacySkills) {
         Add-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $codexHome "skills") -LegacyLinks $legacySkillLinks
@@ -327,7 +391,7 @@ if ($requested -contains "claude") {
     Install-Link -Source $policySource -Destination (Join-Path $claudeHome "CLAUDE.md") -Kind File
     Add-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $claudeHome "skills") -LegacyLinks $legacySkillLinks
     Add-DirectoryLinks -SourceDirectory $sharedAgentsSource -DestinationDirectory (Join-Path $claudeHome "agents") -LegacyLinks $legacyClaudeAgentLinks
-    Add-DirectoryLinks -SourceDirectory $commandsSource -DestinationDirectory (Join-Path $claudeHome "commands") -LegacyLinks $legacyCommandLinks
+    Remove-DirectoryLinks -SourceDirectory $commandsSource -DestinationDirectory (Join-Path $claudeHome "commands") -LegacyLinks $obsoleteCommandLinks
 }
 
 if ($requested -contains "copilot") {
