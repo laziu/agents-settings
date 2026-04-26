@@ -10,7 +10,7 @@ Install scripts create symlinks from `settings/` into each tool profile. The rep
 settings/
   AGENTS.md                 shared global instructions
   skills/*/SKILL.md         shared skills
-  commands/*.md             shared command prompts
+  commands/*.md             shared slash commands for invoking skills
   agents/shared/*.agent.md  Claude/Copilot agent profiles
   agents/codex/*.toml       Codex custom agents
   references/*.md           skill checklists
@@ -21,12 +21,12 @@ uninstall.ps1|uninstall.sh
 ## Link Targets
 
 | Tool | Installed links |
-|---|---|
-| Codex CLI | `%CODEX_HOME%\AGENTS.md`, `%AGENTS_HOME%\skills`, `%CODEX_HOME%\agents`, `%CODEX_HOME%\commands`, `%CODEX_HOME%\prompts` |
+| --- | --- |
+| Codex CLI | `%CODEX_HOME%\AGENTS.md`, `%AGENTS_HOME%\skills`, `%CODEX_HOME%\agents`, `%CODEX_HOME%\commands` |
 | Claude Code | `%CLAUDE_CONFIG_DIR%\CLAUDE.md`, `%CLAUDE_CONFIG_DIR%\skills`, `%CLAUDE_CONFIG_DIR%\agents`, `%CLAUDE_CONFIG_DIR%\commands` |
 | GitHub Copilot CLI | `%COPILOT_HOME%\copilot-instructions.md`, `%COPILOT_HOME%\skills`, `%COPILOT_HOME%\agents` |
 
-`settings/AGENTS.md` is installed as each tool's global instruction file. Reusable directories are linked as directories, so new files under `settings/skills/`, `settings/commands/`, `settings/agents/shared/`, and `settings/agents/codex/` appear without reinstalling. Codex custom agents remain TOML under `~/.codex/agents/` or `.codex/agents/`.
+`settings/AGENTS.md` is installed as each tool's global instruction file. Reusable directories are linked as directories, so new files under `settings/skills/`, `settings/commands/`, `settings/agents/shared/`, and `settings/agents/codex/` appear without reinstalling. Codex commands are kept as explicit skill-invocation shortcuts. Codex custom agents remain TOML under `~/.codex/agents/` or `.codex/agents/`.
 
 ## Install
 

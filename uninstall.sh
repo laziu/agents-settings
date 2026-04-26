@@ -234,6 +234,7 @@ if has_target codex; then
   remove_directory_links "$SKILLS_SOURCE" "$AGENTS_HOME/skills" "$LEGACY_SKILL_LINKS"
   remove_directory_links "$CODEX_AGENTS_SOURCE" "$CODEX_HOME/agents" "$LEGACY_CODEX_AGENT_LINKS"
   remove_directory_links "$COMMANDS_SOURCE" "$CODEX_HOME/commands" "$LEGACY_COMMAND_LINKS"
+  # Remove the legacy prompts link created by earlier installs.
   remove_directory_links "$COMMANDS_SOURCE" "$CODEX_HOME/prompts" "$LEGACY_COMMAND_LINKS"
 
   if [ "$INCLUDE_CODEX_LEGACY_SKILLS" -eq 1 ]; then

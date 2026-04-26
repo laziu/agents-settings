@@ -313,7 +313,6 @@ if has_target codex; then
   link_directory "$SKILLS_SOURCE" "$AGENTS_HOME/skills" "$LEGACY_SKILL_LINKS"
   link_directory "$CODEX_AGENTS_SOURCE" "$CODEX_HOME/agents" "$LEGACY_CODEX_AGENT_LINKS"
   link_directory "$COMMANDS_SOURCE" "$CODEX_HOME/commands" "$LEGACY_COMMAND_LINKS"
-  link_directory "$COMMANDS_SOURCE" "$CODEX_HOME/prompts" "$LEGACY_COMMAND_LINKS"
 
   if [ "$INSTALL_CODEX_LEGACY_SKILLS" -eq 1 ]; then
     link_directory "$SKILLS_SOURCE" "$CODEX_HOME/skills" "$LEGACY_SKILL_LINKS"

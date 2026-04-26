@@ -226,6 +226,7 @@ if ($requested -contains "codex") {
     Remove-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $sharedAgentsHome "skills") -LegacyLinks $legacySkillLinks
     Remove-DirectoryLinks -SourceDirectory $codexAgentsSource -DestinationDirectory (Join-Path $codexHome "agents") -LegacyLinks $legacyCodexAgentLinks
     Remove-DirectoryLinks -SourceDirectory $commandsSource -DestinationDirectory (Join-Path $codexHome "commands") -LegacyLinks $legacyCommandLinks
+    # Remove the legacy prompts link created by earlier installs.
     Remove-DirectoryLinks -SourceDirectory $commandsSource -DestinationDirectory (Join-Path $codexHome "prompts") -LegacyLinks $legacyCommandLinks
 
     if ($IncludeCodexLegacySkills) {

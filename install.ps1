@@ -317,7 +317,6 @@ if ($requested -contains "codex") {
     Add-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $sharedAgentsHome "skills") -LegacyLinks $legacySkillLinks
     Add-DirectoryLinks -SourceDirectory $codexAgentsSource -DestinationDirectory (Join-Path $codexHome "agents") -LegacyLinks $legacyCodexAgentLinks
     Add-DirectoryLinks -SourceDirectory $commandsSource -DestinationDirectory (Join-Path $codexHome "commands") -LegacyLinks $legacyCommandLinks
-    Add-DirectoryLinks -SourceDirectory $commandsSource -DestinationDirectory (Join-Path $codexHome "prompts") -LegacyLinks $legacyCommandLinks
 
     if ($InstallCodexLegacySkills) {
         Add-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $codexHome "skills") -LegacyLinks $legacySkillLinks
