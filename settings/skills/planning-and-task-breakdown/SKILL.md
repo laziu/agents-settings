@@ -20,10 +20,18 @@ Single-file, obvious-scope change or an existing plan already has good tasks.
 1. Read spec and relevant code in read-only mode
 2. Identify patterns, constraints, risks, unknowns
 3. Map dependency graph
-4. Slice vertically where possible
-5. Write tasks with acceptance criteria and verification
-6. Add checkpoints every 2-3 tasks or phase boundary
-7. Put high-risk tasks early
+4. Sketch technical design before tasks
+5. Slice vertically where possible
+6. Write tasks with acceptance criteria and verification
+7. Add checkpoints every 2-3 tasks or phase boundary
+8. Put high-risk tasks early
+
+## Technical Plan Shape
+Borrow TRD/ERD shape where useful:
+- TRD: architecture, components, interfaces/contracts, data flow, dependencies, risks
+- ERD: entities, relationships, cardinality, ownership, migrations when persistent/domain data changes
+- Tasks: ordered implementation slices with acceptance criteria and verification
+- Avoid formal sections that add no implementation value
 
 ## Task Template
 ```markdown

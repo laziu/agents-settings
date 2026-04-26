@@ -29,15 +29,12 @@ Do not advance until the current phase is reviewed/validated when the change is 
 - Ask clarifying questions until target user, success, scope, and constraints are concrete
 - Reframe vague asks as testable success criteria
 
-Spec covers:
-- Objective: user, problem, success
-- Stack: languages/frameworks/dependencies
-- Commands: exact build/test/lint/dev/typecheck
-- Project structure
-- Code style with example
-- Testing strategy
+Spec borrows PRD shape where useful:
+- Objective: user, problem, goals, non-goals, success metrics
+- Users and use cases: target users, core journeys, user stories when useful
+- Requirements: functional behavior, non-functional constraints, acceptance criteria
+- Project context: stack, commands, structure, style, testing
 - Boundaries: always / ask first / never
-- Success criteria
 - Open questions
 
 ## Phase 2: Plan
