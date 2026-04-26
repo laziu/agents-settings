@@ -38,22 +38,22 @@ await expect(asyncFn()).rejects.toThrow(Error);
 
 ## Mocking
 Mock boundaries:
-- database
+- Database
 - HTTP/external APIs
-- filesystem
-- email/queues
-- time/date when needed
+- Filesystem
+- Email/queues
+- Time/date when needed
 
 Do not mock:
-- business logic
-- validation functions
-- pure transforms
-- internal helpers only to assert calls
+- Business logic
+- Validation functions
+- Pure transforms
+- Internal helpers only to assert calls
 
 ## React / Component
-- Use Testing Library queries by role/label/text, not test IDs by default.
-- Assert user-visible behavior and accessibility.
-- Use `findBy*`/`waitFor` for async UI.
+- Use Testing Library queries by role/label/text, not test IDs by default
+- Assert user-visible behavior and accessibility
+- Use `findBy*`/`waitFor` for async UI
 
 ```tsx
 render(<TaskForm onSubmit={onSubmit} />);
@@ -65,8 +65,8 @@ await waitFor(() => expect(onSubmit).toHaveBeenCalledWith({ title: 'New Task' })
 ```
 
 ## API / Integration
-- Assert status, response shape, auth, validation errors.
-- Use test DB/fake services where practical.
+- Assert status, response shape, auth, validation errors
+- Use test DB/fake services where practical
 
 ```typescript
 await request(app)
@@ -77,10 +77,10 @@ await request(app)
 ```
 
 ## E2E
-- Reserve for critical flows.
-- Test through user-visible UI.
-- Avoid brittle selectors; prefer roles/labels.
-- Keep setup deterministic.
+- Reserve for critical flows
+- Test through user-visible UI
+- Avoid brittle selectors; prefer roles/labels
+- Keep setup deterministic
 
 ## Anti-Patterns
 | Issue | Fix |

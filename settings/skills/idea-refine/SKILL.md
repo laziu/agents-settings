@@ -8,62 +8,34 @@ description: Refines ideas through structured divergent and convergent thinking.
 Turn raw ideas into actionable concepts worth building.
 
 ## Output
-After user confirmation, save a one-pager to `docs/ideas/[idea-name].md`:
-- Problem Statement
-- Recommended Direction
-- Key Assumptions to Validate
-- MVP Scope
-- Not Doing list
-- Open Questions
+After user confirmation, save a one-pager to `docs/ideas/[idea-name].md` with: Problem Statement, Recommended Direction, Key Assumptions to Validate, MVP Scope, Not Doing list, Open Questions.
 
-Optional init:
-```bash
-bash settings/skills/idea-refine/scripts/idea-refine.sh
-```
+Optional init: `bash settings/skills/idea-refine/scripts/idea-refine.sh`.
 
 ## Philosophy
-- Start from user experience; work backward to tech.
-- Prefer the simplest version that solves the real problem.
-- Challenge assumptions and default solutions.
-- Focus by explicitly saying no.
-- Be honest about weak ideas.
+- Start from user experience; work backward to tech
+- Prefer the simplest version that solves the real problem
+- Challenge assumptions and default solutions
+- Focus by explicitly saying no
+- Be honest about weak ideas
 
 ## Phase 1: Understand and Expand
-Goal: open the idea.
+1. Reframe as a crisp "How might we..." problem
+2. Ask 3-5 sharpening questions: specific user, success criteria, constraints, prior attempts, why now
+3. Generate 5-8 variations using selected lenses: inversion, constraint removal, audience shift, combination, simplification, 10x scale, expert/domain lens
 
-1. Reframe as a crisp "How might we..." problem.
-2. Ask 3-5 sharpening questions:
-   - specific user
-   - success criteria
-   - constraints
-   - prior attempts
-   - why now
-3. Generate 5-8 variations using selected lenses:
-   - inversion
-   - constraint removal
-   - audience shift
-   - combination
-   - simplification
-   - 10x scale
-   - expert/domain lens
-
-If inside a codebase, inspect relevant files/patterns and ground ideas in actual constraints.
-
-Use `frameworks.md` selectively; do not run every framework mechanically.
+If inside a codebase, ground ideas in actual constraints. Use `frameworks.md` selectively, not mechanically.
 
 ## Phase 2: Evaluate and Converge
-After user reaction:
-1. Cluster resonant ideas into 2-3 distinct directions.
-2. Stress-test each on user value, feasibility, differentiation.
-3. Surface assumptions:
-   - must be true
-   - could kill the idea
-   - intentionally ignored for now
+1. Cluster resonant ideas into 2-3 distinct directions
+2. Stress-test on user value, feasibility, differentiation
+3. Surface assumptions: must be true, could kill the idea, intentionally ignored
 
 Use `refinement-criteria.md` for the rubric.
 
 ## Phase 3: Sharpen and Ship
 Produce:
+
 ```markdown
 # [Idea Name]
 
@@ -86,21 +58,20 @@ Produce:
 - [question]
 ```
 
-Ask before saving the file.
+Ask before saving.
 
 ## Anti-Patterns
-- 20+ shallow ideas.
-- Skipping target user.
-- Yes-machining weak ideas.
-- No assumptions.
-- No Not Doing list.
-- Ignoring codebase constraints.
-- Jumping to final output before divergence/convergence.
+- 20+ shallow ideas
+- Skipping target user
+- Yes-machining weak ideas
+- No assumptions or no Not Doing list
+- Ignoring codebase constraints
+- Jumping to final output before divergence/convergence
 
 ## Verification
-- HMW statement exists.
-- Target user and success criteria defined.
-- Multiple directions explored.
-- Assumptions include validation strategies.
-- Not Doing list states tradeoffs.
-- User confirmed final direction before implementation.
+- HMW statement exists
+- Target user and success criteria defined
+- Multiple directions explored
+- Assumptions include validation strategies
+- Not Doing list states tradeoffs
+- User confirmed final direction before implementation

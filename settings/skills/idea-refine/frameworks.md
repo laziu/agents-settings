@@ -4,13 +4,13 @@ Use selectively. Pick the lens that fits the idea.
 
 ## SCAMPER
 Transform an existing idea:
-- Substitute: swap tech, audience, process, business model.
-- Combine: merge with adjacent ideas.
-- Adapt: borrow from another industry/domain.
-- Modify: magnify, minimize, exaggerate, strip down.
-- Put to other uses: new user/context/problem.
-- Eliminate: remove steps/features/config.
-- Reverse/Rearrange: invert order, roles, or value chain.
+- Substitute: swap tech, audience, process, business model
+- Combine: merge with adjacent ideas
+- Adapt: borrow from another industry/domain
+- Modify: magnify, minimize, exaggerate, strip down
+- Put to other uses: new user/context/problem
+- Eliminate: remove steps/features/config
+- Reverse/Rearrange: invert order, roles, or value chain
 
 Best for improving existing products/features.
 
@@ -19,9 +19,9 @@ Reframe pain as opportunity:
 `How might we [desired outcome] for [specific user] without [constraint]?`
 
 Good HMW:
-- actionable but not solution-prescriptive
-- contains a real user and tension
-- avoids broad "make users happy" framing
+- Actionable but not solution-prescriptive
+- Contains a real user and tension
+- Avoids broad "make users happy" framing
 
 Best when anchored on a premature solution.
 
@@ -29,7 +29,7 @@ Best when anchored on a premature solution.
 1. What is actually true?
 2. What are assumptions?
 3. Which assumptions are convention, not law?
-4. Rebuild from truths.
+4. Rebuild from truths
 
 Best for escaping incremental thinking.
 
@@ -43,11 +43,11 @@ Best for finding the real problem.
 
 ## Constraint-Based
 Impose limits to force clarity:
-- one day
-- one feature
-- no obvious technology
-- free forever
-- non-expert user
+- One day
+- One feature
+- No obvious technology
+- Free forever
+- Non-expert user
 - 10 users vs 1 billion
 
 Best for cutting complexity.

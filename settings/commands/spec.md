@@ -5,10 +5,10 @@ description: Start spec-driven development before code.
 Invoke `spec-driven-development`.
 
 Clarify:
-- objective and target users
-- core features and acceptance criteria
-- stack preferences and constraints
-- boundaries: always / ask first / never
+- Objective and target users
+- Core features and acceptance criteria
+- Stack preferences and constraints
+- Boundaries: always / ask first / never
 
 Produce `SPEC.md` with objective, stack, commands, structure, style, testing, boundaries, success criteria, and open questions.
 

@@ -11,17 +11,17 @@ Use git as save points, isolation, and durable change documentation.
 Any code change, commit, branch, conflict, or parallel work is involved.
 
 ## Principles
-- Prefer trunk-based development: deployable main/default branch, short-lived feature branches.
-- Commit each verified increment.
-- Each commit does one logical thing.
-- Separate formatting, refactors, features, tests, and dependency changes where practical.
-- Feature flags are better than long-lived branches for incomplete work.
-- Preserve user/unrelated dirty work.
+- Prefer trunk-based development: deployable main/default branch, short-lived feature branches
+- Commit each verified increment
+- Each commit does one logical thing
+- Separate formatting, refactors, features, tests, and dependency changes where practical
+- Feature flags are better than long-lived branches for incomplete work
+- Preserve user/unrelated dirty work
 
 ## Commit Size
-- ~100 lines: ideal.
-- ~300 lines: acceptable if one logical change.
-- ~1000 lines: split.
+- ~100 lines: ideal
+- ~300 lines: acceptable if one logical change
+- ~1000 lines: split
 
 ## Commit Message
 ```text
@@ -56,26 +56,26 @@ npx tsc --noEmit
 Use repo-specific equivalents.
 
 ## Generated Files
-- Commit lockfiles, migrations, or generated files only if the repo expects them.
-- Do not commit build output, `.env`, local IDE state, secrets, `node_modules`.
-- `.gitignore` should cover common secrets/build artifacts.
+- Commit lockfiles, migrations, or generated files only if the repo expects them
+- Do not commit build output, `.env`, local IDE state, secrets, `node_modules`
+- `.gitignore` should cover common secrets/build artifacts
 
 ## Debugging Commands
-- `git bisect` for regressions.
-- `git log --oneline -20` for recent history.
-- `git diff HEAD~N..HEAD -- path` for scoped changes.
-- `git blame path` for historical context.
+- `git bisect` for regressions
+- `git log --oneline -20` for recent history
+- `git diff HEAD~N..HEAD -- path` for scoped changes
+- `git blame path` for historical context
 
 ## Change Summary
 After work, report:
-- changed files and purpose
-- intentionally untouched related items
-- verification run
-- risks/gaps
+- Changed files and purpose
+- Intentionally untouched related items
+- Verification run
+- Risks/gaps
 
 ## Verification
-- Commit is atomic.
-- Message explains why.
-- Tests/checks pass.
-- No secrets.
-- No mixed unrelated changes.
+- Commit is atomic
+- Message explains why
+- Tests/checks pass
+- No secrets
+- No mixed unrelated changes

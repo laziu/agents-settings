@@ -8,11 +8,11 @@ description: Creates specs before coding for new projects, features, significant
 Write the shared source of truth before code. A spec defines what, why, and done.
 
 ## Use When
-- New project/feature/significant change.
-- Requirements are ambiguous.
-- Multiple files/modules affected.
-- Architectural decision needed.
-- Work likely exceeds ~30 minutes.
+- New project/feature/significant change
+- Requirements are ambiguous
+- Multiple files/modules affected
+- Architectural decision needed
+- Work likely exceeds ~30 minutes
 
 ## Skip When
 Single-line fixes, typos, or self-contained unambiguous changes.
@@ -25,47 +25,47 @@ SPECIFY -> PLAN -> TASKS -> IMPLEMENT
 Do not advance until the current phase is reviewed/validated when the change is non-trivial.
 
 ## Phase 1: Specify
-- Surface assumptions first.
-- Ask clarifying questions until target user, success, scope, and constraints are concrete.
-- Reframe vague asks as testable success criteria.
+- Surface assumptions first
+- Ask clarifying questions until target user, success, scope, and constraints are concrete
+- Reframe vague asks as testable success criteria
 
 Spec covers:
-- Objective: user, problem, success.
-- Stack: languages/frameworks/dependencies.
-- Commands: exact build/test/lint/dev/typecheck.
-- Project structure.
-- Code style with example.
-- Testing strategy.
-- Boundaries: always / ask first / never.
-- Success criteria.
-- Open questions.
+- Objective: user, problem, success
+- Stack: languages/frameworks/dependencies
+- Commands: exact build/test/lint/dev/typecheck
+- Project structure
+- Code style with example
+- Testing strategy
+- Boundaries: always / ask first / never
+- Success criteria
+- Open questions
 
 ## Phase 2: Plan
-- Components and dependencies.
-- Implementation order.
-- Risks and mitigations.
-- Parallel vs sequential work.
-- Verification checkpoints.
+- Components and dependencies
+- Implementation order
+- Risks and mitigations
+- Parallel vs sequential work
+- Verification checkpoints
 
 ## Phase 3: Tasks
 Each task:
-- fits one focused session
-- has acceptance criteria
-- has verification
-- is ordered by dependencies
-- touches <=~5 files when possible
+- Fits one focused session
+- Has acceptance criteria
+- Has verification
+- Is ordered by dependencies
+- Touches <=~5 files when possible
 
 ## Phase 4: Implement
 Use `incremental-implementation`, `test-driven-development`, and focused context loading.
 
 ## Keep Spec Alive
-- Update spec before implementing changed decisions/scope.
-- Commit spec with code.
-- Reference spec sections in PRs.
+- Update spec before implementing changed decisions/scope
+- Commit spec with code
+- Reference spec sections in PRs
 
 ## Verification
-- Spec covers required areas.
-- Success criteria are testable.
-- Boundaries defined.
-- Spec saved in repo.
-- Human reviewed when required.
+- Spec covers required areas
+- Success criteria are testable
+- Boundaries defined
+- Spec saved in repo
+- Human reviewed when required

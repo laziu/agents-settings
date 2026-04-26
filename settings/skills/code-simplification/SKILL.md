@@ -8,56 +8,56 @@ description: Simplifies code for clarity without changing behavior.
 Reduce complexity while preserving exact behavior. Simpler means faster to understand, not fewer lines.
 
 ## Use When
-- Working code is harder to read, test, or maintain than needed.
-- Review flags complexity.
-- Recent changes introduced duplication or awkward structure.
+- Working code is harder to read, test, or maintain than needed
+- Review flags complexity
+- Recent changes introduced duplication or awkward structure
 
 ## Do Not Use When
-- Code is already clear.
-- You do not understand behavior.
-- The simpler version would be measurably slower in a hot path.
-- The code is about to be replaced.
+- Code is already clear
+- You do not understand behavior
+- The simpler version would be measurably slower in a hot path
+- The code is about to be replaced
 
 ## Principles
-- Preserve inputs, outputs, side effects, ordering, and error behavior.
-- Follow project conventions and neighboring patterns.
-- Prefer explicit clarity over dense cleverness.
-- Do not optimize for line count.
-- Scope to requested/recently changed code.
+- Preserve inputs, outputs, side effects, ordering, and error behavior
+- Follow project conventions and neighboring patterns
+- Prefer explicit clarity over dense cleverness
+- Do not optimize for line count
+- Scope to requested/recently changed code
 
 ## Process
-1. Understand responsibility, callers, callees, edge cases, tests, and history when needed.
-2. Identify opportunities.
-3. Apply one simplification at a time.
-4. Run relevant tests after each meaningful change.
-5. Keep refactor commits separate from behavior changes.
-6. Revert any simplification that makes code harder or changes behavior.
+1. Understand responsibility, callers, callees, edge cases, tests, and history when needed
+2. Identify opportunities
+3. Apply one simplification at a time
+4. Run relevant tests after each meaningful change
+5. Keep refactor commits separate from behavior changes
+6. Revert any simplification that makes code harder or changes behavior
 
 ## Opportunities
-- Deep nesting -> guard clauses or helpers.
-- Long functions -> split by responsibility.
-- Nested ternaries -> `if`/`switch`/lookup.
-- Boolean flag arguments -> options object or separate functions.
-- Generic/misleading names -> domain names.
-- Comments explaining "what" -> remove; comments explaining "why" -> keep.
-- Duplication -> shared helper when it removes real complexity.
-- Dead code -> remove only after confirmation.
-- Wrapper with no value -> inline.
-- Speculative abstraction -> delete.
+- Deep nesting -> guard clauses or helpers
+- Long functions -> split by responsibility
+- Nested ternaries -> `if`/`switch`/lookup
+- Boolean flag arguments -> options object or separate functions
+- Generic/misleading names -> domain names
+- Comments explaining "what" -> remove; comments explaining "why" -> keep
+- Duplication -> shared helper when it removes real complexity
+- Dead code -> remove only after confirmation
+- Wrapper with no value -> inline
+- Speculative abstraction -> delete
 
 ## Scale Rule
 If refactor touches >500 lines, use automation/codemods instead of hand edits.
 
 ## Red Flags
-- Tests need changes to pass.
-- Error handling removed.
-- Preferences replacing project conventions.
-- Many unrelated simplifications in one diff.
-- Adjacent cleanup outside scope.
+- Tests need changes to pass
+- Error handling removed
+- Preferences replacing project conventions
+- Many unrelated simplifications in one diff
+- Adjacent cleanup outside scope
 
 ## Verification
-- Existing tests pass unchanged.
-- Build/lint pass.
-- Diff is scoped and reviewable.
-- No behavior or error handling weakened.
-- No unrelated churn.
+- Existing tests pass unchanged
+- Build/lint pass
+- Diff is scoped and reviewable
+- No behavior or error handling weakened
+- No unrelated churn

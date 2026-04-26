@@ -8,22 +8,22 @@ description: Breaks specs or clear requirements into ordered, verifiable impleme
 Turn requirements into small tasks with acceptance criteria, dependency order, and verification.
 
 ## Use When
-- Spec exists and needs implementation tasks.
-- Scope feels too large/vague.
-- Work may be parallelized.
-- Implementation order is unclear.
+- Spec exists and needs implementation tasks
+- Scope feels too large/vague
+- Work may be parallelized
+- Implementation order is unclear
 
 ## Skip When
 Single-file, obvious-scope change or an existing plan already has good tasks.
 
 ## Process
-1. Read spec and relevant code in read-only mode.
-2. Identify patterns, constraints, risks, unknowns.
-3. Map dependency graph.
-4. Slice vertically where possible.
-5. Write tasks with acceptance criteria and verification.
-6. Add checkpoints every 2-3 tasks or phase boundary.
-7. Put high-risk tasks early.
+1. Read spec and relevant code in read-only mode
+2. Identify patterns, constraints, risks, unknowns
+3. Map dependency graph
+4. Slice vertically where possible
+5. Write tasks with acceptance criteria and verification
+6. Add checkpoints every 2-3 tasks or phase boundary
+7. Put high-risk tasks early
 
 ## Task Template
 ```markdown
@@ -40,26 +40,26 @@ Scope: XS|S|M|L|XL
 ```
 
 ## Size Guide
-- XS: one function/config.
-- S: 1-2 files, one endpoint/component.
-- M: 3-5 files, one feature slice.
-- L: 5-8 files, split if possible.
-- XL: 8+ files, must split.
+- XS: one function/config
+- S: 1-2 files, one endpoint/component
+- M: 3-5 files, one feature slice
+- L: 5-8 files, split if possible
+- XL: 8+ files, must split
 
 Break down further if:
-- >1 focused session.
-- acceptance criteria require >3 bullets.
-- title contains "and".
-- independent subsystems are mixed.
+- >1 focused session
+- Acceptance criteria require >3 bullets
+- Title contains "and"
+- Independent subsystems are mixed
 
 ## Parallelization
-- Safe: independent slices, docs, tests for stable code.
-- Sequential: migrations, shared state, dependency chains.
-- Coordinate: shared API contracts first, then parallel work.
+- Safe: independent slices, docs, tests for stable code
+- Sequential: migrations, shared state, dependency chains
+- Coordinate: shared API contracts first, then parallel work
 
 ## Verification
-- Every task has acceptance and verification.
-- Dependencies ordered.
-- No task exceeds ~5 files unless justified.
-- Checkpoints exist.
-- Human reviewed plan before implementation when required.
+- Every task has acceptance and verification
+- Dependencies ordered
+- No task exceeds ~5 files unless justified
+- Checkpoints exist
+- Human reviewed plan before implementation when required

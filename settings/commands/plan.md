@@ -7,11 +7,11 @@ Invoke `planning-and-task-breakdown`.
 Read the spec and relevant code. Do not edit implementation files.
 
 Output:
-- dependency graph
-- vertical slices with acceptance criteria
-- verification steps
-- checkpoints
-- risks and open questions
+- Dependency graph
+- Vertical slices with acceptance criteria
+- Verification steps
+- Checkpoints
+- Risks and open questions
 
 Save:
 - `tasks/plan.md`

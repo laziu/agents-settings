@@ -10,57 +10,57 @@ Use with `performance-optimization`.
 | CLS | <=0.1 | <=0.25 | >0.25 |
 
 ## TTFB >800ms
-- [ ] DNS slow -> `dns-prefetch` / `preconnect`.
-- [ ] TCP/TLS slow -> HTTP/2/3, edge, keep-alive.
-- [ ] Server slow -> profile backend, queries, caching.
+- [ ] DNS slow -> `dns-prefetch` / `preconnect`
+- [ ] TCP/TLS slow -> HTTP/2/3, edge, keep-alive
+- [ ] Server slow -> profile backend, queries, caching
 
 ## Frontend
 
 Images:
-- [ ] AVIF/WebP.
-- [ ] `srcset` + `sizes`.
-- [ ] explicit `width`/`height` on `img` and art-directed `source`.
-- [ ] below fold: `loading="lazy"` + `decoding="async"`.
-- [ ] LCP image: no lazy loading, `fetchpriority="high"`.
+- [ ] AVIF/WebP
+- [ ] `srcset` + `sizes`
+- [ ] Explicit `width`/`height` on `img` and art-directed `source`
+- [ ] Below fold: `loading="lazy"` + `decoding="async"`
+- [ ] LCP image: no lazy loading, `fetchpriority="high"`
 
 JavaScript:
-- [ ] Initial JS within budget.
-- [ ] Dynamic import for routes/heavy rarely used features.
-- [ ] Tree shaking verified.
-- [ ] No blocking JS in head.
-- [ ] Long tasks >50ms chunked/yielded or moved to worker.
-- [ ] `memo/useMemo/useCallback` only where profiling proves value.
-- [ ] Third-party scripts async/defer and size-audited.
+- [ ] Initial JS within budget
+- [ ] Dynamic import for routes/heavy rarely used features
+- [ ] Tree shaking verified
+- [ ] No blocking JS in head
+- [ ] Long tasks >50ms chunked/yielded or moved to worker
+- [ ] `memo/useMemo/useCallback` only where profiling proves value
+- [ ] Third-party scripts async/defer and size-audited
 
 CSS/fonts:
-- [ ] Critical CSS/preload strategy set.
-- [ ] No production CSS-in-JS runtime unless accepted.
-- [ ] Fonts limited, WOFF2, self-hosted when practical.
-- [ ] LCP fonts preloaded; `font-display` set.
-- [ ] Fallback metrics adjusted when CLS matters.
+- [ ] Critical CSS/preload strategy set
+- [ ] No production CSS-in-JS runtime unless accepted
+- [ ] Fonts limited, WOFF2, self-hosted when practical
+- [ ] LCP fonts preloaded; `font-display` set
+- [ ] Fallback metrics adjusted when CLS matters
 
 Network/rendering:
-- [ ] Static assets cached with long max-age + content hash.
-- [ ] API cache where safe.
-- [ ] HTTP/2/3 enabled.
-- [ ] No unnecessary redirects.
-- [ ] Animations use transform/opacity.
-- [ ] Long lists virtualized.
-- [ ] Off-screen sections use `content-visibility` where useful.
-- [ ] bfcache not blocked by `unload`/unnecessary `no-store`.
+- [ ] Static assets cached with long max-age + content hash
+- [ ] API cache where safe
+- [ ] HTTP/2/3 enabled
+- [ ] No unnecessary redirects
+- [ ] Animations use transform/opacity
+- [ ] Long lists virtualized
+- [ ] Off-screen sections use `content-visibility` where useful
+- [ ] bfcache not blocked by `unload`/unnecessary `no-store`
 
 ## Backend
-- [ ] No N+1 queries.
-- [ ] Indexes for filtered/sorted queries.
-- [ ] List endpoints paginated.
-- [ ] Connection pool configured.
-- [ ] Slow query logging.
-- [ ] API p95 within budget.
-- [ ] No sync heavy computation in request handlers.
-- [ ] Bulk operations instead of per-row loops.
-- [ ] Compression/caching configured.
-- [ ] CDN/static asset strategy.
-- [ ] Health check endpoint.
+- [ ] No N+1 queries
+- [ ] Indexes for filtered/sorted queries
+- [ ] List endpoints paginated
+- [ ] Connection pool configured
+- [ ] Slow query logging
+- [ ] API p95 within budget
+- [ ] No sync heavy computation in request handlers
+- [ ] Bulk operations instead of per-row loops
+- [ ] Compression/caching configured
+- [ ] CDN/static asset strategy
+- [ ] Health check endpoint
 
 ## Measurement
 ```bash
@@ -78,9 +78,9 @@ onCLS(console.log);
 ```
 
 INP:
-- start with RUM/CrUX
-- profile slow interactions in DevTools
-- test CPU-throttled or mid-range Android
+- Start with RUM/CrUX
+- Profile slow interactions in DevTools
+- Test CPU-throttled or mid-range Android
 
 ## Anti-Patterns
 | Issue | Fix |
