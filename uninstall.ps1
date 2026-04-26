@@ -98,54 +98,90 @@ function Remove-LinkIfOwned {
     }
 }
 
-function Remove-SkillLinks {
+function Get-LegacyChildLinks {
     param(
-        [string]$DestinationDirectory,
-        [string]$SourceDirectory
+        [string]$SourceDirectory,
+        [Parameter(Mandatory = $true)][ValidateSet("File", "Directory")][string]$Kind,
+        [string]$Filter = "*",
+        [string]$DestinationExtension,
+        [string[]]$ExcludeNames = @()
     )
 
-    Get-ChildItem -LiteralPath $SourceDirectory -Directory -Force | ForEach-Object {
-        $destination = Join-Path $DestinationDirectory $_.Name
-        Remove-LinkIfOwned -Source $_.FullName -Destination $destination
+    if (-not (Test-Path -LiteralPath $SourceDirectory)) {
+        return @()
     }
+
+    $items = if ($Kind -eq "File") {
+        Get-ChildItem -LiteralPath $SourceDirectory -File -Filter $Filter -Force
+    }
+    else {
+        Get-ChildItem -LiteralPath $SourceDirectory -Directory -Force
+    }
+
+    return @($items |
+        Where-Object { $ExcludeNames -notcontains $_.Name } |
+        ForEach-Object {
+            $destinationName = if ([string]::IsNullOrWhiteSpace($DestinationExtension)) {
+                $_.Name
+            }
+            else {
+                "$($_.BaseName)$DestinationExtension"
+            }
+
+            [pscustomobject]@{
+                Source = $_.FullName
+                DestinationName = $destinationName
+            }
+        })
 }
 
-function Remove-AgentLinks {
+function Get-LegacySharedAgentLinks {
     param(
-        [string]$DestinationDirectory,
         [string]$SourceDirectory,
+        [string]$LegacySourceDirectory,
         [string]$DestinationExtension
     )
 
-    Get-ChildItem -LiteralPath $SourceDirectory -File -Filter "*.md" -Force |
-        Where-Object { $_.Name -ne "README.md" } |
-        ForEach-Object {
-            $destination = Join-Path $DestinationDirectory "$($_.BaseName)$DestinationExtension"
-            Remove-LinkIfOwned -Source $_.FullName -Destination $destination
-        }
-}
-
-function Remove-CommandLinks {
-    param(
-        [string]$DestinationDirectory,
-        [string]$SourceDirectory
-    )
-
-    Get-ChildItem -LiteralPath $SourceDirectory -File -Filter "*.md" -Force | ForEach-Object {
-        $destination = Join-Path $DestinationDirectory $_.Name
-        Remove-LinkIfOwned -Source $_.FullName -Destination $destination
+    if (-not (Test-Path -LiteralPath $SourceDirectory)) {
+        return @()
     }
+
+    return @(Get-ChildItem -LiteralPath $SourceDirectory -File -Filter "*.agent.md" -Force | ForEach-Object {
+        $agentName = $_.Name -replace "\.agent\.md$", ""
+        [pscustomobject]@{
+            Source = Join-Path $LegacySourceDirectory "$agentName.md"
+            DestinationName = "$agentName$DestinationExtension"
+        }
+    })
 }
 
-function Remove-CodexAgentLinks {
+function Remove-DirectoryLinks {
     param(
         [string]$DestinationDirectory,
-        [string]$SourceDirectory
+        [string]$SourceDirectory,
+        [object[]]$LegacyLinks = @()
     )
 
-    Get-ChildItem -LiteralPath $SourceDirectory -File -Filter "*.toml" -Force | ForEach-Object {
-        $destination = Join-Path $DestinationDirectory $_.Name
-        Remove-LinkIfOwned -Source $_.FullName -Destination $destination
+    $destinationFull = [System.IO.Path]::GetFullPath($DestinationDirectory)
+    $existing = Get-Item -LiteralPath $destinationFull -Force -ErrorAction SilentlyContinue
+    if ($null -eq $existing) {
+        Write-Host "MISS    $destinationFull"
+        return
+    }
+
+    if ($null -ne (Get-ReparseTarget $existing)) {
+        Remove-LinkIfOwned -Source $SourceDirectory -Destination $DestinationDirectory
+        return
+    }
+
+    if (-not $existing.PSIsContainer) {
+        Write-Host "SKIP    $destinationFull is not a link"
+        return
+    }
+
+    foreach ($legacyLink in @($LegacyLinks)) {
+        $destination = Join-Path $DestinationDirectory $legacyLink.DestinationName
+        Remove-LinkIfOwned -Source $legacyLink.Source -Destination $destination
     }
 }
 
@@ -158,8 +194,15 @@ $repoRoot = $PSScriptRoot
 $policySource = Join-Path $repoRoot "settings\AGENTS.md"
 $skillsSource = Join-Path $repoRoot "settings\skills"
 $agentsSource = Join-Path $repoRoot "settings\agents"
+$sharedAgentsSource = Join-Path $repoRoot "settings\agents\shared"
 $codexAgentsSource = Join-Path $repoRoot "settings\agents\codex"
 $commandsSource = Join-Path $repoRoot "settings\commands"
+
+$legacySkillLinks = Get-LegacyChildLinks -SourceDirectory $skillsSource -Kind Directory
+$legacyCommandLinks = Get-LegacyChildLinks -SourceDirectory $commandsSource -Kind File -Filter "*.md"
+$legacyCodexAgentLinks = Get-LegacyChildLinks -SourceDirectory $codexAgentsSource -Kind File -Filter "*.toml"
+$legacyClaudeAgentLinks = Get-LegacySharedAgentLinks -SourceDirectory $sharedAgentsSource -LegacySourceDirectory $agentsSource -DestinationExtension ".md"
+$legacyCopilotAgentLinks = Get-LegacySharedAgentLinks -SourceDirectory $sharedAgentsSource -LegacySourceDirectory $agentsSource -DestinationExtension ".agent.md"
 
 $requested = @($Targets | ForEach-Object { $_.ToLowerInvariant() })
 if ($requested -contains "all") {
@@ -180,25 +223,25 @@ $sharedAgentsHome = Get-ProfileRoot -EnvironmentName "AGENTS_HOME" -DefaultLeaf 
 
 if ($requested -contains "codex") {
     Remove-LinkIfOwned -Source $policySource -Destination (Join-Path $codexHome "AGENTS.md")
-    Remove-SkillLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $sharedAgentsHome "skills")
-    Remove-CodexAgentLinks -SourceDirectory $codexAgentsSource -DestinationDirectory (Join-Path $codexHome "agents")
-    Remove-CommandLinks -SourceDirectory $commandsSource -DestinationDirectory (Join-Path $codexHome "commands")
-    Remove-CommandLinks -SourceDirectory $commandsSource -DestinationDirectory (Join-Path $codexHome "prompts")
+    Remove-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $sharedAgentsHome "skills") -LegacyLinks $legacySkillLinks
+    Remove-DirectoryLinks -SourceDirectory $codexAgentsSource -DestinationDirectory (Join-Path $codexHome "agents") -LegacyLinks $legacyCodexAgentLinks
+    Remove-DirectoryLinks -SourceDirectory $commandsSource -DestinationDirectory (Join-Path $codexHome "commands") -LegacyLinks $legacyCommandLinks
+    Remove-DirectoryLinks -SourceDirectory $commandsSource -DestinationDirectory (Join-Path $codexHome "prompts") -LegacyLinks $legacyCommandLinks
 
     if ($IncludeCodexLegacySkills) {
-        Remove-SkillLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $codexHome "skills")
+        Remove-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $codexHome "skills") -LegacyLinks $legacySkillLinks
     }
 }
 
 if ($requested -contains "claude") {
     Remove-LinkIfOwned -Source $policySource -Destination (Join-Path $claudeHome "CLAUDE.md")
-    Remove-SkillLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $claudeHome "skills")
-    Remove-AgentLinks -SourceDirectory $agentsSource -DestinationDirectory (Join-Path $claudeHome "agents") -DestinationExtension ".md"
-    Remove-CommandLinks -SourceDirectory $commandsSource -DestinationDirectory (Join-Path $claudeHome "commands")
+    Remove-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $claudeHome "skills") -LegacyLinks $legacySkillLinks
+    Remove-DirectoryLinks -SourceDirectory $sharedAgentsSource -DestinationDirectory (Join-Path $claudeHome "agents") -LegacyLinks $legacyClaudeAgentLinks
+    Remove-DirectoryLinks -SourceDirectory $commandsSource -DestinationDirectory (Join-Path $claudeHome "commands") -LegacyLinks $legacyCommandLinks
 }
 
 if ($requested -contains "copilot") {
     Remove-LinkIfOwned -Source $policySource -Destination (Join-Path $copilotHome "copilot-instructions.md")
-    Remove-SkillLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $copilotHome "skills")
-    Remove-AgentLinks -SourceDirectory $agentsSource -DestinationDirectory (Join-Path $copilotHome "agents") -DestinationExtension ".agent.md"
+    Remove-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $copilotHome "skills") -LegacyLinks $legacySkillLinks
+    Remove-DirectoryLinks -SourceDirectory $sharedAgentsSource -DestinationDirectory (Join-Path $copilotHome "agents") -LegacyLinks $legacyCopilotAgentLinks
 }

@@ -174,52 +174,119 @@ link_path() {
   ln -s "$source_abs" "$destination"
 }
 
-link_skills() {
+child_link_specs() {
   local source_dir="$1"
-  local destination_dir="$2"
+  local kind="$2"
+  local pattern="${3:-*}"
   local source
+
+  [ -d "$source_dir" ] || return 0
+
+  if [ "$kind" = "file" ]; then
+    for source in "$source_dir"/$pattern; do
+      [ -f "$source" ] || continue
+      printf '%s\t%s\n' "$(basename "$source")" "$source"
+    done
+    return
+  fi
 
   for source in "$source_dir"/*; do
     [ -d "$source" ] || continue
-    link_path "$source" "$destination_dir/$(basename "$source")"
+    printf '%s\t%s\n' "$(basename "$source")" "$source"
   done
 }
 
-link_markdown_agents() {
+shared_agent_legacy_specs() {
   local source_dir="$1"
-  local destination_dir="$2"
+  local legacy_source_dir="$2"
   local extension="$3"
   local source
   local name
 
-  for source in "$source_dir"/*.md; do
+  [ -d "$source_dir" ] || return 0
+
+  for source in "$source_dir"/*.agent.md; do
     [ -f "$source" ] || continue
-    name="$(basename "$source")"
-    [ "$name" != "README.md" ] || continue
-    link_path "$source" "$destination_dir/$(basename "$source" .md)$extension"
+    name="$(basename "$source" .agent.md)"
+    printf '%s%s\t%s/%s.md\n' "$name" "$extension" "$legacy_source_dir" "$name"
   done
 }
 
-link_commands() {
-  local source_dir="$1"
-  local destination_dir="$2"
-  local source
+is_owned_legacy_dir() {
+  local destination_dir="$1"
+  local legacy_specs="${2-}"
+  local entry
+  local name
+  local current
+  local current_abs
+  local expected_abs
+  local matches
+  local child_count=0
+  local spec_count=0
+  local destination_name
+  local source_path
+  declare -A expected_targets=()
 
-  for source in "$source_dir"/*.md; do
-    [ -f "$source" ] || continue
-    link_path "$source" "$destination_dir/$(basename "$source")"
-  done
+  while IFS=$'\t' read -r destination_name source_path; do
+    [ -n "$destination_name" ] || continue
+    expected_targets["$destination_name"]+=$(printf '%s\n' "$(abs_path "$source_path")")
+    spec_count=$((spec_count + 1))
+  done <<< "$legacy_specs"
+
+  [ -d "$destination_dir" ] && [ ! -L "$destination_dir" ] || return 1
+  [ "$spec_count" -gt 0 ] || return 1
+
+  while IFS= read -r -d '' entry; do
+    child_count=$((child_count + 1))
+    [ -L "$entry" ] || return 1
+    name="$(basename "$entry")"
+    [ -n "${expected_targets[$name]+set}" ] || return 1
+
+    current="$(readlink "$entry")"
+    current_abs="$(resolve_link_target "$entry" "$current")"
+    matches=0
+    while IFS= read -r expected_abs; do
+      [ -n "$expected_abs" ] || continue
+      if [ "$current_abs" = "$expected_abs" ]; then
+        matches=1
+        break
+      fi
+    done <<< "${expected_targets[$name]}"
+    [ "$matches" -eq 1 ] || return 1
+  done < <(find "$destination_dir" -mindepth 1 -maxdepth 1 -print0)
+
+  [ "$child_count" -gt 0 ] || return 1
+  return 0
 }
 
-link_codex_agents() {
+remove_owned_legacy_dir() {
+  local destination_dir="$1"
+  local entry
+
+  while IFS= read -r -d '' entry; do
+    rm "$entry"
+  done < <(find "$destination_dir" -mindepth 1 -maxdepth 1 -print0)
+  rmdir "$destination_dir"
+}
+
+link_directory() {
   local source_dir="$1"
   local destination_dir="$2"
-  local source
+  local legacy_specs="${3-}"
+  local source_abs
 
-  for source in "$source_dir"/*.toml; do
-    [ -f "$source" ] || continue
-    link_path "$source" "$destination_dir/$(basename "$source")"
-  done
+  if is_owned_legacy_dir "$destination_dir" "$legacy_specs"; then
+    source_abs="$(abs_path "$source_dir")"
+    printf 'MIGRATE %s owned legacy links\n' "$destination_dir"
+    if [ "$DRY_RUN" -eq 1 ]; then
+      printf 'LINK    %s -> %s\n' "$destination_dir" "$source_abs"
+      return
+    fi
+
+    remove_owned_legacy_dir "$destination_dir"
+  fi
+
+  link_path "$source_dir" "$destination_dir"
 }
 
 PROFILE_HOME="${HOME:?HOME is required}"
@@ -231,30 +298,37 @@ AGENTS_HOME="${AGENTS_HOME:-$PROFILE_HOME/.agents}"
 POLICY_SOURCE="$ROOT/settings/AGENTS.md"
 SKILLS_SOURCE="$ROOT/settings/skills"
 AGENTS_SOURCE="$ROOT/settings/agents"
+SHARED_AGENTS_SOURCE="$ROOT/settings/agents/shared"
 CODEX_AGENTS_SOURCE="$ROOT/settings/agents/codex"
 COMMANDS_SOURCE="$ROOT/settings/commands"
 
+LEGACY_SKILL_LINKS="$(child_link_specs "$SKILLS_SOURCE" directory)"
+LEGACY_COMMAND_LINKS="$(child_link_specs "$COMMANDS_SOURCE" file "*.md")"
+LEGACY_CODEX_AGENT_LINKS="$(child_link_specs "$CODEX_AGENTS_SOURCE" file "*.toml")"
+LEGACY_CLAUDE_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" "$AGENTS_SOURCE" ".md")"
+LEGACY_COPILOT_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" "$AGENTS_SOURCE" ".agent.md")"
+
 if has_target codex; then
   link_path "$POLICY_SOURCE" "$CODEX_HOME/AGENTS.md"
-  link_skills "$SKILLS_SOURCE" "$AGENTS_HOME/skills"
-  link_codex_agents "$CODEX_AGENTS_SOURCE" "$CODEX_HOME/agents"
-  link_commands "$COMMANDS_SOURCE" "$CODEX_HOME/commands"
-  link_commands "$COMMANDS_SOURCE" "$CODEX_HOME/prompts"
+  link_directory "$SKILLS_SOURCE" "$AGENTS_HOME/skills" "$LEGACY_SKILL_LINKS"
+  link_directory "$CODEX_AGENTS_SOURCE" "$CODEX_HOME/agents" "$LEGACY_CODEX_AGENT_LINKS"
+  link_directory "$COMMANDS_SOURCE" "$CODEX_HOME/commands" "$LEGACY_COMMAND_LINKS"
+  link_directory "$COMMANDS_SOURCE" "$CODEX_HOME/prompts" "$LEGACY_COMMAND_LINKS"
 
   if [ "$INSTALL_CODEX_LEGACY_SKILLS" -eq 1 ]; then
-    link_skills "$SKILLS_SOURCE" "$CODEX_HOME/skills"
+    link_directory "$SKILLS_SOURCE" "$CODEX_HOME/skills" "$LEGACY_SKILL_LINKS"
   fi
 fi
 
 if has_target claude; then
   link_path "$POLICY_SOURCE" "$CLAUDE_CONFIG_DIR/CLAUDE.md"
-  link_skills "$SKILLS_SOURCE" "$CLAUDE_CONFIG_DIR/skills"
-  link_markdown_agents "$AGENTS_SOURCE" "$CLAUDE_CONFIG_DIR/agents" ".md"
-  link_commands "$COMMANDS_SOURCE" "$CLAUDE_CONFIG_DIR/commands"
+  link_directory "$SKILLS_SOURCE" "$CLAUDE_CONFIG_DIR/skills" "$LEGACY_SKILL_LINKS"
+  link_directory "$SHARED_AGENTS_SOURCE" "$CLAUDE_CONFIG_DIR/agents" "$LEGACY_CLAUDE_AGENT_LINKS"
+  link_directory "$COMMANDS_SOURCE" "$CLAUDE_CONFIG_DIR/commands" "$LEGACY_COMMAND_LINKS"
 fi
 
 if has_target copilot; then
   link_path "$POLICY_SOURCE" "$COPILOT_HOME/copilot-instructions.md"
-  link_skills "$SKILLS_SOURCE" "$COPILOT_HOME/skills"
-  link_markdown_agents "$AGENTS_SOURCE" "$COPILOT_HOME/agents" ".agent.md"
+  link_directory "$SKILLS_SOURCE" "$COPILOT_HOME/skills" "$LEGACY_SKILL_LINKS"
+  link_directory "$SHARED_AGENTS_SOURCE" "$COPILOT_HOME/agents" "$LEGACY_COPILOT_AGENT_LINKS"
 fi

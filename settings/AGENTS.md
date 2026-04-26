@@ -32,7 +32,7 @@
 - Skill map and lifecycle: `skills/using-agent-skills/SKILL.md`
 
 ## Personas
-- `code-reviewer`, `security-auditor`, `test-engineer`. See `agents/<name>.md` (Codex: `agents/codex/<name>.toml`).
+- `code-reviewer`, `security-auditor`, `test-engineer`. See `agents/shared/<name>.agent.md` (Codex: `agents/codex/<name>.toml`).
 - Personas do not invoke other personas
 - Use subagents/custom agents only when the user asks for delegation, parallel work, or a specialist pass
 

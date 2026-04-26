@@ -144,52 +144,70 @@ remove_link_if_owned() {
   fi
 }
 
-remove_skills() {
+child_link_specs() {
   local source_dir="$1"
-  local destination_dir="$2"
+  local kind="$2"
+  local pattern="${3:-*}"
   local source
+
+  [ -d "$source_dir" ] || return 0
+
+  if [ "$kind" = "file" ]; then
+    for source in "$source_dir"/$pattern; do
+      [ -f "$source" ] || continue
+      printf '%s\t%s\n' "$(basename "$source")" "$source"
+    done
+    return
+  fi
 
   for source in "$source_dir"/*; do
     [ -d "$source" ] || continue
-    remove_link_if_owned "$source" "$destination_dir/$(basename "$source")"
+    printf '%s\t%s\n' "$(basename "$source")" "$source"
   done
 }
 
-remove_markdown_agents() {
+shared_agent_legacy_specs() {
   local source_dir="$1"
-  local destination_dir="$2"
+  local legacy_source_dir="$2"
   local extension="$3"
   local source
   local name
 
-  for source in "$source_dir"/*.md; do
+  [ -d "$source_dir" ] || return 0
+
+  for source in "$source_dir"/*.agent.md; do
     [ -f "$source" ] || continue
-    name="$(basename "$source")"
-    [ "$name" != "README.md" ] || continue
-    remove_link_if_owned "$source" "$destination_dir/$(basename "$source" .md)$extension"
+    name="$(basename "$source" .agent.md)"
+    printf '%s%s\t%s/%s.md\n' "$name" "$extension" "$legacy_source_dir" "$name"
   done
 }
 
-remove_commands() {
+remove_directory_links() {
   local source_dir="$1"
   local destination_dir="$2"
-  local source
+  local legacy_specs="${3-}"
+  local destination_name
+  local source_path
 
-  for source in "$source_dir"/*.md; do
-    [ -f "$source" ] || continue
-    remove_link_if_owned "$source" "$destination_dir/$(basename "$source")"
-  done
-}
+  if [ ! -e "$destination_dir" ] && [ ! -L "$destination_dir" ]; then
+    printf 'MISS    %s\n' "$destination_dir"
+    return
+  fi
 
-remove_codex_agents() {
-  local source_dir="$1"
-  local destination_dir="$2"
-  local source
+  if [ -L "$destination_dir" ]; then
+    remove_link_if_owned "$source_dir" "$destination_dir"
+    return
+  fi
 
-  for source in "$source_dir"/*.toml; do
-    [ -f "$source" ] || continue
-    remove_link_if_owned "$source" "$destination_dir/$(basename "$source")"
-  done
+  if [ ! -d "$destination_dir" ]; then
+    printf 'SKIP    %s is not a link\n' "$destination_dir"
+    return
+  fi
+
+  while IFS=$'\t' read -r destination_name source_path; do
+    [ -n "$destination_name" ] || continue
+    remove_link_if_owned "$source_path" "$destination_dir/$destination_name"
+  done <<< "$legacy_specs"
 }
 
 PROFILE_HOME="${HOME:?HOME is required}"
@@ -201,30 +219,37 @@ AGENTS_HOME="${AGENTS_HOME:-$PROFILE_HOME/.agents}"
 POLICY_SOURCE="$ROOT/settings/AGENTS.md"
 SKILLS_SOURCE="$ROOT/settings/skills"
 AGENTS_SOURCE="$ROOT/settings/agents"
+SHARED_AGENTS_SOURCE="$ROOT/settings/agents/shared"
 CODEX_AGENTS_SOURCE="$ROOT/settings/agents/codex"
 COMMANDS_SOURCE="$ROOT/settings/commands"
 
+LEGACY_SKILL_LINKS="$(child_link_specs "$SKILLS_SOURCE" directory)"
+LEGACY_COMMAND_LINKS="$(child_link_specs "$COMMANDS_SOURCE" file "*.md")"
+LEGACY_CODEX_AGENT_LINKS="$(child_link_specs "$CODEX_AGENTS_SOURCE" file "*.toml")"
+LEGACY_CLAUDE_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" "$AGENTS_SOURCE" ".md")"
+LEGACY_COPILOT_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" "$AGENTS_SOURCE" ".agent.md")"
+
 if has_target codex; then
   remove_link_if_owned "$POLICY_SOURCE" "$CODEX_HOME/AGENTS.md"
-  remove_skills "$SKILLS_SOURCE" "$AGENTS_HOME/skills"
-  remove_codex_agents "$CODEX_AGENTS_SOURCE" "$CODEX_HOME/agents"
-  remove_commands "$COMMANDS_SOURCE" "$CODEX_HOME/commands"
-  remove_commands "$COMMANDS_SOURCE" "$CODEX_HOME/prompts"
+  remove_directory_links "$SKILLS_SOURCE" "$AGENTS_HOME/skills" "$LEGACY_SKILL_LINKS"
+  remove_directory_links "$CODEX_AGENTS_SOURCE" "$CODEX_HOME/agents" "$LEGACY_CODEX_AGENT_LINKS"
+  remove_directory_links "$COMMANDS_SOURCE" "$CODEX_HOME/commands" "$LEGACY_COMMAND_LINKS"
+  remove_directory_links "$COMMANDS_SOURCE" "$CODEX_HOME/prompts" "$LEGACY_COMMAND_LINKS"
 
   if [ "$INCLUDE_CODEX_LEGACY_SKILLS" -eq 1 ]; then
-    remove_skills "$SKILLS_SOURCE" "$CODEX_HOME/skills"
+    remove_directory_links "$SKILLS_SOURCE" "$CODEX_HOME/skills" "$LEGACY_SKILL_LINKS"
   fi
 fi
 
 if has_target claude; then
   remove_link_if_owned "$POLICY_SOURCE" "$CLAUDE_CONFIG_DIR/CLAUDE.md"
-  remove_skills "$SKILLS_SOURCE" "$CLAUDE_CONFIG_DIR/skills"
-  remove_markdown_agents "$AGENTS_SOURCE" "$CLAUDE_CONFIG_DIR/agents" ".md"
-  remove_commands "$COMMANDS_SOURCE" "$CLAUDE_CONFIG_DIR/commands"
+  remove_directory_links "$SKILLS_SOURCE" "$CLAUDE_CONFIG_DIR/skills" "$LEGACY_SKILL_LINKS"
+  remove_directory_links "$SHARED_AGENTS_SOURCE" "$CLAUDE_CONFIG_DIR/agents" "$LEGACY_CLAUDE_AGENT_LINKS"
+  remove_directory_links "$COMMANDS_SOURCE" "$CLAUDE_CONFIG_DIR/commands" "$LEGACY_COMMAND_LINKS"
 fi
 
 if has_target copilot; then
   remove_link_if_owned "$POLICY_SOURCE" "$COPILOT_HOME/copilot-instructions.md"
-  remove_skills "$SKILLS_SOURCE" "$COPILOT_HOME/skills"
-  remove_markdown_agents "$AGENTS_SOURCE" "$COPILOT_HOME/agents" ".agent.md"
+  remove_directory_links "$SKILLS_SOURCE" "$COPILOT_HOME/skills" "$LEGACY_SKILL_LINKS"
+  remove_directory_links "$SHARED_AGENTS_SOURCE" "$COPILOT_HOME/agents" "$LEGACY_COPILOT_AGENT_LINKS"
 fi

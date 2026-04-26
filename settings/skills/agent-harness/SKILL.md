@@ -8,4 +8,4 @@ description: Applies the user's cross-agent coding harness. Use when asked to fo
 Follow `AGENTS.md` for the operating contract: language, response style, operating loop, editing rules, tooling, risk gates, and final-response shape.
 
 Skill selection and lifecycle: `skills/using-agent-skills/SKILL.md`.
-Personas: `agents/<name>.md` (Codex: `agents/codex/<name>.toml`).
+Personas: `agents/shared/<name>.agent.md` (Codex: `agents/codex/<name>.toml`).
