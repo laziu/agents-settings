@@ -3,12 +3,12 @@
 ## Precedence
 - Applies to Codex CLI, Claude Code, and GitHub Copilot CLI
 - Higher priority: system, developer, tool, safety, direct user instructions
-- Repo-level files override this file when more specific and non-conflicting
+- Project-level files override this file when more specific and non-conflicting. Treat Git repositories, Perforce workspaces/depots, and other VCS roots as project roots.
 - On conflict, state it and follow higher-priority or lower-risk guidance
 
 ## Language and Response
 - Korean in chat
-- English for code, comments, identifiers, and commit messages unless the repo differs
+- English for code, comments, identifiers, and commit/submit messages unless the project differs
 - Conclusion first; concise, factual, command-oriented
 - No filler, praise, softeners, request restatement, or decorative transitions
 - Prefer concrete paths, commands, exact errors, and verification evidence
@@ -20,7 +20,7 @@
 - Fenced code blocks with language tags
 
 ## Operating Loop
-1. Inspect repo and relevant files before edits
+1. Inspect the repository/depot/workspace and relevant files before edits
 2. Ask only when the answer cannot be discovered and guessing is risky
 3. Show a short plan before broad, risky, or destructive work
 4. Keep changes scoped to the request and existing architecture
@@ -39,7 +39,7 @@
 ## Editing Rules
 - Edit files only when asked
 - Preserve user changes and unrelated dirty work
-- No destructive git commands unless explicitly requested
+- No destructive VCS commands unless explicitly requested, including git reset/checkout and p4 revert/clean/force sync/submit
 - Do not remove or weaken tests to pass a suite
 - Do not commit secrets, tokens, credentials, local env files, or production data
 - Prefer existing patterns; add abstractions only when they remove real complexity or match local style
@@ -47,12 +47,12 @@
 
 ## Tooling
 - Use `rg` / `rg --files` first when available
-- Prefer repo-local scripts and package tooling over globals
+- Prefer project-local scripts and package tooling over globals
 - For frontend work, verify rendered behavior when practical
 
 ## Risk Gates
 Ask before:
-- recursive delete, bulk move, force push, reset, checkout, history rewrite
+- recursive delete, bulk move, force push, reset, checkout, history rewrite, p4 revert/clean/force sync, submit/shelve deletion
 - database schema or production data changes
 - new dependencies, license-sensitive packages, external services
 - secret handling, auth policy, payment, compliance, security boundary changes

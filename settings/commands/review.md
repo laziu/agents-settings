@@ -4,7 +4,7 @@ description: Five-axis code review.
 
 Invoke `code-review-and-quality`.
 
-Review staged changes or recent commits for:
+Review staged/opened changes, shelved changelists, or recent commits for:
 - Correctness
 - Readability
 - Architecture

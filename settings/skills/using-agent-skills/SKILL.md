@@ -21,7 +21,7 @@ Use the smallest skill set that matches the task. Skills are workflows; follow t
 - API/interface: `api-and-interface-design`
 - UI: `frontend-ui-engineering`
 - Docs/ADRs: `documentation-and-adrs`
-- Git/commits/branches: `git-workflow-and-versioning`
+- Version control: Git/Perforce commits, submits, changelists, branches, streams: `version-control-workflow`
 - CI/CD: `ci-cd-and-automation`
 - Launch: `shipping-and-launch`
 - Context setup/drift: `context-engineering`
@@ -41,7 +41,7 @@ Use the smallest skill set that matches the task. Skills are workflows; follow t
 idea-refine -> spec-driven-development -> planning-and-task-breakdown
 -> context/source-driven-development -> incremental-implementation
 -> test-driven-development -> code-review-and-quality
--> git-workflow-and-versioning -> documentation-and-adrs
+-> version-control-workflow -> documentation-and-adrs
 -> shipping-and-launch
 ```
 

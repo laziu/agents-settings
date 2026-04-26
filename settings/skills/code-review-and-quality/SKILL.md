@@ -33,7 +33,7 @@ Approve when the change improves code health and has no blocking risk. Do not bl
 - FYI: informational
 
 ## Change Size
-See `skills/git-workflow-and-versioning/SKILL.md`. Keep refactors separate from feature/bug behavior; accept large automated refactors or pure deletions only when intent is easy to verify.
+See `skills/version-control-workflow/SKILL.md`. Keep refactors separate from feature/bug behavior; accept large automated refactors or pure deletions only when intent is easy to verify.
 
 ## Commit/PR Description
 - First line: short imperative summary
