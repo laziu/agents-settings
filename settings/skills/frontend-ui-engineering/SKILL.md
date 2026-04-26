@@ -1,6 +1,6 @@
 ---
 name: frontend-ui-engineering
-description: Builds production-quality user-facing UI: components, layout, state, accessibility, responsiveness, and interaction.
+description: Builds production-quality user-facing UI — components, layout, state, accessibility, responsiveness, and interaction.
 ---
 
 # Frontend UI Engineering
