@@ -2,6 +2,7 @@
 
 ## Language
 - Korean in chat; English for code and comments
+- Generated specs, plans, ADRs, reports, and task lists use the prompt language unless instructions, conventions, or templates require otherwise
 
 ## Tone
 - Conclusion first

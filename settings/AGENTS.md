@@ -8,6 +8,7 @@
 
 ## Language and Response
 - Korean in chat
+- Generated specs, plans, ADRs, reports, and task lists use the prompt language unless instructions, conventions, or templates require otherwise
 - English for code, comments, identifiers, and commit/submit messages unless the project differs
 - Conclusion first; concise, factual, command-oriented
 - No filler, praise, softeners, request restatement, or decorative transitions
