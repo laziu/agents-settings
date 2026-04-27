@@ -30,6 +30,7 @@ Single-file, single-function, obvious-scope change.
 
 ## Rules
 - Simplicity first; avoid speculative abstractions
+- Preserve encapsulation: keep classes focused on distinct responsibilities and depend on narrow public contracts
 - Scope discipline: no adjacent cleanup unless asked
 - One logical change per increment
 - Keep project buildable between slices
