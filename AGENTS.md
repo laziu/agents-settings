@@ -18,6 +18,7 @@
 
 ## Formatting
 - Bullets for 3+ homogeneous items; prose for sequential or causal flow
+- Korean bullets use concise note style: noun phrases/fragments by default; terse endings only when needed, e.g. `~임`, `~됨`
 - Drop trailing period on single-clause bullets; keep periods within multi-sentence bullets
 - Tables for 2+ column structured data
 - Fenced code blocks with language tags

@@ -33,6 +33,8 @@ Borrow TRD/ERD shape where useful:
 - Tasks: ordered implementation slices with acceptance criteria and verification
 - Avoid formal sections that add no implementation value
 
+Style: follow `AGENTS.md` Output Style; one idea per task, acceptance item, and verification step.
+
 ## Task Template
 ```markdown
 ## Task N: [title]

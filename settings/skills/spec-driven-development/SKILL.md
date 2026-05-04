@@ -35,6 +35,9 @@ Spec format: localized titles in reading order.
 4. Specification: functional behavior, non-functional requirements, use cases, acceptance criteria, operational boundaries
 5. Other: project context, stack, commands, structure, style, testing, open questions, references
 
+No standalone Conclusion/Assumptions/Scope; fold into Analysis/Definitions/Goals.
+Style: follow `AGENTS.md` Output Style; one idea per bullet; testable criteria.
+
 ## Phase 2: Plan
 - Components and dependencies
 - Implementation order
