@@ -25,17 +25,15 @@ SPECIFY -> PLAN -> TASKS -> IMPLEMENT
 Do not advance until the current phase is reviewed/validated when the change is non-trivial.
 
 ## Phase 1: Specify
-- Surface assumptions first
 - Ask clarifying questions until target user, success, scope, and constraints are concrete
 - Reframe vague asks as testable success criteria
 
-Spec borrows PRD shape where useful:
-- Objective: user, problem, goals, non-goals, success metrics
-- Users and use cases: target users, core journeys, user stories when useful
-- Requirements: functional behavior, non-functional constraints, acceptance criteria
-- Project context: stack, commands, structure, style, testing
-- Boundaries: always / ask first / never
-- Open questions
+Spec format: localized titles in reading order.
+1. Goals: user, problem, goals, non-goals, scope, success metrics
+2. Definitions: terms, actors, constraints, assumptions
+3. Analysis: context, options, tradeoffs, decisions, conclusions
+4. Specification: functional behavior, non-functional requirements, use cases, acceptance criteria, operational boundaries
+5. Other: project context, stack, commands, structure, style, testing, open questions, references
 
 ## Phase 2: Plan
 - Components and dependencies
