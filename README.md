@@ -29,19 +29,7 @@ uninstall-project.ps1|uninstall-project.sh
 | Claude Code | `%CLAUDE_CONFIG_DIR%\CLAUDE.md`, `%CLAUDE_CONFIG_DIR%\skills`, `%CLAUDE_CONFIG_DIR%\agents` |
 | GitHub Copilot CLI | `%COPILOT_HOME%\copilot-instructions.md`, `%COPILOT_HOME%\skills`, `%COPILOT_HOME%\agents` |
 
-`settings/AGENTS.md` is installed as each tool's global instruction file. Reusable directories are linked as directories, so new files under `settings/skills/`, `settings/agents/shared/`, and `settings/agents/codex/` appear without reinstalling. Explicit workflow skills (`1-spec` through `7-ship`) replace slash-command shortcuts. Codex custom agents remain TOML under `~/.codex/agents/` or `.codex/agents/`.
-
-### Explicit workflow skills
-
-| Step | Skill | Purpose |
-| --- | --- | --- |
-| 1 | `1-spec` | Create or update a spec |
-| 2 | `2-plan` | Break work into ordered, verifiable tasks |
-| 3 | `3-impl` | Implement the next slice incrementally |
-| 4 | `4-test` | Prove behavior with tests and regressions |
-| 5 | `5-simplify` | Simplify code without behavior changes |
-| 6 | `6-review` | Review changes before merge |
-| 7 | `7-ship` | Prepare launch decision and rollback plan |
+`settings/AGENTS.md` is installed as each tool's global instruction file. Reusable directories are linked as directories, so new files under `settings/skills/`, `settings/agents/shared/`, and `settings/agents/codex/` appear without reinstalling. Skills are kept as reusable domain workflows, while normal agent behavior handles obvious planning, implementation, testing, and review steps. Codex custom agents remain TOML under `~/.codex/agents/` or `.codex/agents/`.
 
 ### Per-project (JetBrains IDE)
 

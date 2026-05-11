@@ -23,6 +23,7 @@ Design contracts that are stable, typed, documented, and hard to misuse.
 - Use discriminated unions for variants and branded IDs when ID mixups matter
 
 ## REST Defaults
+Follow existing project/API conventions first. Use these defaults when there is no stronger local convention.
 - Resource nouns, no verbs: `GET /api/tasks`, `POST /api/tasks`, `PATCH /api/tasks/:id`
 - Query params for filters/sort/page
 - Paginate every list endpoint
@@ -51,4 +52,4 @@ Design contracts that are stable, typed, documented, and hard to misuse.
 - Paginated lists
 - Backward-compatible additions
 - Naming consistent
-- Types/docs committed with implementation
+- Types/docs kept with implementation

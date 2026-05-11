@@ -1,6 +1,6 @@
 ---
 name: version-control-workflow
-description: Structures Git and Perforce workflow for code changes, commits/submits, branches/streams, conflicts, and parallel work.
+description: Structures Git and Perforce operations. Use when the user asks for VCS work, checkout/edit/open, read-only tracked files, conflicts, branches/streams, shelves, commits, submits, or parallel-work isolation.
 ---
 
 # Version Control Workflow
@@ -8,7 +8,7 @@ description: Structures Git and Perforce workflow for code changes, commits/subm
 Use the project's version control system as save points, isolation, and durable change documentation.
 
 ## Use When
-Any code change, commit, submit, changelist, branch, stream, conflict, or parallel work is involved.
+The user asks for VCS work, or the task involves checkout/edit/open operations, read-only tracked files, commits, submits, shelves, branches, streams, conflicts, history, parallel work isolation, or VCS state inspection.
 
 ## Detect VCS
 Identify the project VCS before running VCS commands.
@@ -19,7 +19,8 @@ Identify the project VCS before running VCS commands.
 
 ## Principles
 - Prefer trunk-based development: deployable main/default branch or stream, short-lived feature branches/streams when supported
-- Save each verified increment as a Git commit, Perforce pending changelist, or shelf when requested or appropriate
+- VCS checkout/edit/open operations are allowed when scoped and needed for the requested work
+- Do not commit, submit, push, upload shelves, publish branches, or otherwise share changes unless explicitly requested
 - Each commit/changelist does one logical thing
 - Separate formatting, refactors, features, tests, and dependency changes where practical
 - Feature flags are better than long-lived branches for incomplete work
@@ -48,8 +49,10 @@ Git branches:
 
 Perforce:
 - Prefer the existing client/workspace and stream
-- Do not create streams, branches, or workspaces unless requested
-- Use shelves for review or handoff when commits are not available
+- `p4 edit` / checkout is allowed when needed for scoped file edits
+- Do not clear read-only attributes, chmod/attrib files writable, or overwrite read-only files to bypass checkout
+- If `p4 edit` fails, stop and report the exact command/error
+- Do not create streams, branches, workspaces, shelves, submits, or uploads unless requested
 
 Keep branches and streams short-lived when the project uses them.
 
@@ -105,8 +108,8 @@ After work, report:
 - Risks/gaps
 
 ## Verification
-- Commit/changelist/shelf is atomic when created
-- Description explains why
+- Any commit/changelist/shelf created by explicit request is atomic
+- Description explains why when a commit/changelist/shelf exists
 - Tests/checks pass
 - No secrets
 - No mixed unrelated changes

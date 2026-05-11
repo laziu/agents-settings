@@ -1,6 +1,6 @@
 ---
 name: planning-and-task-breakdown
-description: Breaks specs or clear requirements into ordered, verifiable implementation tasks.
+description: Breaks specs or broad requirements into ordered, verifiable tasks. Use when the user asks for a plan or implementation order is genuinely unclear.
 ---
 
 # Planning and Task Breakdown
@@ -12,6 +12,7 @@ Turn requirements into small tasks with acceptance criteria, dependency order, a
 - Scope feels too large/vague
 - Work may be parallelized
 - Implementation order is unclear
+- User asks for a durable plan artifact
 
 ## Skip When
 Single-file, obvious-scope change or an existing plan already has good tasks.
@@ -34,6 +35,10 @@ Borrow TRD/ERD shape where useful:
 - Avoid formal sections that add no implementation value
 
 Style: follow `AGENTS.md` Output Style; one idea per task, acceptance item, and verification step.
+
+Save task docs only when the user asks for a durable plan or the project already tracks tasks in-repo. If there is no better local convention, use:
+- `tasks/plan.md`
+- `tasks/todo.md`
 
 ## Task Template
 ```markdown

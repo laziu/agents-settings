@@ -1,6 +1,6 @@
 ---
 name: code-review-and-quality
-description: Conducts multi-axis code review before merging code from humans or agents.
+description: Conducts multi-axis code review. Use when the user asks for review, or for explicit pre-merge/release readiness checks.
 ---
 
 # Code Review and Quality
@@ -8,8 +8,9 @@ description: Conducts multi-axis code review before merging code from humans or 
 Approve when the change improves code health and has no blocking risk. Do not block on personal style.
 
 ## Use When
-- Before merge
-- After feature, refactor, or bug fix
+- User asks for review
+- Before merge or release readiness checks
+- After substantial feature, refactor, or bug fix when a review pass is explicitly useful
 - Reviewing agent/model output
 
 ## Review Axes
@@ -25,6 +26,8 @@ Approve when the change improves code health and has no blocking risk. Do not bl
 3. Review implementation file by file
 4. Check verification story
 5. Categorize findings by severity
+
+Do not edit files during review unless the user asks for fixes.
 
 ## Severity
 - Critical: blocks merge; security, data loss, broken functionality

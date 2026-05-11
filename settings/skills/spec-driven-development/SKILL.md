@@ -1,6 +1,6 @@
 ---
 name: spec-driven-development
-description: Creates specs before coding for new projects, features, significant changes, or unclear requirements.
+description: Creates or updates durable specs. Use when the user asks for a spec, or when a significant change has outcome-changing ambiguity or architecture decisions.
 ---
 
 # Spec-Driven Development
@@ -9,10 +9,10 @@ Write the shared source of truth before code. A spec defines what, why, and done
 
 ## Use When
 - New project/feature/significant change
-- Requirements are ambiguous
+- Requirements are ambiguous in a way that affects implementation or acceptance
 - Multiple files/modules affected
 - Architectural decision needed
-- Work likely exceeds ~30 minutes
+- Work needs a durable written source of truth
 
 ## Skip When
 Single-line fixes, typos, or self-contained unambiguous changes.
@@ -22,10 +22,11 @@ Single-line fixes, typos, or self-contained unambiguous changes.
 SPECIFY -> PLAN -> TASKS -> IMPLEMENT
 ```
 
-Do not advance until the current phase is reviewed/validated when the change is non-trivial.
+For explicit spec-only work, stop after the spec unless the user asks to continue. For normal implementation work, keep the spec lightweight and continue only after outcome-changing assumptions are accepted.
 
 ## Phase 1: Specify
-- Ask clarifying questions until target user, success, scope, and constraints are concrete
+- Ask clarifying questions only when a reasonable assumption would materially change the result
+- When proposing an assumption, explain why, tradeoffs, and limits, then ask whether to use it
 - Reframe vague asks as testable success criteria
 
 Spec format: localized titles in reading order.
@@ -59,7 +60,6 @@ Use `incremental-implementation`, `test-driven-development`, and focused context
 ## Keep Spec Alive
 - Update spec before implementing changed decisions/scope
 - Merge clarification answers into relevant sections; remove resolved open questions
-- Commit spec with code
 - Reference spec sections in PRs
 
 ## Verification

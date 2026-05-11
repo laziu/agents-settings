@@ -1,11 +1,11 @@
 ---
 name: test-driven-development
-description: Drives behavior changes and bug fixes with failing tests, minimal implementation, and regression verification.
+description: Drives behavior changes, bug fixes, edge cases, and regression proof with failing tests, minimal implementation, and verification.
 ---
 
 # Test-Driven Development
 
-Tests are proof. Write the failing behavior test before the implementation when behavior changes.
+Tests are proof. Prefer a failing behavior test before implementation when behavior changes; if that is impractical, state why and add the smallest useful regression guard after the fix.
 
 ## Use When
 - New logic/behavior
@@ -21,6 +21,8 @@ Pure docs, static content, or config with no behavioral impact.
 1. RED: write a test that fails for the expected behavior
 2. GREEN: implement the minimum passing code
 3. REFACTOR: clean up while tests stay green
+
+If the user asked only for tests or proof, do not fix production code unless asked.
 
 ## Bug Prove-It Pattern
 1. Write a reproduction test

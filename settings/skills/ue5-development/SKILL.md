@@ -1,11 +1,19 @@
 ---
 name: ue5-development
-description: Practical Unreal Engine 5 development workflow for gameplay C++, Blueprint graphs, UMG/Slate UI, save/load, replication, world interaction, debugging, performance, packaging, and module architecture. Use for UE5 project implementation, troubleshooting, validation, and architecture tasks. Do not use for detailed PCG building-generation design.
+description: Practical Unreal Engine 5 workflow for gameplay C++, Blueprint graphs, UMG/Slate UI, save/load, replication, world interaction, debugging, performance, packaging, and module architecture. Use for UE5 implementation, troubleshooting, validation, and architecture. When loaded, check `version-control-workflow`, `incremental-implementation`, and `test-driven-development` triggers. Do not use for detailed PCG building-generation design.
 ---
 
 # UE5 Development
 
 Use this skill for UE5-specific file checks, API guardrails, build commands, log triage, and asset validation.
+
+This is a domain skill, not a replacement for workflow skills. When this skill is loaded, check whether `version-control-workflow`, `incremental-implementation`, or `test-driven-development` also applies.
+
+## VCS Guardrails
+- Detect Git or Perforce before editing project files
+- In Perforce workspaces, use `p4 edit`/checkout before modifying tracked files
+- Do not clear read-only attributes, chmod/attrib files writable, or overwrite read-only files to bypass Perforce
+- If Perforce checkout fails, stop and report the exact command/error
 
 ## Inspect These First
 - C++ or module work: `.uproject`, `Source/*.Target.cs`, `Source/**/*.Build.cs`, touched `Public/` and `Private/` headers

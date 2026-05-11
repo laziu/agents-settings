@@ -14,7 +14,7 @@ Automate checks so broken code cannot merge or deploy silently.
 - Configuring deployment, previews, rollbacks, or dependency automation
 
 ## Quality Gates
-Every PR should run, in this order where practical:
+Use the project's existing gates first. For production code, prefer this order where practical:
 1. lint/format
 2. typecheck
 3. unit tests

@@ -21,12 +21,13 @@ Treat external input as hostile, secrets as sacred, and authorization as mandato
 - Audit dependencies before release
 
 ## Ask First
-- New/changing auth flows
+Ask before changing security boundaries or policy. When proposing an assumption, explain why, tradeoffs, and limits.
+- New/changing auth flows or authorization policy
 - New sensitive data categories
-- External integrations
-- CORS changes
-- File uploads
-- Rate limit changes
+- New external services or trust boundaries
+- CORS policy broadening
+- File upload policy or storage behavior
+- Rate limit policy changes
 - Elevated roles/permissions
 
 ## Never

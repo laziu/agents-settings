@@ -13,6 +13,7 @@ Deploy only with quality gates, observability, and a rollback plan.
 - Data/infrastructure migration
 - Beta/early access
 - Any risky deployment
+- User asks for a go/no-go launch decision
 
 ## Pre-Launch Checklist
 - Code: tests/build/lint/typecheck pass; review done; no debug logs/TODO blockers; error handling covers expected failures
@@ -75,6 +76,8 @@ Hold/investigate for smaller but material regressions.
 - security-auditor:
 - test-engineer:
 ```
+
+Include Specialist Reports only when specialist passes were actually requested or available.
 
 ## Rollback Plan
 Document before GO:

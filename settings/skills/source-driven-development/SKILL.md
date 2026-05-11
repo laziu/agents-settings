@@ -9,10 +9,10 @@ Do not implement framework-specific patterns from memory when correctness depend
 
 ## Use When
 - User asks for documented/verified/current implementation
-- Framework/library best practice matters
+- Correctness depends on current framework/library APIs
 - Building reusable boilerplate or patterns
 - Implementing routing, forms, data fetching, state, auth, config, or migrations
-- Reviewing framework-specific code
+- Reviewing framework-specific code with version-sensitive behavior
 
 ## Skip When
 - Pure language logic

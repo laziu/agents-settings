@@ -28,10 +28,11 @@ Reduce complexity while preserving exact behavior. Simpler means faster to under
 ## Process
 1. Understand responsibility, callers, callees, edge cases, tests, and history when needed
 2. Identify opportunities
-3. Apply one simplification at a time
-4. Run relevant tests after each meaningful change
-5. Keep refactor commits separate from behavior changes
-6. Revert any simplification that makes code harder or changes behavior
+3. Scope to requested or recently changed code unless the user specifies broader scope
+4. Apply one simplification at a time
+5. Run relevant tests after each meaningful change
+6. Review the diff after each meaningful simplification
+7. Revert that simplification and re-evaluate if tests fail, behavior changes, or clarity gets worse
 
 ## Opportunities
 - Deep nesting -> guard clauses or helpers

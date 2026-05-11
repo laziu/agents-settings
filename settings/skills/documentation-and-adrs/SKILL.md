@@ -1,6 +1,6 @@
 ---
 name: documentation-and-adrs
-description: Records decisions and context through docs, ADRs, API docs, READMEs, changelogs, and agent rules.
+description: Records durable decisions and context. Use when the user asks for docs/ADRs or a significant decision/API/user-facing change needs documentation.
 ---
 
 # Documentation and ADRs
@@ -61,7 +61,7 @@ Do not delete old ADRs. Supersede with a new ADR.
 - REST: keep OpenAPI/Swagger current for public APIs
 
 ## README
-Minimum:
+For durable projects, include:
 - Project purpose
 - Quick start
 - Commands

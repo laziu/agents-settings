@@ -20,7 +20,7 @@ Measure first. Optimize only proven bottlenecks. Measure again.
 | LCP | <=2.5s |
 | INP | <=200ms |
 | CLS | <=0.1 |
-| API p95 | project budget, often <=200ms |
+| API p95 | project budget |
 
 ## Workflow
 1. Measure baseline with synthetic and/or real-user data

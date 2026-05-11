@@ -1,6 +1,6 @@
 ---
 name: incremental-implementation
-description: Delivers multi-file or larger changes in small verified increments.
+description: Delivers multi-file, risky, staged, dependency-ordered, or larger changes in small verified increments.
 ---
 
 # Incremental Implementation
@@ -11,7 +11,7 @@ Build thin slices. Each increment leaves the system working, tested, and reversi
 - Multi-file change
 - New feature from a plan
 - Refactor
-- You are about to write >~100 lines before testing
+- Risk or dependency order makes one large edit hard to verify
 
 ## Skip When
 Single-file, single-function, obvious-scope change.
@@ -30,14 +30,13 @@ Single-file, single-function, obvious-scope change.
 
 ## Rules
 - Simplicity first; avoid speculative abstractions
-- In C++-style brace languages, braceless one-line `if` is allowed only for plain early exits (`return...`, `break`, `continue`)
-- Preserve encapsulation: keep classes focused on distinct responsibilities and depend on narrow public contracts
 - Scope discipline: no adjacent cleanup unless asked
 - One logical change per increment
 - Keep project buildable between slices
 - Feature-flag incomplete user-visible work
 - Safe defaults: conservative/off unless explicitly enabled
 - Rollback-friendly: additive/minimal changes; separate deletes from replacements when useful
+- Update task status or docs when the project tracks them
 
 ## When You Notice Out-of-Scope Issues
 Report them separately; do not fix them during the current task.
@@ -47,4 +46,4 @@ Report them separately; do not fix them during the current task.
 - Full relevant checks pass at the end
 - Feature works end-to-end
 - No unrelated changes
-- No large uncommitted/unverified pile
+- No large unverified pile

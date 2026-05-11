@@ -10,8 +10,6 @@ Turn raw ideas into actionable concepts worth building.
 ## Output
 After user confirmation, save a one-pager to `docs/ideas/[idea-name].md` with: Problem Statement, Recommended Direction, Key Assumptions to Validate, MVP Scope, Not Doing list, Open Questions.
 
-Optional init: `bash settings/skills/idea-refine/scripts/idea-refine.sh`.
-
 ## Philosophy
 - Start from user experience; work backward to tech
 - Prefer the simplest version that solves the real problem
