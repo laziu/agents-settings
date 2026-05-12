@@ -1,6 +1,6 @@
 # Testing Patterns
 
-Use with `test-driven-development`.
+Use with `testing`.
 
 ## Arrange / Act / Assert
 ```typescript

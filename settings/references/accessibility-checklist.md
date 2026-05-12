@@ -1,6 +1,6 @@
 # Accessibility Checklist
 
-WCAG 2.1 AA quick checks. Use with `frontend-ui-engineering`.
+WCAG 2.1 AA quick checks. Use with `ui-design`.
 
 ## Keyboard
 - [ ] Interactive elements reachable by Tab

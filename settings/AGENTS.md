@@ -33,7 +33,7 @@
 ## Skills and Lifecycle
 - If the user names a skill, load and follow `skills/<name>/SKILL.md`
 - Otherwise load a skill only when it adds domain knowledge, a non-trivial workflow, or verification guidance beyond normal agent behavior
-- Skill map: `skills/using-agent-skills/SKILL.md`
+- Skill map: `skills/skill-router/SKILL.md`
 
 ## Personas
 - `code-reviewer`, `security-auditor`, `test-engineer`. See `agents/shared/<name>.agent.md` (Codex: `agents/codex/<name>.toml`).

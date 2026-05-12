@@ -1,6 +1,6 @@
 # Security Checklist
 
-Use with `security-and-hardening`.
+Use with `code-security`.
 
 ## Pre-Commit
 - [ ] No secrets in staged diff
