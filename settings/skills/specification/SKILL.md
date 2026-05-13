@@ -1,6 +1,6 @@
 ---
 name: specification
-description: Creates or updates durable specs. Use when the user asks for a spec, or when a significant change has outcome-changing ambiguity or architecture decisions.
+description: Create durable specs from ambiguous requirements
 ---
 
 # Spec-Driven Development

@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Conducts multi-axis code review. Use when the user asks for review, or for explicit pre-merge/release readiness checks.
+description: Review code for merge or release readiness
 ---
 
 # Code Review and Quality

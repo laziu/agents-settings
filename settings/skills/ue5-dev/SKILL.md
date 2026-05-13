@@ -1,6 +1,6 @@
 ---
 name: ue5-dev
-description: Practical Unreal Engine 5 workflow for gameplay C++, Blueprint graphs, UMG/Slate UI, save/load, replication, world interaction, debugging, performance, packaging, and module architecture. Use for UE5 implementation, troubleshooting, validation, and architecture. When loaded, check `vcs-workflow`, `incremental-implementation`, and `testing` triggers. Do not use for detailed PCG building-generation design.
+description: Unreal Engine 5 development workflow
 ---
 
 # UE5 Development

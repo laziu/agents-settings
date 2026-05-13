@@ -1,6 +1,6 @@
 ---
 name: incremental-implementation
-description: Delivers multi-file, risky, staged, dependency-ordered, or larger changes in small verified increments.
+description: Build complex changes in small verified slices
 ---
 
 # Incremental Implementation

@@ -1,6 +1,6 @@
 ---
 name: planning
-description: Breaks specs or broad requirements into ordered, verifiable tasks. Use when the user asks for a plan or implementation order is genuinely unclear.
+description: Split broad requirements into small tasks
 ---
 
 # Planning and Task Breakdown

@@ -1,6 +1,6 @@
 ---
 name: context-engineering
-description: Optimizes rules files and task context. Use when context drift, stale assumptions, invented APIs, or rule updates affect agent output.
+description: Optimize rules and task context
 ---
 
 # Context Engineering

@@ -1,6 +1,6 @@
 ---
 name: shipping
-description: Prepares production launches with checklist, monitoring, staged rollout, and rollback strategy.
+description: Prepare production launches and rollback plans
 ---
 
 # Shipping and Launch

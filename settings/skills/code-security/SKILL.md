@@ -1,6 +1,6 @@
 ---
 name: code-security
-description: Hardens code handling user input, auth, data, sessions, external services, files, payments, or PII.
+description: Harden code at security-sensitive boundaries
 ---
 
 # Security and Hardening

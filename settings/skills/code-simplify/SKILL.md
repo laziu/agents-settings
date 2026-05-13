@@ -1,6 +1,6 @@
 ---
 name: code-simplify
-description: Simplifies code for clarity without changing behavior.
+description: Simplify code without behavior changes
 ---
 
 # Code Simplification

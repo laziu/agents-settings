@@ -1,6 +1,6 @@
 ---
 name: architecture-decision
-description: Records durable architecture decisions with context, alternatives, consequences, and ADR lifecycle.
+description: Record architecture decisions as ADRs
 ---
 
 # Architecture Decision

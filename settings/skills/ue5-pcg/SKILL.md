@@ -1,6 +1,6 @@
 ---
 name: ue5-pcg
-description: Unreal Engine 5 PCG building generation workflow for modular buildings, lot-based generation, facade rules, shape grammar, seeded variation, density/filter pipelines, runtime generation, cleanup, and validation. Use for Procedural Content Generation building systems, not general UE5 C++, Blueprint, UI, save/replication, packaging, or non-PCG gameplay work.
+description: Unreal Engine 5 PCG building generation workflow
 ---
 
 # UE5 PCG Building

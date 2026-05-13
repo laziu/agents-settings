@@ -1,6 +1,6 @@
 ---
 name: ideate
-description: Refines ideas through structured divergent and convergent thinking. Use "ideate" to trigger.
+description: Shape raw ideas into actionable concepts
 ---
 
 # Ideate

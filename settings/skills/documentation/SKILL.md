@@ -1,6 +1,6 @@
 ---
 name: documentation
-description: Creates and maintains durable project documentation, README content, API docs, changelogs, comments, and agent context.
+description: Maintain project documentation and agent context
 ---
 
 # Documentation

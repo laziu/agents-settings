@@ -1,6 +1,6 @@
 ---
 name: skill-router
-description: Chooses whether a skill adds value. Use when the user asks about skill routing or a task needs explicit workflow selection.
+description: Route tasks to appropriate skills
 ---
 
 # Skill Router

@@ -1,6 +1,6 @@
 ---
 name: performance-optimization
-description: Optimizes application performance with measurement, profiling, budgets, and regression guards.
+description: Optimize performance with measurement and profiling
 ---
 
 # Performance Optimization

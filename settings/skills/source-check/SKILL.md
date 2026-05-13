@@ -1,6 +1,6 @@
 ---
 name: source-check
-description: Grounds framework/library implementation decisions in official documentation with citations.
+description: Verify implementation decisions with official docs
 ---
 
 # Source-Driven Development

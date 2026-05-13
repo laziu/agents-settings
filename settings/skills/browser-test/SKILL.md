@@ -1,6 +1,6 @@
 ---
 name: browser-test
-description: Tests browser code with live DOM, console, network, screenshots, accessibility, and performance data via Chrome DevTools MCP.
+description: Test browser UI via Chrome DevTools MCP
 ---
 
 # Browser Testing with DevTools

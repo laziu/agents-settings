@@ -1,6 +1,6 @@
 ---
 name: interface-design
-description: Guides stable API and interface design. Use for REST/GraphQL endpoints, public module contracts, component props, or frontend/backend boundaries.
+description: Design stable APIs and interface boundaries
 ---
 
 # API and Interface Design

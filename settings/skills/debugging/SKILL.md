@@ -1,6 +1,6 @@
 ---
 name: debugging
-description: Guides root-cause debugging for failing tests, broken builds, unexpected behavior, and runtime errors.
+description: Debug errors, failures, and regressions
 ---
 
 # Debugging and Error Recovery

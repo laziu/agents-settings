@@ -1,6 +1,6 @@
 ---
 name: migration
-description: Manages removal, replacement, and migration of old systems, APIs, features, or libraries.
+description: Migrate or remove legacy systems, APIs, and features
 ---
 
 # Deprecation and Migration

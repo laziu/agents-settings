@@ -1,6 +1,6 @@
 ---
 name: testing
-description: Guides test-first changes, regression proof, edge cases, and verification strategy.
+description: Test behavior changes and regressions
 ---
 
 # Testing

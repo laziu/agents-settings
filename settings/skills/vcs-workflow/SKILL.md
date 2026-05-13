@@ -1,6 +1,6 @@
 ---
 name: vcs-workflow
-description: Structures Git and Perforce operations. Use when the user asks for VCS work, checkout/edit/open, read-only tracked files, conflicts, branches/streams, shelves, commits, submits, or parallel-work isolation.
+description: Manage version control workflows
 ---
 
 # Version Control Workflow

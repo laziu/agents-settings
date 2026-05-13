@@ -1,6 +1,6 @@
 ---
 name: ci-cd
-description: Automates CI/CD pipelines, quality gates, test runners, and deployment workflows.
+description: Configure CI/CD, quality gates, and deployments
 ---
 
 # CI/CD and Automation
