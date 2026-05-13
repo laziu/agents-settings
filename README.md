@@ -1,8 +1,8 @@
 # AI Agent Harness
 
-Shared personal settings for Codex CLI, Claude Code, and GitHub Copilot CLI.
+Compact shared context for agentic AI tools.
 
-Install scripts create symlinks from `settings/` into each tool profile. The repo stores canonical files only; no symlinks are stored in OneDrive.
+Install scripts create symlinks from `settings/` into each tool profile. The repo stores canonical files only; no symlinks are stored for archival purposes.
 
 ## Layout
 
@@ -13,10 +13,8 @@ settings/
   agents/shared/*.agent.md  Claude/Copilot agent profiles
   agents/codex/*.toml       Codex custom agents
   references/*.md           skill checklists
-install.ps1|install.sh
-install-project.ps1|install-project.sh
-uninstall.ps1|uninstall.sh
-uninstall-project.ps1|uninstall-project.sh
+{install|uninstall}.{ps1|sh}
+{install|uninstall}-project.{ps1|sh}
 ```
 
 ## Link Targets
@@ -45,6 +43,10 @@ All three link to `settings/AGENTS.md`.
 
 ## Install
 
+### Windows
+
+Global install:
+
 ```powershell
 .\install.ps1 -DryRun
 .\install.ps1
@@ -52,16 +54,9 @@ All three link to `settings/AGENTS.md`.
 .\install.ps1 -InstallCodexLegacySkills
 ```
 
-```bash
-./install.sh --dry-run
-./install.sh
-./install.sh --force
-./install.sh --codex-legacy-skills
-```
+Per-project install:
 
-### Per-project (JetBrains IDE)
-
-Run from the project root, or pass `-ProjectDir`/`--project-dir`.
+Run from the project root, or pass `-ProjectDir`.
 
 ```powershell
 .\install-project.ps1 -DryRun
@@ -70,6 +65,21 @@ Run from the project root, or pass `-ProjectDir`/`--project-dir`.
 .\install-project.ps1 -ProjectDir C:\path\to\project
 .\install-project.ps1 -Targets copilot,junie
 ```
+
+### Linux
+
+Global install:
+
+```bash
+./install.sh --dry-run
+./install.sh
+./install.sh --force
+./install.sh --codex-legacy-skills
+```
+
+Per-project install:
+
+Run from the project root, or pass `--project-dir`.
 
 ```bash
 ./install-project.sh --dry-run
@@ -81,23 +91,33 @@ Run from the project root, or pass `-ProjectDir`/`--project-dir`.
 
 ## Uninstall
 
+### Windows
+
+Global uninstall:
+
 ```powershell
 .\uninstall.ps1 -DryRun
 .\uninstall.ps1
 ```
 
-```bash
-./uninstall.sh --dry-run
-./uninstall.sh
-```
-
-### Per-project uninstall (JetBrains IDE)
+Per-project uninstall:
 
 ```powershell
 .\uninstall-project.ps1 -DryRun
 .\uninstall-project.ps1
 .\uninstall-project.ps1 -ProjectDir C:\path\to\project
 ```
+
+### Linux
+
+Global uninstall:
+
+```bash
+./uninstall.sh --dry-run
+./uninstall.sh
+```
+
+Per-project uninstall:
 
 ```bash
 ./uninstall-project.sh --dry-run
