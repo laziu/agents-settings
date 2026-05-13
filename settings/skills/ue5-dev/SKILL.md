@@ -7,7 +7,7 @@ description: Unreal Engine 5 development workflow
 
 Use this skill for UE5-specific file checks, API guardrails, build commands, log triage, and asset validation.
 
-This is a domain skill, not a replacement for workflow skills. When this skill is loaded, check whether `vcs-workflow`, `incremental-implementation`, or `testing` also applies.
+This is a domain skill, not a replacement for workflow skills.
 
 ## VCS Guardrails
 - Detect Git or Perforce before editing project files

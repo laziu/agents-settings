@@ -7,6 +7,8 @@ description: Shape raw ideas into actionable concepts
 
 Turn raw ideas into actionable concepts worth building.
 
+Use before `specification` and `planning`; stop when a direction, MVP scope, and validation assumptions are clear.
+
 ## Output
 After user confirmation, save a one-pager to `docs/ideas/[idea-name].md` with: Problem Statement, Recommended Direction, Key Assumptions to Validate, MVP Scope, Not Doing list, Open Questions.
 

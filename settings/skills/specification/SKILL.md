@@ -7,6 +7,8 @@ description: Create durable specs from ambiguous requirements
 
 Write the shared source of truth before code. A spec defines what, why, and done.
 
+Use after `ideate` when direction exists but requirements, boundaries, or acceptance need durable form.
+
 ## Use When
 - New project/feature/significant change
 - Requirements are ambiguous in a way that affects implementation or acceptance
@@ -55,7 +57,7 @@ Each task:
 - Touches <=~5 files when possible
 
 ## Phase 4: Implement
-Use `incremental-implementation`, `testing`, and focused context loading.
+Use `implementation`, `testing`, and focused context loading.
 
 ## Keep Spec Alive
 - Update spec before implementing changed decisions/scope

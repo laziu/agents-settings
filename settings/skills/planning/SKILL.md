@@ -7,6 +7,8 @@ description: Split broad requirements into small tasks
 
 Turn requirements into small tasks with acceptance criteria, dependency order, and verification.
 
+Use after `specification` or clear requirements; stop before implementation unless asked to continue.
+
 ## Use When
 - Spec exists and needs implementation tasks
 - Scope feels too large/vague
