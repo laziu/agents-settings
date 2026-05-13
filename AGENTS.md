@@ -1,4 +1,5 @@
 - Install payload: `settings/`
 - `settings/AGENTS.md` is symlinked to the appropriate file, e.g. `$CODEX_HOME/AGENTS.md` or `$CLAUDE_CONFIG_DIR/CLAUDE.md`
 - Workflows/profiles: `settings/skills/`, `settings/agents/`
+- Treat `settings/**/*.md` as first-class source for commit messages and change classification
 - Root files are packaging docs/scripts; follow `settings/AGENTS.md` for repo edits
