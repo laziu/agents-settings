@@ -1,6 +1,6 @@
 ---
 name: documentation
-description: Maintain project documentation and agent context
+description: Maintain project documentation
 ---
 
 # Documentation
@@ -12,10 +12,11 @@ Document useful context, not the obvious what. Use `architecture-decision` for A
 - Public API change
 - User-facing behavior change
 - Repeated explanations
-- Onboarding humans or agents
-- Rules, specs, gotchas, or project context need to stay current
+- Onboarding humans
+- Specs, gotchas, or project context need to stay current
 
 ## Avoid
+- AI context files that affect agent behavior, such as agent instructions, skills, profiles, routing, or `settings/**/*.md`; use `context-engineering`
 - Comments that restate code
 - TODOs that should be done now
 - Commented-out code
@@ -43,8 +44,8 @@ For durable projects, include:
 ## Changelog
 For releases, record Added/Changed/Fixed and issue/PR references.
 
-## Agent Context
-Keep rules files, specs, ADRs, and gotchas current so agents do not rediscover decisions.
+## Project Context
+Keep specs, ADRs, and gotchas current so readers do not rediscover decisions.
 - Integrate clarification answers into existing sections; avoid standalone answer logs unless the template requires them
 
 ## Verification
@@ -52,4 +53,4 @@ Keep rules files, specs, ADRs, and gotchas current so agents do not rediscover d
 - Public APIs are documented
 - Known gotchas are near relevant code
 - No stale TODO/commented-out code
-- Rules files match current conventions
+- Docs match current conventions

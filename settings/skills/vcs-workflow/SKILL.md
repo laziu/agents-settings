@@ -40,6 +40,17 @@ Identify the project VCS before running VCS commands.
 
 Types: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`.
 
+## Commit Type Selection
+- Classify by behavior impact, not file extension
+- `feat`: new product/agent behavior, capability, route, skill, policy, or output rule
+- `fix`: incorrect, missing, unsafe, or conflicting behavior
+- `refactor`: behavior-preserving restructure, rename, compaction, or deduplication
+- `test`: verification code/data only
+- `docs`: human-facing documentation with no product/agent behavior impact
+- `chore`: packaging, installation, metadata, repository maintenance, or operations
+- Treat `settings/**/*.md` as first-class agent source; classify by behavior impact
+- For mixed root docs + source/context changes, classify by the behavior-impacting change
+
 ## Branches and Streams
 Git branches:
 - `feature/<short-description>`
