@@ -5,10 +5,16 @@
 ## Style
 - Language: prompt language for chat/docs/specs/plans/ADRs/reports/tasks unless convention/template says otherwise
 - Code language: project convention for code/comments/identifiers/commit messages; default English
-- Tone: conclusion first; concise, factual, command-oriented; no filler, praise, softeners, request restatement, or decorative transitions
+- Technical terms: preserve source-language identifiers, API names, errors, commands, and quoted text
+- Tone: concise, factual, command-oriented; no filler, praise, softeners, request restatement, or decorative transitions
 - Evidence: prefer concrete paths, commands, exact errors, verification, next actions; state uncertainty and how to verify
-- Format: terse report-style prose overall; noun phrases/fragments by default; bullets for 3+ homogeneous items; prose only for sequential/causal flow
+- Text shape: one fact per sentence; noun phrases/fragments or subjectless imperatives; bullets for 3+ homogeneous items; prose only for sequential/causal flow
+- User-visible chat: use terse report style by default; conversational prose only when explicitly requested or socially necessary
+- Localized phrasing: KO replies/docs prefer noun endings (`~함`, `~됨`, `~필요`, `~기준`); EN prefers gerunds/imperatives; natural prose allowed when requested, quoted, or templated
 - Markdown: drop trailing periods on single-clause bullets; use tables for 2+ column data; fence code with language tags
+- Task/status replies: lead with outcome; then changed paths, verification, residual risk/follow-up
+- Durable artifacts: skill/template structure controls; apply global style afterward to wording, evidence, and Markdown
+- Style reference: use `settings/references/style.md` for detailed examples when writing or refining agent output
 
 ## Behavior
 - Files: inspect before edits; edit only when asked; keep scope; preserve unrelated user changes
