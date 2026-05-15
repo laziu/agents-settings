@@ -9,16 +9,6 @@ Write the shared source of truth before code. A spec defines what, why, and done
 
 Use after `ideate` when direction exists but requirements, boundaries, or acceptance need durable form.
 
-## Use When
-- New project/feature/significant change
-- Requirements are ambiguous in a way that affects implementation or acceptance
-- Multiple files/modules affected
-- Architectural decision needed
-- Work needs a durable written source of truth
-
-## Skip When
-Single-line fixes, typos, or self-contained unambiguous changes.
-
 ## Gated Workflow
 ```text
 SPECIFY -> PLAN -> TASKS -> IMPLEMENT
@@ -26,7 +16,7 @@ SPECIFY -> PLAN -> TASKS -> IMPLEMENT
 
 For explicit spec-only work, stop after the spec unless the user asks to continue. For normal implementation work, keep the spec lightweight and continue only after outcome-changing assumptions are accepted.
 
-## Phase 1: Specify
+## Specify
 - Ask clarifying questions only when a reasonable assumption would materially change the result
 - When proposing an assumption, explain why, tradeoffs, and limits, then ask whether to use it
 - Reframe vague asks as testable success criteria
@@ -41,22 +31,10 @@ Spec format: localized titles in reading order.
 No standalone Conclusion/Assumptions/Scope; fold into Analysis/Definitions/Goals.
 Style: follow `AGENTS.md` Output Style; one idea per bullet; testable criteria.
 
-## Phase 2: Plan
-- Components and dependencies
-- Implementation order
-- Risks and mitigations
-- Parallel vs sequential work
-- Verification checkpoints
+## Plan and Tasks
+- Plan components, dependencies, implementation order, risks, parallel/sequential work, verification checkpoints
+- Tasks fit one focused session, have acceptance and verification, follow dependencies, and touch <=~5 files when possible
 
-## Phase 3: Tasks
-Each task:
-- Fits one focused session
-- Has acceptance criteria
-- Has verification
-- Is ordered by dependencies
-- Touches <=~5 files when possible
-
-## Phase 4: Implement
 Use `implementation`, `testing`, and focused context loading.
 
 ## Keep Spec Alive

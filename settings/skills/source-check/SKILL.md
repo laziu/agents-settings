@@ -7,18 +7,6 @@ description: Verify implementation decisions with official docs
 
 Do not implement framework-specific patterns from memory when correctness depends on current APIs.
 
-## Use When
-- User asks for documented/verified/current implementation
-- Correctness depends on current framework/library APIs
-- Building reusable boilerplate or patterns
-- Implementing routing, forms, data fetching, state, auth, config, or migrations
-- Reviewing framework-specific code with version-sensitive behavior
-
-## Skip When
-- Pure language logic
-- Renames/typos/moves
-- User explicitly prioritizes speed over verification
-
 ## Process
 1. Detect exact stack and versions from dependency files
 2. Fetch specific official docs for the pattern
@@ -34,23 +22,13 @@ Do not implement framework-specific patterns from memory when correctness depend
 
 Do not use Stack Overflow, tutorials, random blogs, AI summaries, or memory as primary authority.
 
-## Conflicts
-- Docs vs existing code: surface the conflict and ask which to prioritize
-- Official sources conflict: state discrepancy and verify against installed version
-- Missing/ambiguous version: ask before choosing version-specific APIs
-
 ## Citation Rules
 - Full URLs; deep links preferred
 - Quote/paraphrase only the relevant rule
 - Cite browser/runtime support for platform features
 - Mark unverified patterns explicitly
-
-## Red Flags
-- Writing framework-specific code without checking docs/version
-- "I think/believe" about API behavior
-- Deprecated API used from memory
-- Homepage fetched instead of relevant doc page
-- No citation for non-trivial pattern
+- Surface docs/code conflicts and official-source discrepancies
+- Ask before choosing version-specific APIs when version is missing/ambiguous
 
 ## Verification
 - Versions identified

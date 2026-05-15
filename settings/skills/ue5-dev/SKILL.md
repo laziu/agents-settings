@@ -5,15 +5,11 @@ description: Unreal Engine 5 development workflow
 
 # UE5 Development
 
-Use this skill for UE5-specific file checks, API guardrails, build commands, log triage, and asset validation.
-
-This is a domain skill, not a replacement for workflow skills.
+Use for UE5-specific file checks, API guardrails, build commands, log triage, and asset validation. This is a domain skill, not a replacement for workflow skills.
 
 ## VCS Guardrails
-- Detect Git or Perforce before editing project files
-- In Perforce workspaces, use `p4 edit`/checkout before modifying tracked files
-- Do not clear read-only attributes, chmod/attrib files writable, or overwrite read-only files to bypass Perforce
-- If Perforce checkout fails, stop and report the exact command/error
+- Detect VCS before edits; in Perforce, use checkout/edit before modifying tracked files
+- Do not bypass locks/read-only attributes; stop and report checkout failures
 
 ## Inspect These First
 - C++ or module work: `.uproject`, `Source/*.Target.cs`, `Source/**/*.Build.cs`, touched `Public/` and `Private/` headers
@@ -28,7 +24,7 @@ This is a domain skill, not a replacement for workflow skills.
 - Read `references/ue5-checklists.md` before implementing or debugging C++, Blueprint, UI, SaveGame, replication, interaction, packaging, or UE logs
 
 ## Command Patterns
-Discover the project `.uproject` and UE install path first. Prefer repo scripts if present.
+Discover `.uproject` and UE install path first. Prefer repo scripts.
 
 ```powershell
 & "<UE>\Engine\Build\BatchFiles\Build.bat" <ProjectName>Editor Win64 Development -Project="<Project>.uproject" -WaitMutex

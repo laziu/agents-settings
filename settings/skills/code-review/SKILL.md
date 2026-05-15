@@ -7,12 +7,6 @@ description: Review code for merge or release readiness
 
 Approve when the change improves code health and has no blocking risk. Do not block on personal style.
 
-## Use When
-- User asks for review
-- Before merge or release readiness checks
-- After substantial feature, refactor, or bug fix when a review pass is explicitly useful
-- Reviewing agent/model output
-
 ## Review Axes
 - Correctness: spec match, edge/error paths, races, state consistency, useful tests
 - Readability: names, control flow, organization, simplicity, no dead artifacts
@@ -29,49 +23,32 @@ Approve when the change improves code health and has no blocking risk. Do not bl
 
 Do not edit files during review unless the user asks for fixes.
 
-## Severity
-- Critical: blocks merge; security, data loss, broken functionality
-- Required/no prefix: must address before merge
-- Nit/Optional/Consider: optional
-- FYI: informational
-
-## Change Size
-See `skills/vcs-workflow/SKILL.md`. Keep refactors separate from feature/bug behavior; accept large automated refactors or pure deletions only when intent is easy to verify.
-
-## Commit/PR Description
-- First line: short imperative summary
-- Body: why, context, tradeoffs, links to issues/benchmarks/docs
-- Avoid vague messages: `fix`, `update`, `phase 1`, `misc`
-
-## Dead Code
-After changes, identify unreachable/unused code. Ask before deleting anything uncertain.
-
-## Dependency Review
-Before adding a dependency, check:
-- Existing stack alternative
-- Size/bundle impact
-- Maintenance activity
-- Known vulnerabilities
-- License compatibility
-
 ## Output
+- Critical: block merge for security, data loss, or broken functionality
+- Required: must fix before merge
+- Optional/Nit/FYI: non-blocking
 
 ```markdown
-## Review Summary
 **Verdict:** APPROVE | REQUEST CHANGES
 
-### Critical
+## Critical
 - file:line — Issue. Impact. Fix.
 
-### Required
+## Required
 - file:line — Issue. Impact. Fix.
 
-### Optional
+## Optional
 - file:line — Suggestion.
 
-### Verification Gaps
+## Verification Gaps
 - [tests/build/manual checks missing]
 ```
+
+## Extra Checks
+- Keep refactors separate from feature/bug behavior
+- Identify unreachable/unused code; ask before deleting uncertain code
+- For new dependencies, check existing alternatives, size, maintenance, vulnerabilities, and license
+- Avoid vague commit/PR summaries: `fix`, `update`, `phase 1`, `misc`
 
 ## Verification
 - Critical fixed

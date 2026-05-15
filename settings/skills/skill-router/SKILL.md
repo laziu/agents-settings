@@ -5,7 +5,7 @@ description: Route tasks to appropriate skills
 
 # Skill Router
 
-Load explicit user-named skills and every triggered skill. Use the smallest set that adds domain rules, workflow, or verification; combine triggered domain/workflow skills.
+Load explicit user-named skills and every triggered skill. Use the smallest set that adds domain rules, workflow, or verification.
 
 ## Core Rules
 - Ask only for outcome-changing ambiguity; otherwise state an assumption and proceed
@@ -13,7 +13,7 @@ Load explicit user-named skills and every triggered skill. Use the smallest set 
 - Verify with evidence
 
 ## Workflow Order
-Order triggered skills as listed; skip satisfied stages. Do not add earlier stages just because they appear earlier.
+Order triggered skills as listed; skip satisfied stages.
 
 1. `ideate`: before unclear concepts become requirements
 2. `specification`: before large or significant implementation
@@ -57,7 +57,7 @@ Order triggered skills as listed; skip satisfied stages. Do not add earlier stag
 - `architecture-decision`: significant architecture, platform, API, dependency, or public contract decision
 
 ### VCS
-- `vcs-workflow`: Git/Perforce, tracked files, commits, branches, conflicts, or parallel work
+- `vcs-workflow`: VCS state, tracked files, commits/changelists, branches/streams, conflicts, or parallel work
 
 ### Project Types
 - `ue5-dev`: implementation, troubleshooting, validation, architecture, logs, assets, packaging, or general UE work

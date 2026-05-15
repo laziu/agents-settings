@@ -7,13 +7,6 @@ description: Migrate or remove legacy systems, APIs, and features
 
 Remove code that no longer earns its maintenance cost, but migrate users safely.
 
-## Use When
-- Replacing an old API/system/library
-- Sunsetting a feature
-- Consolidating duplicate implementations
-- Removing dead or unowned code
-- Planning lifecycle/removal of a new system
-
 ## Principles
 - Code is a liability: tests, docs, security, dependencies, onboarding, mental load
 - Hyrum's Law: observable behavior may be depended on, including quirks
@@ -22,11 +15,7 @@ Remove code that no longer earns its maintenance cost, but migrate users safely.
 - If you own the infrastructure, own the migration or provide tooling
 
 ## Decision Questions
-1. Does it still provide unique value?
-2. Who depends on it and how many?
-3. Is the replacement production-proven?
-4. What is migration cost per consumer?
-5. What is the maintenance/security/opportunity cost of keeping it?
+Ask whether it still has unique value, who depends on it, whether the replacement is proven, migration cost per consumer, and maintenance/security/opportunity cost of keeping it.
 
 ## Deprecation Types
 - Advisory: stable old system, optional migration, warnings/docs
@@ -48,15 +37,7 @@ Default to advisory unless risk justifies forcing migration.
 - Feature flag: switch cohorts/consumers one at a time
 
 ## Zombie Code
-Signs: no owner, no recent maintenance, active consumers, failing tests, vulnerable deps, stale docs.
-Decision: assign owner and maintain, or deprecate with a concrete migration plan.
-
-## Red Flags
-- No replacement
-- No migration guide/tooling
-- Advisory deprecation with no progress for years
-- New features added to deprecated systems
-- Removal without usage verification
+If code has no owner, stale maintenance/docs, active consumers, failing tests, or vulnerable deps, assign an owner or deprecate with a concrete migration plan.
 
 ## Verification
 - Replacement is production-proven

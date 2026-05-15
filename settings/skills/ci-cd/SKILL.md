@@ -7,14 +7,8 @@ description: Configure CI/CD, quality gates, and deployments
 
 Automate checks so broken code cannot merge or deploy silently.
 
-## Use When
-- Setting up or changing CI/CD
-- Adding quality gates
-- Debugging CI failures
-- Configuring deployment, previews, rollbacks, or dependency automation
-
 ## Quality Gates
-Use the project's existing gates first. For production code, prefer this order where practical:
+Use existing gates first. For production code, prefer:
 1. lint/format
 2. typecheck
 3. unit tests
@@ -26,21 +20,19 @@ Use the project's existing gates first. For production code, prefer this order w
 
 Do not skip gates to pass CI; fix the cause.
 
-## CI Defaults
-- Run on PRs and pushes to main/default branch
-- Use clean install (`npm ci`, equivalent)
-- Cache dependencies through official setup actions
-- Upload artifacts on failure for e2e/test reports
-- Keep production secrets out of CI; use separate CI/staging secrets
-- Store secrets in platform secrets/vault, never in workflow YAML
+## Defaults
+- Run on PRs and main/default pushes
+- Use clean install and official dependency caching
+- Upload failure artifacts for e2e/test reports
+- Store secrets in platform secrets/vault, never workflow YAML
+- Keep production, CI, and staging secrets separate
 
 ## Deployment
 - Prefer preview deployments for PRs
 - Deploy to staging before production
 - Use feature flags for risky/incomplete features
-- Roll out gradually and monitor error rate/latency
-- Every deployment needs a rollback path
-- Flags need owner, expiration, and cleanup date
+- Roll out gradually, monitor errors/latency, and define rollback
+- Give flags an owner, expiration, and cleanup date
 
 ## CI Failure Loop
 - Copy the specific failure, not full noisy logs
@@ -51,23 +43,15 @@ Do not skip gates to pass CI; fix the cause.
 
 ## Optimization
 If CI exceeds ~10 minutes:
-- Cache dependencies
-- Split independent jobs in parallel
+- Cache dependencies; split independent jobs; shard long suites
 - Use path filters for docs-only/unrelated changes
-- Shard long test suites
 - Move slow non-critical tests to scheduled jobs
 - Use larger runners only after pipeline fixes
 
-## Branch Protection
-- Require passing status checks
-- Require review before merge
-- Block force-pushes to protected branches
-- Allow auto-merge only after checks and approvals
-
 ## Verification
-- Required gates exist and block merge
+- Required gates and reviews block merge
 - Pipeline runs on PR and main/default push
 - Secrets are stored outside code
 - Deployment rollback exists
 - CI feedback is actionable
-- Pipeline duration is acceptable
+- Protected branches block force-pushes and unsafe auto-merge

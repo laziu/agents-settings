@@ -7,17 +7,7 @@ description: Split broad requirements into small tasks
 
 Turn requirements into small tasks with acceptance criteria, dependency order, and verification.
 
-Use after `specification` or clear requirements; stop before implementation unless asked to continue.
-
-## Use When
-- Spec exists and needs implementation tasks
-- Scope feels too large/vague
-- Work may be parallelized
-- Implementation order is unclear
-- User asks for a durable plan artifact
-
-## Skip When
-Single-file, obvious-scope change or an existing plan already has good tasks.
+Use after `specification` or clear requirements. Stay read-only and stop before implementation unless asked to continue.
 
 ## Process
 1. Read spec and relevant code in read-only mode
@@ -31,16 +21,14 @@ Single-file, obvious-scope change or an existing plan already has good tasks.
 
 ## Technical Plan Shape
 Borrow TRD/ERD shape where useful:
-- TRD: architecture, components, interfaces/contracts, data flow, dependencies, risks
-- ERD: entities, relationships, cardinality, ownership, migrations when persistent/domain data changes
-- Tasks: ordered implementation slices with acceptance criteria and verification
-- Avoid formal sections that add no implementation value
+- Technical design: architecture, components, interfaces/contracts, data flow, dependencies, risks
+- Data design: entities, relationships, ownership, migrations when persistent/domain data changes
+- Tasks: ordered slices with acceptance criteria and verification
+- Omit formal sections that add no implementation value
 
 Style: follow `AGENTS.md` Output Style; one idea per task, acceptance item, and verification step.
 
-Save task docs only when the user asks for a durable plan or the project already tracks tasks in-repo. If there is no better local convention, use:
-- `tasks/plan.md`
-- `tasks/todo.md`
+Save task docs only when requested or already tracked in-repo; default to `tasks/plan.md` or `tasks/todo.md`.
 
 ## Task Template
 ```markdown
@@ -60,19 +48,10 @@ Scope: XS|S|M|L|XL
 - XS: one function/config
 - S: 1-2 files, one endpoint/component
 - M: 3-5 files, one feature slice
-- L: 5-8 files, split if possible
-- XL: 8+ files, must split
+- L: 5-8 files, split when possible
+- XL: 8+ files, split
 
-Break down further if:
-- >1 focused session
-- Acceptance criteria require >3 bullets
-- Title contains "and"
-- Independent subsystems are mixed
-
-## Parallelization
-- Safe: independent slices, docs, tests for stable code
-- Sequential: migrations, shared state, dependency chains
-- Coordinate: shared API contracts first, then parallel work
+Split further if a task exceeds one focused session, has >3 acceptance bullets, contains "and", or mixes independent subsystems. Parallelize independent slices after shared contracts are stable; keep migrations/shared state sequential.
 
 ## Verification
 - Every task has acceptance and verification

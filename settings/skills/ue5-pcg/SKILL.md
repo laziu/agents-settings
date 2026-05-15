@@ -8,11 +8,10 @@ description: Unreal Engine 5 PCG building generation workflow
 Use this skill for PCG-specific building generation choices: seed determinism, facade grammar, instance output, runtime cleanup, cook safety, collision, and nav.
 
 ## Inspect These First
-- PCG asset path, generator actor/component, graph inputs, seed source, and output type
-- Lot/spline/volume coordinate space and mesh pivot/unit assumptions
-- Runtime generation trigger: source moved, bounds changed, seed changed, style changed, or manual rebuild
-- Generated ownership: HISM/ISM component, spawned actor list, instance ranges, cleanup path
-- Cook/runtime assets: meshes, materials, graph assets, data tables, and plugin availability
+- PCG asset path, generator actor/component, graph inputs, seed, output type
+- Lot/spline/volume space, mesh pivot/units, runtime generation trigger
+- Generated ownership: HISM/ISM, spawned actors, instance ranges, cleanup path
+- Cook/runtime assets: meshes, materials, graph assets, data tables, plugin availability
 
 ## Load References
 - Read `references/pcg-building-patterns.md` for lot/facade grammar and output strategy

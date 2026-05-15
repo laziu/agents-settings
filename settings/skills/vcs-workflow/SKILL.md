@@ -25,13 +25,10 @@ Use VCS as scoped save points, isolation, and durable change records.
 
 ## Command Selection
 Use project-native commands. Examples, not an exhaustive VCS list:
-
-| Need | Distributed example | Lock/checkout example |
-| --- | --- | --- |
-| Detect | `.git`, `git rev-parse --show-toplevel` | `p4 info`, `p4 client -o`, `p4 where <path>`; respect `P4CLIENT`, `P4PORT`, `P4CONFIG` |
-| State/diff | `git status --short`, `git diff`, `git diff --staged` | `p4 opened`, `p4 diff -du` |
-| History/debug | `git log --oneline -20`, `git blame`, `git bisect`, `git diff HEAD~N..HEAD -- <path>` | `p4 changes -m 20 ...`, `p4 filelog`, `p4 annotate` |
-| Parallel work | separate branches/worktrees/clones | separate clients/workspaces or requested shelves |
+- Detect: `.git`, `git rev-parse --show-toplevel`, `p4 info`, `p4 client -o`, `p4 where <path>`, SVN metadata
+- State/diff: `git status --short`, `git diff`, `git diff --staged`, `p4 opened`, `p4 diff -du`, `svn status`
+- History/debug: native log/blame/annotate/bisect/filelog commands
+- Parallel work: branches/worktrees/clones, clients/workspaces, or requested shelves
 
 ## Change Units
 - One logical thing per commit/changelist/shelf/patch

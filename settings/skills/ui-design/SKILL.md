@@ -7,22 +7,12 @@ description: Build production user-facing UI
 
 Build UI that follows the product's design system, works accessibly, and behaves correctly in real browsers.
 
-## Use When
-- New or changed UI components/pages
-- Responsive layout, visual polish, interaction, state, loading/error/empty states
-
 ## Architecture
 - Colocate component, tests, stories, hooks, and local types when useful
 - Keep components focused
 - Prefer composition over over-configured props
 - Separate data fetching/container logic from presentation
-- Use the simplest state model:
-  - Local state: component UI
-  - Lifted state: 2-3 siblings
-  - Context: read-heavy global concerns
-  - URL state: shareable filters/pagination
-  - Server state library: remote cached data
-  - Global store: complex app-wide client state
+- Use the simplest state model: local, lifted, context, URL, server-state library, then global store
 - Avoid prop drilling deeper than 3 levels
 
 ## Design System
@@ -37,24 +27,14 @@ Build UI that follows the product's design system, works accessibly, and behaves
 - All interactive elements keyboard reachable and visibly focused
 - Icon-only controls have accessible names
 - Inputs have labels and associated errors
-- Modals manage focus and trap it while open
-- Dynamic changes use `aria-live` where needed
-- Contrast meets WCAG 2.1 AA
-- Touch targets >=44x44px on mobile
+- Modals manage/trap focus; dynamic changes use `aria-live` when needed
+- Contrast meets WCAG 2.1 AA; mobile touch targets >=44x44px
 
 ## States and Motion
 - Provide loading, error, and empty states
 - Prefer skeletons for content loading
 - Optimistic updates must roll back on error
 - Animations should not block input; respect reduced-motion preferences
-
-## Red Flags
-- Component >200 lines without clear reason
-- Inline arbitrary pixels/styles inconsistent with system
-- Missing error/loading/empty states
-- No keyboard testing
-- Color-only status
-- Console errors ignored
 
 ## Verification
 - Component renders without console errors
