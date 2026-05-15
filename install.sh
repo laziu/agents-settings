@@ -279,15 +279,6 @@ shared_agent_legacy_specs() {
   done
 }
 
-obsolete_command_specs() {
-  local source_dir="$1"
-  local name
-
-  for name in build.md code-simplify.md plan.md review.md ship.md spec.md test.md; do
-    printf '%s\t%s/%s\n' "$name" "$source_dir" "$name"
-  done
-}
-
 is_owned_legacy_dir() {
   local destination_dir="$1"
   local legacy_specs="${2-}"
@@ -376,10 +367,8 @@ SKILLS_SOURCE="$ROOT/settings/skills"
 AGENTS_SOURCE="$ROOT/settings/agents"
 SHARED_AGENTS_SOURCE="$ROOT/settings/agents/shared"
 CODEX_AGENTS_SOURCE="$ROOT/settings/agents/codex"
-COMMANDS_SOURCE="$ROOT/settings/commands"
 
 LEGACY_SKILL_LINKS="$(child_link_specs "$SKILLS_SOURCE" directory)"
-OBSOLETE_COMMAND_LINKS="$(obsolete_command_specs "$COMMANDS_SOURCE")"
 LEGACY_CODEX_AGENT_LINKS="$(child_link_specs "$CODEX_AGENTS_SOURCE" file "*.toml")"
 LEGACY_CLAUDE_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" "$AGENTS_SOURCE" ".md")"
 LEGACY_COPILOT_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" "$AGENTS_SOURCE" ".agent.md")"
@@ -388,8 +377,6 @@ if has_target codex; then
   link_path "$POLICY_SOURCE" "$CODEX_HOME/AGENTS.md"
   link_directory "$SKILLS_SOURCE" "$AGENTS_HOME/skills" "$LEGACY_SKILL_LINKS"
   link_directory "$CODEX_AGENTS_SOURCE" "$CODEX_HOME/agents" "$LEGACY_CODEX_AGENT_LINKS"
-  remove_directory_links "$COMMANDS_SOURCE" "$CODEX_HOME/commands" "$OBSOLETE_COMMAND_LINKS"
-  remove_directory_links "$COMMANDS_SOURCE" "$CODEX_HOME/prompts" "$OBSOLETE_COMMAND_LINKS"
 
   if [ "$INSTALL_CODEX_LEGACY_SKILLS" -eq 1 ]; then
     link_directory "$SKILLS_SOURCE" "$CODEX_HOME/skills" "$LEGACY_SKILL_LINKS"
@@ -400,7 +387,6 @@ if has_target claude; then
   link_path "$POLICY_SOURCE" "$CLAUDE_CONFIG_DIR/CLAUDE.md"
   link_directory "$SKILLS_SOURCE" "$CLAUDE_CONFIG_DIR/skills" "$LEGACY_SKILL_LINKS"
   link_directory "$SHARED_AGENTS_SOURCE" "$CLAUDE_CONFIG_DIR/agents" "$LEGACY_CLAUDE_AGENT_LINKS"
-  remove_directory_links "$COMMANDS_SOURCE" "$CLAUDE_CONFIG_DIR/commands" "$OBSOLETE_COMMAND_LINKS"
 fi
 
 if has_target copilot; then
