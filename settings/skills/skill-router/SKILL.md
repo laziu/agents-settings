@@ -36,12 +36,14 @@ Order triggered skills as listed; skip satisfied stages. Do not add earlier stag
 ### Build
 - `implementation`: scoped build, refactor, wiring, migration, or fix
 - `debugging`: unexpected failure
+- `migration`: replace, remove, sunset, or consolidate legacy systems/APIs/features
+- `code-simplify`: simplify working code without behavior changes
 
 ### Prove
 - `testing`: behavior change, bug, edge case, or regression proof
 - `code-review`: review
 - `source-check`: framework/API docs needed
-- `code-security`: security
+- `code-security`: security-sensitive boundaries, auth, PII, payments, uploads, external APIs, or storage
 - `performance-optimization`: performance
 - `browser-test`: browser/UI runtime verification
 
@@ -50,9 +52,9 @@ Order triggered skills as listed; skip satisfied stages. Do not add earlier stag
 - `shipping`: launch/release
 
 ### Knowledge
-- `documentation`: docs, README, changelog, comments, specs, ADRs, or gotchas
+- `documentation`: docs, README, API docs, changelog, comments, specs, or gotchas
 - `context-engineering`: AI context files that affect agent behavior, rules, `settings/**/*.md`, routing, or drift
-- `architecture-decision`: ADR
+- `architecture-decision`: significant architecture, platform, API, dependency, or public contract decision
 
 ### VCS
 - `vcs-workflow`: Git/Perforce, tracked files, commits, branches, conflicts, or parallel work

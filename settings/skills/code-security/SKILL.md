@@ -8,15 +8,16 @@ description: Harden code at security-sensitive boundaries
 Treat external input as hostile, secrets as sacred, and authorization as mandatory.
 
 ## Use When
-- User input, authn/authz, sessions, PII, payments, file uploads, webhooks, external APIs, or data storage are involved
+- Security-sensitive boundary changes: user input, authn/authz, sessions, PII, payments, file uploads, webhooks, external APIs, data storage, secrets, or privileged operations
+- Reviewing trust boundaries, permissions, validation, dependency exposure, logging, or error handling
 
-## Always
+## Baseline
 - Validate external input at system boundaries
 - Parameterize DB queries
-- Encode output; do not bypass framework escaping
-- Use HTTPS
-- Hash passwords with bcrypt/scrypt/argon2
-- Set security headers: CSP, HSTS, frame/content-type/referrer policies
+- Encode browser output; do not bypass framework escaping
+- Use TLS for production network traffic
+- Hash stored passwords with bcrypt/scrypt/argon2
+- Set web security headers: CSP, HSTS, frame/content-type/referrer policies
 - Use `httpOnly`, `secure`, `sameSite` cookies for sessions
 - Audit dependencies before release
 
@@ -57,12 +58,13 @@ Ask before changing security boundaries or policy. When proposing an assumption,
 - Low: track in normal updates
 - If no fix exists: workaround, replace, or time-boxed allowlist with review date
 
-## Secrets
+## Secret Diff Check
 `.gitignore` should cover `.env`, `.env.local`, `.env.*.local`, `*.pem`, `*.key`.
 
-Pre-commit check:
+Check staged and unstaged diffs when secrets are in scope:
 ```bash
-git diff --cached | grep -i "password\|secret\|api_key\|token"
+git diff | grep -Ei "password|secret|api_key|token"
+git diff --cached | grep -Ei "password|secret|api_key|token"
 ```
 
 ## Verification
