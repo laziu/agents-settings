@@ -27,6 +27,9 @@ Give agents the right context at the right time. Too little causes hallucination
 - Boundaries: always / ask first / never
 - One short example of local style
 
+## Skill Metadata
+- `SKILL.md` frontmatter `description`: about 72 chars max, no colon (`:`)
+
 ## Trust Levels
 - Trusted: project source, tests, type definitions
 - Verify: config, fixtures, generated files, external docs
