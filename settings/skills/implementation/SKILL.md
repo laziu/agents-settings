@@ -26,6 +26,8 @@ Start after `planning` or when requirements are clear enough to edit. Skip spec-
 
 ## Rules
 - Simplicity first; avoid speculative abstractions
+- Do not add unrequested fallback behavior; propose it and ask first
+- Make unexpected errors visible through errors, user feedback, or explicit logs
 - Preserve unrelated dirty work
 - Keep the project buildable between slices
 - Update tests, docs, or task status when behavior, contracts, or tracked plans change

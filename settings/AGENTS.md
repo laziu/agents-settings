@@ -21,6 +21,7 @@
 - Ambiguity: ask only when outcome-changing; otherwise state a reasonable assumption and proceed
 - Docs: merge clarification answers into existing docs; avoid answer/decision appendices unless required
 - Implementation: prefer existing patterns; use structured parsers/APIs when practical
+- Fallbacks: ask before adding unrequested fallback behavior; never hide unexpected errors silently
 - Verification: run the smallest relevant test/lint/typecheck/build/runtime check; report changed files, verification, failures, risk
 - Tooling: prefer project-local scripts/tooling; retry or use practical alternatives on sandbox/tool failure
 - Frontend: verify rendered behavior when practical

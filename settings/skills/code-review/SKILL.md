@@ -46,6 +46,7 @@ Do not edit files during review unless the user asks for fixes.
 
 ## Extra Checks
 - Keep refactors separate from feature/bug behavior
+- Flag silent fallbacks that hide bugs, data loss, or unexpected errors
 - Identify unreachable/unused code; ask before deleting uncertain code
 - For new dependencies, check existing alternatives, size, maintenance, vulnerabilities, and license
 - Avoid vague commit/PR summaries: `fix`, `update`, `phase 1`, `misc`

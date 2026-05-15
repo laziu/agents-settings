@@ -28,6 +28,8 @@ Stop adding features when something unexpected breaks. Preserve evidence, find r
 
 ## Guardrails
 - Never skip tests to pass
+- Do not mask unknown failures with fallback paths
+- Fallback requires explicit user-visible behavior
 - Prefer graceful degradation over crash when user impact matters
 - Log useful context, not secrets
 - Remove temporary instrumentation after fix unless it is production observability

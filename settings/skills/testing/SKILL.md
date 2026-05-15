@@ -40,6 +40,7 @@ Avoid tests that pass before implementation, bug fixes without failing reproduct
 ## Verification
 - Every new behavior has a test
 - Bug fixes include failing reproduction
+- Fallback/error paths tested when behavior can degrade
 - Tests pass
 - No skipped/disabled tests
 - Coverage not decreased when tracked

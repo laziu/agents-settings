@@ -26,6 +26,7 @@ Ask before changing auth, authorization policy, sensitive data handling, externa
 - Disable security headers for convenience
 - Store auth sessions in client-accessible storage
 - Expose stack traces/internal errors to users
+- Fail open at auth/authz, validation, upload, payment, or data-access boundaries
 
 ## Dependency Audit Triage
 - Critical/high reachable in production: fix or block release
