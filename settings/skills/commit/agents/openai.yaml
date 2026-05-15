@@ -1,0 +1,7 @@
+interface:
+  display_name: "Commit"
+  short_description: "Create commits or changelists"
+  default_prompt: "Use $commit to automatically create local commits or changelists."
+
+policy:
+  allow_implicit_invocation: false
