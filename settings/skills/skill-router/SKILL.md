@@ -1,36 +1,38 @@
 ---
 name: skill-router
-description: Route tasks to appropriate skills
+description: Route work to the smallest useful set of skills
 ---
 
 # Skill Router
 
-Load explicit user-named skills and every triggered skill. Use the smallest set that adds domain rules, workflow, or verification.
+Load explicitly named skills and all triggered skills. Use the smallest set that adds domain rules, workflow, or verification.
 
 ## Core Rules
 - Ask only for outcome-changing ambiguity; otherwise state an assumption and proceed
 - Push back with concrete downside + alternative
 - Verify with evidence
 
-## Workflow Order
-Order triggered skills as listed; skip satisfied stages.
+## Task Phases
+Route by phase and trigger. Do not force a fixed skill order.
 
-1. `ideate`: before unclear concepts become requirements
-2. `specification`: before large or significant implementation
-3. `planning`: before multi-step or dependency-ordered implementation
-4. `implementation`: before proof or release
-5. `testing`: before release when behavior can regress
-6. `shipping`: after proof and release prep
+- Planning: use Define and Design skills to clarify direction, specs, interfaces, decisions, and numbered plans
+- Implementation: use Build and Prove skills to change code, debug, migrate, simplify, test, review, and verify
+- Release: use Ship skills after implementation is proven
+- Cross-cutting: use Knowledge, VCS, and Project Type skills whenever triggered
+
+## Workflow Reference
+- Read `settings/references/define-design-workflow.md` when specs, ADRs, or numbered plans are created or updated
+- Use it to classify plan type as `define`, `feature`, `change`, or `refactor`
 
 ## Routing Table
 
 ### Define
 - `ideate`: vague idea
 - `specification`: new/significant work or unclear requirements
-- `planning`: large, vague, or dependency-ordered work
+- `planning`: large, numbered, vague, or dependency-ordered work
 
 ### Design
-- `interface-design`: API/interface boundary
+- `interface-design`: API/schema/command/event/file-format boundary
 - `ui-design`: UI/product surface
 
 ### Build
@@ -54,7 +56,7 @@ Order triggered skills as listed; skip satisfied stages.
 ### Knowledge
 - `documentation`: docs, README, API docs, changelog, comments, specs, or gotchas
 - `context-engineering`: AI context files that affect agent behavior, rules, `settings/**/*.md`, routing, or drift
-- `architecture-decision`: significant architecture, platform, API, dependency, or public contract decision
+- `architecture-decision`: significant architecture, platform, API, dependency, or public interface decision
 
 ### VCS
 - `vcs-workflow`: VCS state, tracked files, commits/changelists, branches/streams, conflicts, or parallel work

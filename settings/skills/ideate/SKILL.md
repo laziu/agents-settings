@@ -1,29 +1,22 @@
 ---
 name: ideate
-description: Shape raw ideas into actionable concepts
+description: Clarify vague ideas before specs, plans, or implementation
 ---
 
 # Ideate
 
-Turn raw ideas into actionable concepts worth building.
+Turn vague ideas into a direction worth specifying.
 
-Use before `specification` and `planning`; stop when a direction, MVP scope, and validation assumptions are clear.
-
-## Philosophy
-- Start from user experience; work backward to tech
-- Prefer the simplest version that solves the real problem
-- Challenge assumptions and default solutions
-- Focus by explicitly saying no
-- Be honest about weak ideas
+Use before `specification` and `planning` when the user, value, scope, or Not Doing is unclear. Stop when direction, MVP scope, and validation assumptions are clear.
 
 ## Workflow
-1. Reframe as a crisp "How might we..." problem
-2. Ask 3-5 sharpening questions: user, success, constraints, prior attempts, why now
-3. Generate 5-8 variations using selected lenses: inversion, constraint removal, audience shift, combination, simplification, 10x scale, expert/domain lens
-4. Ground ideas in codebase constraints when relevant; use `frameworks.md` selectively
-5. Cluster into 2-3 directions and stress-test user value, feasibility, differentiation
-6. Surface assumptions: must be true, could kill the idea, intentionally ignored; use `refinement-criteria.md` when useful
-7. Ask before saving a one-pager to `docs/ideas/[idea-name].md`
+1. Reframe as `How might we [outcome] for [user] without [constraint]?`
+2. Ask only outcome-changing questions about user, success, constraints, prior attempts, or why now
+3. Generate 3-8 variations; read `frameworks.md` only when a lens is useful
+4. Cluster into 2-3 directions
+5. Compare user value, feasibility, differentiation, codebase fit, and risk
+6. Recommend one direction with MVP, Not Doing, and validation assumptions
+7. Ask before saving durable idea notes to `docs/ideas/[idea-name].md`
 
 ## One-Pager
 ```markdown
@@ -40,7 +33,6 @@ Use before `specification` and `planning`; stop when a direction, MVP scope, and
 ## Verification
 - HMW statement exists
 - Target user and success criteria defined
-- Multiple directions explored
-- Assumptions include validation strategies
-- Not Doing list states tradeoffs
-- User confirmed final direction before implementation
+- Multiple directions considered or reason to skip stated
+- Recommendation includes MVP, assumptions, validation method, and Not Doing
+- User confirmed direction before specification or implementation
