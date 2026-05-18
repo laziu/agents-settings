@@ -47,7 +47,7 @@ Route by phase and trigger. Do not force a fixed skill order.
 - `source-check`: framework/API docs needed
 - `code-security`: security-sensitive boundaries, auth, PII, payments, uploads, external APIs, or storage
 - `performance-optimization`: performance
-- `browser-test`: browser/UI runtime verification
+- `browser-verification`: browser-rendered UI/runtime evidence
 
 ### Ship
 - `ci-cd`: CI/CD
