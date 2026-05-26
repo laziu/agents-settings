@@ -7,7 +7,7 @@ description: Implement scoped changes with verification
 
 Implement the requested change with the smallest coherent diff.
 
-Start after `planning` or when requirements are clear enough to edit. Skip spec-only, plan-only, review-only, explanation-only, or outcome-changing ambiguous work.
+Start after `task-breakdown`, after `planning`, or when requirements are clear enough to edit. Skip spec-only, plan-only, task-only, review-only, explanation-only, or outcome-changing ambiguous work.
 
 ## Workflow
 1. Inspect relevant files and local patterns

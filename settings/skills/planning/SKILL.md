@@ -1,22 +1,21 @@
 ---
 name: planning
-description: Write numbered Plans with ordered tasks and verification
+description: Design technical plans from specs or clear requirements
 ---
 
 # Planning
 
-Turn specs or clear requirements into numbered Plans.
+Turn specs or clear requirements into technical plans.
 
-Use after `specification` or clear requirements when work needs sequencing, dependencies, risk control, or a durable execution record. Stay read-only and stop before implementation unless asked to continue.
+Use after `specification` or clear requirements when technical approach, structure, data, contracts, risks, or design decisions need durable form. Stay read-only and stop before task generation or implementation unless asked to continue.
 
 ## Process
 1. Read spec and relevant code in read-only mode
 2. Identify patterns, constraints, risks, unknowns
-3. Map dependency graph
-4. Sketch technical/data design only where useful
-5. Slice vertically; put high-risk tasks early
-6. Write tasks with acceptance, verification, dependencies, likely files, and size
-7. Add checkpoints every 2-3 tasks or phase boundary
+3. Resolve unknowns with source-check or short research when needed
+4. Sketch technical approach, structure, data flow, and interfaces
+5. Identify ADR candidates and migration or compatibility concerns
+6. Define verification strategy and handoff notes for `task-breakdown`
 
 ## Plan
 - Durable path: `docs/plans/PLAN-0001-type-title.md`
@@ -24,24 +23,19 @@ Use after `specification` or clear requirements when work needs sequencing, depe
 - Frontmatter: `status`, `type`, `specs`, `adrs`
 - Status: `Draft`, `Active`, `Completed`, `Superseded`, `Abandoned`
 - Type: `define`, `feature`, `change`, `refactor`
-- Body: goal, context, useful technical/data design, ordered tasks, progress, verification, outcome
-- Task fields: goal, acceptance, verification, dependencies, likely files, scope
-- Style: one idea per task, acceptance item, and verification step
+- Body: goal, context, technical approach, structure, data/contracts, risks, ADR links, verification strategy, handoff
+- Style: one idea per bullet; no implementation task list
 
-## Size Guide
-- XS: one function/config
-- S: 1-2 files, one endpoint/component
-- M: 3-5 files, one feature slice
-- L: 5-8 files, split when possible
-- XL: 8+ files, split
-
-Split further if a task exceeds one focused session, has >3 acceptance bullets, contains "and", or mixes independent subsystems.
-Parallelize independent slices after shared contracts are stable.
-Keep migrations and shared state sequential.
+## Handoff
+- Use `interface-design` for public API, schema, command, event, or file-format contracts
+- Use `architecture-decision` for hard-to-reverse architecture, platform, dependency, data ownership, or compatibility choices
+- Use `task-breakdown` after the technical plan is stable enough to split into executable work
+- Keep unresolved implementation questions visible; do not hide them in task text
 
 ## Verification
-- Every task has acceptance and verification
-- Dependencies ordered
-- No task exceeds ~5 files unless justified
-- Checkpoints exist
+- Spec and relevant code were read
+- Technical approach and constraints are explicit
+- Data, contracts, and compatibility are covered when relevant
+- ADR needs are recorded or ruled out
+- Verification strategy and task-breakdown handoff are clear
 - Plan links relevant specs and ADRs

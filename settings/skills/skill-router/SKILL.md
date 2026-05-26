@@ -15,10 +15,12 @@ Load explicitly named skills and all triggered skills. Use the smallest set that
 ## Task Phases
 Route by phase and trigger. Do not force a fixed skill order.
 
-- Planning: use Define and Design skills to clarify direction, specs, interfaces, decisions, and numbered plans
-- Implementation: use Build and Prove skills to change code, debug, migrate, simplify, test, review, and verify
-- Release: use Ship skills after implementation is proven
-- Cross-cutting: use Knowledge, VCS, and Project Type skills whenever triggered
+- Specify: clarify what, why, scope, users, acceptance, assumptions, and Not Doing
+- Plan: design technical approach, interfaces, data, risks, ADRs, and verification strategy
+- Break Down: split stable specs/plans into ordered executable tasks
+- Build: implement, debug, migrate, simplify, test, review, and verify
+- Deliver: configure gates, deployment, rollout, monitoring, and rollback
+- Cross-cutting: use Knowledge, Version Control, and Domain Overlay skills whenever triggered
 
 ## Workflow Reference
 - Read `settings/references/define-design-workflow.md` when specs, ADRs, or numbered plans are created or updated
@@ -26,14 +28,17 @@ Route by phase and trigger. Do not force a fixed skill order.
 
 ## Routing Table
 
-### Define
-- `ideate`: vague idea
-- `specification`: new/significant work or unclear requirements
-- `planning`: large, numbered, vague, or dependency-ordered work
+### Specify
+- `specification`: vague idea, new/significant work, unclear requirements, scope, acceptance, MVP, Not Doing, or durable current truth
 
-### Design
+### Plan
+- `planning`: technical approach, repository structure, data flow, contracts, risks, verification strategy, or durable plan
 - `interface-design`: API/schema/command/event/file-format boundary
-- `ui-design`: UI/product surface
+- `architecture-decision`: hard-to-reverse architecture, platform, API, dependency, data ownership, compatibility, or migration decision
+- `source-check`: current framework/API docs needed
+
+### Break Down
+- `task-breakdown`: ordered executable tasks, dependencies, parallel work, checkpoints, likely files, or task artifacts
 
 ### Build
 - `implementation`: scoped build, refactor, wiring, migration, or fix
@@ -44,23 +49,22 @@ Route by phase and trigger. Do not force a fixed skill order.
 ### Prove
 - `testing`: behavior change, bug, edge case, or regression proof
 - `code-review`: review
-- `source-check`: framework/API docs needed
 - `code-security`: security-sensitive boundaries, auth, PII, payments, uploads, external APIs, or storage
 - `performance-optimization`: performance
 - `browser-verification`: browser-rendered UI/runtime evidence
 
-### Ship
-- `ci-cd`: CI/CD
-- `shipping`: launch/release
+### Deliver
+- `delivery`: CI/CD, required checks, deployment automation, launch readiness, rollout, monitoring, rollback, or production gate
 
 ### Knowledge
 - `documentation`: docs, README, API docs, changelog, comments, specs, or gotchas
 - `context-engineering`: AI context files that affect agent behavior, rules, `settings/**/*.md`, routing, or drift
-- `architecture-decision`: significant architecture, platform, API, dependency, or public interface decision
 
-### VCS
-- `vcs-workflow`: VCS state, tracked files, commits/changelists, branches/streams, conflicts, or parallel work
+### Version Control
+- `version-control`: VCS state, diffs, tracked files, branches/streams, commits/changelists, conflicts, or history
+- Commit/changelist creation requires an explicit user request
 
-### Project Types
+### Domain Overlays
+- `ui-design`: UI/product surface
 - `ue5-dev`: implementation, troubleshooting, validation, architecture, logs, assets, packaging, or general UE work
 - `ue5-pcg`: PCG building generation

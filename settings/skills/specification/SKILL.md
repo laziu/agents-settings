@@ -1,24 +1,28 @@
 ---
 name: specification
-description: Write durable specs for unclear or significant requirements
+description: Define what to build, why, scope, and acceptance
 ---
 
 # Specification
 
-Write or update the canonical source of truth: what, why, boundaries, and done.
+Write or update the current source of truth: what, why, users, scope, boundaries, and done.
 
-Use after `ideate` when direction exists but requirements, boundaries, acceptance, or subsystem ownership need durable form.
+Use when an idea, feature, product, process, or project direction needs durable requirements before planning or implementation.
 
 ## Scope
 - Stop after the spec for spec-only work
 - For implementation work, keep the spec lightweight
 - Continue only after outcome-changing assumptions are accepted
-- Leave task ordering and implementation slices to `planning`
+- Leave technical design to `planning`
+- Leave execution order and implementation tasks to `task-breakdown`
 
 ## Specify
+- Reframe vague asks as a crisp problem, user, goal, constraint, and success target
 - Ask only when a reasonable assumption would materially change the result
 - State assumptions with rationale, tradeoffs, and limits before using them
-- Reframe vague asks as testable success criteria
+- Consider 2-3 directions only when direction is genuinely unclear
+- Choose a recommended direction with MVP scope and explicit Not Doing items
+- Turn vague asks into testable user stories, requirements, and success criteria
 - Use `docs/specs/README.md` plus `docs/specs/<subsystem>.md` when multiple subsystems or durable project docs are needed
 
 Use localized titles in reading order:
@@ -33,9 +37,11 @@ Follow `AGENTS.md` style: one idea per bullet; testable criteria.
 
 ## Handoff
 - Do not design task sequences inside the spec
-- Use `planning` for numbered plans, dependencies, ordering, risks, and verification checkpoints
+- Use `planning` for technical approach, structure, data, contracts, risks, and ADR candidates
+- Use `task-breakdown` for numbered executable tasks, dependencies, parallel work, and checkpoints
 - Use `interface-design` for public API, schema, command, event, or document-format sections/specs
 - Use `architecture-decision` for hard-to-reverse decisions and rejected alternatives
+- Use `references/framing-lenses.md` only when problem framing or option selection is stuck
 
 ## Keep Spec Alive
 - Update spec before implementing changed decisions/scope

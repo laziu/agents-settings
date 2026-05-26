@@ -1,11 +1,12 @@
-# Define And Design Workflow
+# Spec, Plan, Task Workflow
 
-Separate current specs, decision history, and plan history.
+Separate current truth, technical design, task history, and decision history.
 
 ## Artifacts
-- Specs: current truth in `docs/specs/README.md` and `docs/specs/<subsystem>.md`; cover goals, constraints, terms, requirements, acceptance, and interface-impacting contracts
+- Specs: current truth in `docs/specs/README.md` and `docs/specs/<subsystem>.md`; cover users, goals, non-goals, constraints, terms, requirements, acceptance, assumptions, and interface-impacting contracts
 - ADRs: why history in `docs/decisions/ADR-0001-title.md`; required for hard-to-reverse architecture, dependency, or contract decisions
-- Plans: patch history in `docs/plans/PLAN-0001-type-title.md`; record task order, progress, verification, and outcome
+- Plans: technical design in `docs/plans/PLAN-0001-type-title.md`; record approach, structure, data, contracts, risks, ADR links, and verification strategy
+- Tasks: execution history in `tasks.md`, `docs/plans/PLAN-0001-type-title.md`, or project convention; record task order, dependencies, progress, verification, and outcome
 
 Use plural `docs/specs`, `docs/decisions`, `docs/plans`. Prefer `docs/decisions` over `docs/adrs`.
 Specs are stable and unnumbered. ADRs and Plans use one increasing number sequence per repo or project.
@@ -16,15 +17,17 @@ Specs are stable and unnumbered. ADRs and Plans use one increasing number sequen
 - Do not rewrite completed Plans for new scope
 - Supersede ADRs with new ADRs; keep history
 - Fix spec mismatches and implementation errors inside the current task
-- Create a numbered Plan before implementation work
-- Give every task acceptance criteria and verification
+- Create or update a numbered Plan before significant implementation work
+- Run `task-breakdown` before implementation when work needs ordered tasks, dependencies, parallelism, or checkpoints
+- Give every task acceptance criteria or independent verification
 
 ## Flow
-1. Ideate when direction, value, MVP, or Not Doing is unclear
-2. Specify when requirements, boundaries, or acceptance need durable form
+1. Specify when direction, value, scope, MVP, Not Doing, requirements, boundaries, or acceptance need durable form
+2. Plan when technical approach, repository structure, data, contracts, risk, or verification strategy needs durable form
 3. Design Interface when public API, schema, command, event, or file format changes
 4. Decide with ADR when a choice is hard to reverse or costly to revisit
-5. Plan Tasks when execution order, dependencies, or verification path is needed
+5. Break down tasks when execution order, dependencies, parallelism, likely files, or checkpoints are needed
+6. Implement from the task list or clear plan
 
 ## Plan Metadata
 - Filename: `PLAN-0001-type-title.md`
@@ -36,12 +39,13 @@ The agent assigns categories by intent. Users do not invoke category names.
 
 | Type | Use When | Required Inputs | Required Actions |
 | --- | --- | --- | --- |
-| Define | Initial system design or major direction reset | Raw goal, constraints, candidate approaches, affected subsystems | Use `ideate` if unclear; update Spec Index and Subsystem Specs; add interface sections/specs under `docs/specs`; decide ADR need; create `PLAN-####-define-<title>.md` when execution starts |
-| Feature | Additive capability or user-visible behavior within current design | Goal, subsystem spec, affected interface, acceptance target, constraints | Confirm additive fit; use `interface-design` for contract changes; decide ADR need; create `PLAN-####-feature-<title>.md` |
-| Change | Intentional behavior or design change after a completed result | Current and desired behavior/design, affected spec/interface, migration or compatibility concern | Update spec and interface sections; create ADR for breaking or hard-to-reverse decisions; create `PLAN-####-change-<title>.md` |
-| Refactor | Structure cleanup preserving external behavior and interfaces | Target area, preserved behavior, risk, verification | Check public contract impact; reclassify as Change if behavior or external interfaces change; create `PLAN-####-refactor-<title>.md` |
+| Define | Initial system design or major direction reset | Raw goal, constraints, candidate approaches, affected subsystems | Specify problem, scope, MVP, Not Doing, and acceptance; update Spec Index and Subsystem Specs; add interface sections/specs; decide ADR need; create `PLAN-####-define-<title>.md` when technical design starts |
+| Feature | Additive capability or user-visible behavior within current design | Goal, subsystem spec, affected interface, acceptance target, constraints | Confirm additive fit; use `interface-design` for contract changes; decide ADR need; create `PLAN-####-feature-<title>.md` before task breakdown |
+| Change | Intentional behavior or design change after a completed result | Current and desired behavior/design, affected spec/interface, migration or compatibility concern | Update spec and interface sections; create ADR for breaking or hard-to-reverse decisions; create `PLAN-####-change-<title>.md` before task breakdown |
+| Refactor | Structure cleanup preserving external behavior and interfaces | Target area, preserved behavior, risk, verification | Check public contract impact; reclassify as Change if behavior or external interfaces change; create `PLAN-####-refactor-<title>.md` when sequencing or risk control is needed |
 
 ## Verification
 - Relevant spec exists and has goals, non-goals, acceptance criteria, and interface-impacting changes
 - Hard-to-reverse decisions have ADRs
-- Execution work has a numbered Plan with task acceptance and verification
+- Significant execution work has a numbered Plan
+- Ordered work has task breakdown with dependencies, checkpoints, and verification
