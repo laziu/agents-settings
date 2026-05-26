@@ -7,11 +7,6 @@ description: Route work to the smallest useful set of skills
 
 Load explicitly named skills and all triggered skills. Use the smallest set that adds domain rules, workflow, or verification.
 
-## Core Rules
-- Ask only for outcome-changing ambiguity; otherwise state an assumption and proceed
-- Push back with concrete downside + alternative
-- Verify with evidence
-
 ## Task Phases
 Route by phase and trigger. Do not force a fixed skill order.
 
@@ -41,7 +36,6 @@ Route by phase and trigger. Do not force a fixed skill order.
 - `task-breakdown`: ordered executable tasks, dependencies, parallel work, checkpoints, likely files, or task artifacts
 
 ### Build
-- `implementation`: scoped build, refactor, wiring, migration, or fix
 - `debugging`: unexpected failure
 - `migration`: replace, remove, sunset, or consolidate legacy systems/APIs/features
 - `code-simplify`: simplify working code without behavior changes

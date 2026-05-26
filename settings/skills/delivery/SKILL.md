@@ -16,16 +16,13 @@ Use for CI/CD, required checks, deployment automation, launch readiness, rollout
 
 ## CI/CD
 - Run on PRs and main/default pushes
-- Use clean install and official dependency caching
 - Upload failure artifacts for e2e/test reports
 - Store secrets in platform secrets or vault, never workflow YAML
 - Keep production, CI, and staging secrets separate
-- Keep CI feedback actionable; copy the specific failure, not full noisy logs
 - If CI exceeds about 10 minutes, cache, split jobs, shard long suites, or use path filters before larger runners
 
 ## Release
 - Deploy to staging before production when available
-- Use preview deployments for PRs when practical
 - Use feature flags for risky or incomplete features
 - Flags need owner, expiration, cleanup date, and on/off tests
 - Roll out gradually and advance only while metrics pass

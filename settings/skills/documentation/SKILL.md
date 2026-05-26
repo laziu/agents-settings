@@ -18,8 +18,6 @@ Document useful context, not the obvious what. Use `architecture-decision` for e
 - Changelog: Added/Changed/Fixed plus issue/PR references
 - Project context: specs, decision links, gotchas; merge clarification answers into existing sections
 
-Prefer nearby docs or inline type/JSDoc near public contracts.
-
 ## Verification
 - README can boot the project
 - Public APIs are documented

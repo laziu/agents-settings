@@ -5,7 +5,7 @@ description: Review code for merge or release readiness
 
 # Code Review and Quality
 
-Approve when the change improves code health and has no blocking risk. Do not block on personal style.
+Review for merge or release blockers. Do not block on personal style.
 
 ## Review Axes
 - Correctness: spec match, edge/error paths, races, state consistency, useful tests
@@ -13,13 +13,6 @@ Approve when the change improves code health and has no blocking risk. Do not bl
 - Architecture: existing patterns, boundaries, dependencies, appropriate abstraction
 - Security: input validation, output encoding, auth/authz, secrets, external data, dependency risk
 - Performance: N+1, unbounded work, sync hot paths, unnecessary renders, pagination
-
-## Process
-1. Understand task/spec and expected behavior
-2. Read tests first
-3. Review implementation file by file
-4. Check verification story
-5. Categorize findings by severity
 
 Do not edit files during review unless the user asks for fixes.
 
@@ -49,7 +42,6 @@ Do not edit files during review unless the user asks for fixes.
 - Flag silent fallbacks that hide bugs, data loss, or unexpected errors
 - Identify unreachable/unused code; ask before deleting uncertain code
 - For new dependencies, check existing alternatives, size, maintenance, vulnerabilities, and license
-- Avoid vague commit/PR summaries: `fix`, `update`, `phase 1`, `misc`
 
 ## Verification
 - Findings include severity, file:line, impact, and fix

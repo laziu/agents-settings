@@ -7,14 +7,6 @@ description: Build production user-facing UI
 
 Build UI that follows the product's design system, works accessibly, and behaves correctly in real browsers.
 
-## Architecture
-- Colocate component, tests, stories, hooks, and local types when useful
-- Keep components focused
-- Prefer composition over over-configured props
-- Separate data fetching/container logic from presentation
-- Use the simplest state model: local, lifted, context, URL, server-state library, then global store
-- Avoid prop drilling deeper than 3 levels
-
 ## Design System
 - Use existing spacing, color, typography, radius, and component tokens
 - Avoid generic AI defaults: purple gradients, oversized cards, excessive shadows, stock hero/card grids, unrealistic placeholder copy
@@ -32,7 +24,6 @@ Build UI that follows the product's design system, works accessibly, and behaves
 
 ## States and Motion
 - Provide loading, error, and empty states
-- Prefer skeletons for content loading
 - Optimistic updates must roll back on error
 - Animations should not block input; respect reduced-motion preferences
 

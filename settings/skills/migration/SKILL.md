@@ -8,7 +8,6 @@ description: Migrate or remove legacy systems, APIs, and features
 Remove code that no longer earns its maintenance cost, but migrate users safely.
 
 ## Principles
-- Code is a liability: tests, docs, security, dependencies, onboarding, mental load
 - Hyrum's Law: observable behavior may be depended on, including quirks
 - Deprecation planning starts during design
 - Do not deprecate without a working replacement
@@ -29,7 +28,7 @@ Default to advisory unless risk justifies forcing migration.
 3. Migrate consumers incrementally
 4. Verify behavior with tests/integration checks
 5. Confirm zero active usage through metrics/logs/dependency analysis
-6. Remove old code, tests, docs, config, and notices
+6. Remove old references and notices
 
 ## Migration Patterns
 - Strangler: route traffic old -> new gradually, remove old at 0%
