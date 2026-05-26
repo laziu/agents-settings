@@ -18,7 +18,9 @@ Use after `planning` or when requirements and technical approach are already cle
 - Add checkpoints after foundation and each user story
 
 ## Artifact
-- Durable path: same feature or plan directory, usually `tasks.md`
+- Default path: append to the active `docs/plans/PLAN-0001-type-title.md`
+- Sections: `## Tasks`, `## Progress`, `## Verification`, and `## Outcome`
+- Separate `tasks.md` only when project convention requires it or the Plan would become too large
 - Task format: `- [ ] T001 [P?] [US?] Action in path/to/file`
 - Include dependencies, parallel opportunities, independent test criteria, and MVP scope
 - Include exact file paths when known

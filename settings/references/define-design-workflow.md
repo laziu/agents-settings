@@ -6,7 +6,7 @@ Separate current truth, technical design, task history, and decision history.
 - Specs: current truth in `docs/specs/README.md` and `docs/specs/<subsystem>.md`; cover users, goals, non-goals, constraints, terms, requirements, acceptance, assumptions, and interface-impacting contracts
 - ADRs: why history in `docs/decisions/ADR-0001-title.md`; required for hard-to-reverse architecture, dependency, or contract decisions
 - Plans: technical design in `docs/plans/PLAN-0001-type-title.md`; record approach, structure, data, contracts, risks, ADR links, and verification strategy
-- Tasks: execution history in `tasks.md`, `docs/plans/PLAN-0001-type-title.md`, or project convention; record task order, dependencies, progress, verification, and outcome
+- Tasks: execution history inside the active numbered Plan by default; record task order, dependencies, progress, verification, and outcome
 
 Use plural `docs/specs`, `docs/decisions`, `docs/plans`. Prefer `docs/decisions` over `docs/adrs`.
 Specs are stable and unnumbered. ADRs and Plans use one increasing number sequence per repo or project.

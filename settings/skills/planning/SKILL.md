@@ -16,7 +16,7 @@ Use after `specification` or clear requirements when technical approach, structu
 - Status: `Draft`, `Active`, `Completed`, `Superseded`, `Abandoned`
 - Type: `define`, `feature`, `change`, `refactor`
 - Body: goal, context, technical approach, structure, data/contracts, risks, ADR links, verification strategy, handoff
-- Style: one idea per bullet; no implementation task list
+- Style: one idea per bullet; no implementation task list before `task-breakdown`
 
 ## Rules
 - Resolve version-sensitive unknowns with `source-check`
