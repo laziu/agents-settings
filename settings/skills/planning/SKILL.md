@@ -12,20 +12,18 @@ Use after `specification` or clear requirements when technical approach, structu
 ## Plan
 - Durable path: `docs/plans/PLAN-0001-type-title.md`
 - Scratch path only for temporary notes: project convention or `tasks/todo.md`
-- Frontmatter: `status`, `type`, `specs`, `adrs`
+- Frontmatter: `status`, `type`, `specs`, optional `decisions`
 - Status: `Draft`, `Active`, `Completed`, `Superseded`, `Abandoned`
 - Type: `define`, `feature`, `change`, `refactor`
-- Body: goal, context, technical approach, structure, data/contracts, risks, ADR links, verification strategy, handoff
+- Body: goal, context, technical approach, structure, data/contracts, decisions, risks, verification strategy, handoff
 - Style: one idea per bullet; no implementation task list before `task-breakdown`
 
 ## Rules
 - Resolve version-sensitive unknowns with `source-check`
 - Record technical approach, data flow, contracts, risks, and verification strategy
 - Use `interface-design` for public API, schema, command, event, or file-format contracts
-- Use `architecture-decision` for hard-to-reverse architecture, platform, dependency, data ownership, or compatibility choices
 - Use `task-breakdown` after the technical plan is stable enough to split into executable work
 - Keep unresolved implementation questions visible; do not hide them in task text
 
 ## Verification
-- ADR needs are recorded or ruled out
-- Plan links relevant specs and ADRs
+- Plan links relevant specs

@@ -33,10 +33,8 @@ Fold conclusions, assumptions, and scope into the relevant sections.
 
 ## Handoff
 - Do not design task sequences inside the spec
-- Use `planning` for technical approach, structure, data, contracts, risks, and ADR candidates
-- Use `task-breakdown` for numbered executable tasks, dependencies, parallel work, and checkpoints
+- Use `planning` for technical approach, structure, data, contracts, risks, and decision candidates
 - Use `interface-design` for public API, schema, command, event, or document-format sections/specs
-- Use `architecture-decision` for hard-to-reverse decisions and rejected alternatives
 - Use `references/framing-lenses.md` only when problem framing or option selection is stuck
 
 ## Keep Spec Alive
@@ -47,4 +45,4 @@ Fold conclusions, assumptions, and scope into the relevant sections.
 ## Verification
 - Spec covers required areas
 - Success criteria are testable
-- Spec saved and linked from relevant plans or ADRs
+- Spec saved and linked from relevant Plans

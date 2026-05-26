@@ -11,14 +11,14 @@ Load explicitly named skills and all triggered skills. Use the smallest set that
 Route by phase and trigger. Do not force a fixed skill order.
 
 - Specify: clarify what, why, scope, users, acceptance, assumptions, and Not Doing
-- Plan: design technical approach, interfaces, data, risks, ADRs, and verification strategy
+- Plan: design technical approach, interfaces, data, risks, decisions, and verification strategy
 - Break Down: split stable specs/plans into ordered executable tasks
 - Build: implement, debug, migrate, simplify, test, review, and verify
 - Deliver: configure gates, deployment, rollout, monitoring, and rollback
 - Cross-cutting: use Knowledge, Version Control, and Domain Overlay skills whenever triggered
 
 ## Workflow Reference
-- Read `settings/references/define-design-workflow.md` when specs, ADRs, or numbered plans are created or updated
+- Read `settings/references/define-design-workflow.md` when specs, decisions, or numbered plans are created or updated
 - Use it to classify plan type as `define`, `feature`, `change`, or `refactor`
 
 ## Routing Table
@@ -29,7 +29,7 @@ Route by phase and trigger. Do not force a fixed skill order.
 ### Plan
 - `planning`: technical approach, repository structure, data flow, contracts, risks, verification strategy, or durable plan
 - `interface-design`: API/schema/command/event/file-format boundary
-- `architecture-decision`: hard-to-reverse architecture, platform, API, dependency, data ownership, compatibility, or migration decision
+- `architecture-decision`: costly-to-reverse decision log or ADR promotion
 - `source-check`: current framework/API docs needed
 
 ### Break Down

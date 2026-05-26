@@ -5,7 +5,7 @@ description: Document README, API docs, changelogs, comments, and project contex
 
 # Documentation
 
-Document useful context, not the obvious what. Use `architecture-decision` for expensive-to-reverse design choices.
+Document useful context, not the obvious what.
 
 ## Boundaries
 - Use `context-engineering` for agent instructions, skills, profiles, routing, or `settings/**/*.md`
@@ -16,7 +16,7 @@ Document useful context, not the obvious what. Use `architecture-decision` for e
 - API docs: inputs, outputs, errors, examples; keep OpenAPI/Swagger current
 - README: purpose, quick start, commands, architecture, process, links
 - Changelog: Added/Changed/Fixed plus issue/PR references
-- Project context: specs, decision links, gotchas; merge clarification answers into existing sections
+- Project context: specs, Plan decision logs, promoted ADR links, gotchas
 
 ## Verification
 - README can boot the project
