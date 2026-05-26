@@ -12,14 +12,11 @@ Use when an idea, feature, product, process, or project direction needs durable 
 ## Scope
 - Stop after the spec for spec-only work
 - For implementation work, keep the spec lightweight
-- Continue only after outcome-changing assumptions are accepted
 - Leave technical design to `planning`
 - Leave execution order and implementation tasks to `task-breakdown`
 
 ## Specify
 - Reframe vague asks as a crisp problem, user, goal, constraint, and success target
-- Ask only when a reasonable assumption would materially change the result
-- State assumptions with rationale, tradeoffs, and limits before using them
 - Consider 2-3 directions only when direction is genuinely unclear
 - Choose a recommended direction with MVP scope and explicit Not Doing items
 - Turn vague asks into testable user stories, requirements, and success criteria
@@ -33,7 +30,6 @@ Use localized titles in reading order:
 5. Other: project context, stack, commands, structure, style, testing, open questions, references
 
 Fold conclusions, assumptions, and scope into the relevant sections.
-Follow `AGENTS.md` style: one idea per bullet; testable criteria.
 
 ## Handoff
 - Do not design task sequences inside the spec
@@ -51,5 +47,4 @@ Follow `AGENTS.md` style: one idea per bullet; testable criteria.
 ## Verification
 - Spec covers required areas
 - Success criteria are testable
-- Boundaries defined
 - Spec saved and linked from relevant plans or ADRs

@@ -34,10 +34,9 @@ Ask before changing auth, authorization policy, sensitive data handling, externa
 - Moderate reachable: fix next cycle; low: track normally
 - No fix: workaround, replace, or time-boxed allowlist with review date
 
-## Secret Diff Check
-`.gitignore` should cover `.env`, `.env.local`, `.env.*.local`, `*.pem`, `*.key`.
-
-Check staged/open diffs for `password|secret|api_key|token`.
+## Automation
+- Put secret scanning and dependency audit checks in hooks, CI, or release gates when possible
+- `.gitignore` should cover `.env`, `.env.local`, `.env.*.local`, `*.pem`, and `*.key`
 
 ## Verification
 - No critical/high reachable vulnerabilities

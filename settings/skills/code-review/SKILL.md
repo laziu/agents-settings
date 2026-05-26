@@ -52,7 +52,6 @@ Do not edit files during review unless the user asks for fixes.
 - Avoid vague commit/PR summaries: `fix`, `update`, `phase 1`, `misc`
 
 ## Verification
-- Critical fixed
-- Required fixed or explicitly deferred
-- Tests/build pass
-- Verification story documented
+- Findings include severity, file:line, impact, and fix
+- Verification gaps are documented
+- No files edited unless fixes were requested

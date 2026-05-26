@@ -10,10 +10,9 @@ Ship only with quality gates, observability, and a rollback path.
 Use for CI/CD, required checks, deployment automation, launch readiness, rollout, monitoring, and rollback planning.
 
 ## Gates
-- Use existing project gates first
-- Prefer lint/format, typecheck, unit tests, build, integration tests, critical e2e, security audit, and performance budget for production code
-- Required gates and reviews must block merge or deployment
-- Do not skip gates to pass CI; fix the cause
+- Configure existing project gates first
+- Prefer required status checks for lint/format, typecheck, tests, build, security audit, and performance budget when applicable
+- Make required reviews, protected branches, and deployment approvals enforce the policy
 
 ## CI/CD
 - Run on PRs and main/default pushes
@@ -49,7 +48,7 @@ RTO:
 ```
 
 ## Verification
-- Required gates block merge or deploy
+- Required gates are configured to block merge or deploy
 - Pipeline runs on PR and main/default push
 - Secrets are outside code
 - Rollback plan exists

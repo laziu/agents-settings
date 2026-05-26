@@ -7,10 +7,6 @@ description: Unreal Engine 5 development workflow
 
 Use for UE5-specific file checks, API guardrails, build commands, log triage, and asset validation. This is a domain skill, not a replacement for workflow skills.
 
-## VCS Guardrails
-- Detect VCS before edits; in Perforce, use checkout/edit before modifying tracked files
-- Do not bypass locks/read-only attributes; stop and report checkout failures
-
 ## Inspect These First
 - C++ or module work: `.uproject`, `Source/*.Target.cs`, `Source/**/*.Build.cs`, touched `Public/` and `Private/` headers
 - Reflected types: export macro, `GENERATED_BODY()`, module ownership, Blueprint class references, asset redirect risk
