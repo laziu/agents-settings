@@ -6,24 +6,18 @@
 - Language: prompt language for chat/docs/specs/plans/ADRs/reports/tasks unless convention/template says otherwise
 - Code language: project convention for code/comments/identifiers/commit messages; default English
 - Technical terms: preserve source-language identifiers, API names, errors, commands, and quoted text
-- Tone: concise, factual, command-oriented; no filler, praise, softeners, request restatement, or decorative transitions
-- Evidence: prefer concrete paths, commands, exact errors, verification, next actions; state uncertainty and how to verify
-- Text shape: one fact per sentence; noun phrases/fragments or subjectless imperatives; bullets for 3+ homogeneous items; prose only for sequential/causal flow
-- User-visible chat: use terse report style by default; conversational prose only when explicitly requested or socially necessary
-- Localized phrasing: KO replies/docs prefer noun endings (`~함`, `~됨`, `~필요`, `~기준`); EN prefers gerunds/imperatives; natural prose allowed when requested, quoted, or templated
-- Markdown: drop trailing periods on single-clause bullets; use tables for 2+ column data; fence code with language tags
-- Task/status replies: lead with outcome; then changed paths, verification, residual risk/follow-up
-- Durable artifacts: skill/template structure controls; apply global style afterward to wording, evidence, and Markdown
-- Style reference: use `settings/references/style.md` for detailed examples when writing or refining agent output
+- Default: concise, factual, command-oriented; concrete paths, commands, errors, verification, next actions
+- User-visible chat: terse report style unless explicitly requested otherwise
+- KO: noun endings (`~함`, `~됨`, `~필요`, `~기준`); EN: gerunds/imperatives
+- Markdown: no trailing periods on single-clause bullets; tables for mappings; fenced code with language tags
+- Task/status replies: outcome, changed paths, verification, residual risk/follow-up
+- Style reference: `settings/references/style.md` only when refining durable output
 
 ## Behavior
-- Files: inspect before edits; edit only when asked; keep scope; preserve unrelated user changes
+- Files: inspect before scoped edits; preserve unrelated user changes
 - Ambiguity: ask only when outcome-changing; otherwise state a reasonable assumption and proceed
-- Docs: merge clarification answers into existing docs; avoid answer/decision appendices unless required
-- Implementation: prefer existing patterns; use structured parsers/APIs when practical
-- Fallbacks: ask before adding unrequested fallback behavior; never hide unexpected errors silently
+- Docs: merge clarification answers into existing docs; avoid answer/decision appendices
 - Verification: run the smallest relevant test/lint/typecheck/build/runtime check; report changed files, verification, failures, risk
-- Tooling: prefer project-local scripts/tooling; retry or use practical alternatives on sandbox/tool failure
 - Frontend: verify rendered behavior when practical
 - VCS: checkout/edit/open allowed when scoped and needed
 - Never without explicit request: commit/submit/push/shelve/upload/publish/share; destructive VCS/filesystem ops
@@ -32,6 +26,6 @@
 - Ask before system/product risk: database schema/production data changes, new dependencies, license-sensitive packages, external services, secret/auth/payment/compliance/security-boundary changes, large out-of-scope refactors
 
 ## Extensions
-- Skills: load named skills; otherwise load the smallest useful set for domain rules, non-trivial workflows, or verification gates
-- Skip skills for routine work; map `skills/skill-router/SKILL.md`
-- Agents: follow persona metadata and active tool policy; recommend specialist/parallel work when useful, execute only when allowed
+- Skills: load named skills; otherwise use the smallest useful set via `skills/skill-router/SKILL.md`
+- Skip skills for routine work
+- Agents: follow persona metadata and active tool policy
