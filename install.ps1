@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [string[]]$Targets = @("codex", "claude", "copilot"),
+    [string[]]$Targets = @("codex", "claude", "copilot", "antigravity"),
     [switch]$Force,
     [switch]$DryRun,
     [switch]$InstallCodexLegacySkills
@@ -352,10 +352,10 @@ $legacyCopilotAgentLinks = Get-LegacySharedAgentLinks -SourceDirectory $sharedAg
 
 $requested = @($Targets | ForEach-Object { $_.ToLowerInvariant() })
 if ($requested -contains "all") {
-    $requested = @("codex", "claude", "copilot")
+    $requested = @("codex", "claude", "copilot", "antigravity")
 }
 
-$validTargets = @("codex", "claude", "copilot")
+$validTargets = @("codex", "claude", "copilot", "antigravity")
 foreach ($target in $requested) {
     if ($validTargets -notcontains $target) {
         throw "Unknown target: $target. Valid targets: $($validTargets -join ', ')"
@@ -365,6 +365,7 @@ foreach ($target in $requested) {
 $codexHome = Get-ProfileRoot -EnvironmentName "CODEX_HOME" -DefaultLeaf ".codex"
 $claudeHome = Get-ProfileRoot -EnvironmentName "CLAUDE_CONFIG_DIR" -DefaultLeaf ".claude"
 $copilotHome = Get-ProfileRoot -EnvironmentName "COPILOT_HOME" -DefaultLeaf ".copilot"
+$antigravityHome = Get-ProfileRoot -EnvironmentName "GEMINI_CONFIG_DIR" -DefaultLeaf ".gemini"
 $sharedAgentsHome = Get-ProfileRoot -EnvironmentName "AGENTS_HOME" -DefaultLeaf ".agents"
 
 if ($requested -contains "codex") {
@@ -387,4 +388,9 @@ if ($requested -contains "copilot") {
     Install-Link -Source $policySource -Destination (Join-Path $copilotHome "copilot-instructions.md") -Kind File
     Add-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $copilotHome "skills") -LegacyLinks $legacySkillLinks
     Add-DirectoryLinks -SourceDirectory $sharedAgentsSource -DestinationDirectory (Join-Path $copilotHome "agents") -LegacyLinks $legacyCopilotAgentLinks
+}
+
+if ($requested -contains "antigravity") {
+    Install-Link -Source $policySource -Destination (Join-Path $antigravityHome "GEMINI.md") -Kind File
+    Add-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $antigravityHome "skills") -LegacyLinks $legacySkillLinks
 }

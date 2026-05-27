@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
-TARGETS_CSV="codex,claude,copilot"
+TARGETS_CSV="codex,claude,copilot,antigravity"
 DRY_RUN=0
 INCLUDE_CODEX_LEGACY_SKILLS=0
 
@@ -11,7 +11,7 @@ usage() {
 Usage: ./uninstall.sh [options]
 
 Options:
-  --targets LIST                    Comma-separated targets: codex,claude,copilot,all
+  --targets LIST                    Comma-separated targets: codex,claude,copilot,antigravity,all
   --dry-run                         Print actions without changing files
   --codex-legacy-skills             Also remove links from $CODEX_HOME/skills
   --include-codex-legacy-skills     Alias for --codex-legacy-skills
@@ -57,11 +57,11 @@ for target in "${REQUESTED_RAW[@]}"; do
   target="$(normalize_target "$target")"
   [ -n "$target" ] || continue
   case "$target" in
-    all|codex|claude|copilot)
+    all|codex|claude|copilot|antigravity)
       REQUESTED+=("$target")
       ;;
     *)
-      echo "Unknown target: $target. Valid targets: codex, claude, copilot, all" >&2
+      echo "Unknown target: $target. Valid targets: codex, claude, copilot, antigravity, all" >&2
       exit 1
       ;;
   esac
@@ -226,6 +226,7 @@ PROFILE_HOME="${HOME:?HOME is required}"
 CODEX_HOME="${CODEX_HOME:-$PROFILE_HOME/.codex}"
 CLAUDE_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$PROFILE_HOME/.claude}"
 COPILOT_HOME="${COPILOT_HOME:-$PROFILE_HOME/.copilot}"
+GEMINI_CONFIG_DIR="${GEMINI_CONFIG_DIR:-$PROFILE_HOME/.gemini}"
 AGENTS_HOME="${AGENTS_HOME:-$PROFILE_HOME/.agents}"
 
 POLICY_SOURCE="$ROOT/settings/AGENTS.md"
@@ -259,4 +260,9 @@ if has_target copilot; then
   remove_link_if_owned "$POLICY_SOURCE" "$COPILOT_HOME/copilot-instructions.md"
   remove_directory_links "$SKILLS_SOURCE" "$COPILOT_HOME/skills" "$LEGACY_SKILL_LINKS"
   remove_directory_links "$SHARED_AGENTS_SOURCE" "$COPILOT_HOME/agents" "$LEGACY_COPILOT_AGENT_LINKS"
+fi
+
+if has_target antigravity; then
+  remove_link_if_owned "$POLICY_SOURCE" "$GEMINI_CONFIG_DIR/GEMINI.md"
+  remove_directory_links "$SKILLS_SOURCE" "$GEMINI_CONFIG_DIR/skills" "$LEGACY_SKILL_LINKS"
 fi

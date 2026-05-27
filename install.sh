@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
-TARGETS_CSV="codex,claude,copilot"
+TARGETS_CSV="codex,claude,copilot,antigravity"
 FORCE=0
 DRY_RUN=0
 INSTALL_CODEX_LEGACY_SKILLS=0
@@ -13,7 +13,7 @@ usage() {
 Usage: ./install.sh [options]
 
 Options:
-  --targets LIST                  Comma-separated targets: codex,claude,copilot,all
+  --targets LIST                  Comma-separated targets: codex,claude,copilot,antigravity,all
   --force                         Back up existing non-links and replace wrong links
   --dry-run                       Print actions without changing files
   --codex-legacy-skills           Also link skills into $CODEX_HOME/skills
@@ -63,11 +63,11 @@ for target in "${REQUESTED_RAW[@]}"; do
   target="$(normalize_target "$target")"
   [ -n "$target" ] || continue
   case "$target" in
-    all|codex|claude|copilot)
+    all|codex|claude|copilot|antigravity)
       REQUESTED+=("$target")
       ;;
     *)
-      echo "Unknown target: $target. Valid targets: codex, claude, copilot, all" >&2
+      echo "Unknown target: $target. Valid targets: codex, claude, copilot, antigravity, all" >&2
       exit 1
       ;;
   esac
@@ -360,6 +360,7 @@ PROFILE_HOME="${HOME:?HOME is required}"
 CODEX_HOME="${CODEX_HOME:-$PROFILE_HOME/.codex}"
 CLAUDE_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$PROFILE_HOME/.claude}"
 COPILOT_HOME="${COPILOT_HOME:-$PROFILE_HOME/.copilot}"
+GEMINI_CONFIG_DIR="${GEMINI_CONFIG_DIR:-$PROFILE_HOME/.gemini}"
 AGENTS_HOME="${AGENTS_HOME:-$PROFILE_HOME/.agents}"
 
 POLICY_SOURCE="$ROOT/settings/AGENTS.md"
@@ -393,4 +394,9 @@ if has_target copilot; then
   link_path "$POLICY_SOURCE" "$COPILOT_HOME/copilot-instructions.md"
   link_directory "$SKILLS_SOURCE" "$COPILOT_HOME/skills" "$LEGACY_SKILL_LINKS"
   link_directory "$SHARED_AGENTS_SOURCE" "$COPILOT_HOME/agents" "$LEGACY_COPILOT_AGENT_LINKS"
+fi
+
+if has_target antigravity; then
+  link_path "$POLICY_SOURCE" "$GEMINI_CONFIG_DIR/GEMINI.md"
+  link_directory "$SKILLS_SOURCE" "$GEMINI_CONFIG_DIR/skills" "$LEGACY_SKILL_LINKS"
 fi
