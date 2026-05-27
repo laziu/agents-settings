@@ -43,4 +43,14 @@ Commit or create changelists only when the user explicitly asks. Never push, sub
 
 Classify by behavior impact, not file extension. Treat `settings/**/*.md` as first-class agent source.
 
-Types: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`.
+Type selection:
+| Type | Use |
+| --- | --- |
+| `feat` | Add agent capability, workflow, command, or user-facing behavior |
+| `fix` | Correct agent behavior, routing, safety, verification, or boundaries |
+| `refactor` | Reshape context with the same behavior |
+| `test` | Add or correct verification assets |
+| `docs` | User-facing docs with no agent behavior change |
+| `chore` | Packaging, install, metadata, or mechanical maintenance |
+
+For `AGENTS.md`, skills, policies, and references, avoid `docs` unless the change is purely explanatory.
