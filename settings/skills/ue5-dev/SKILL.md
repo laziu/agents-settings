@@ -28,6 +28,18 @@ Discover `.uproject` and UE install path first. Prefer repo scripts.
 & "<UE>\Engine\Build\BatchFiles\RunUAT.bat" BuildCookRun -project="<Project>.uproject" -noP4 -platform=Win64 -clientconfig=Development -build -cook -stage -pak
 ```
 
+## Blueprint Boundary
+- Commandlet OK: asset creation, parent class assignment, default property edits, compile/save operations
+- EventGraph edits: do not attempt direct graph authoring unless a project script already owns the exact change
+- Manual handoff: write exact editor steps, expected nodes/events, property values, and verification for EventGraph work
+- Context guard: avoid spending tokens reverse-engineering Blueprint graph internals when a manual path is clearer
+
+## Build Failure Boundary
+- Live Coding/editor lock/mutex/locked binaries/missing local UE path: stop and report
+- Live Coding: trigger existing local Live Coding compile/start command only when the project exposes one
+- Do not bypass with alternate UE path, copied workspace, deleting `Binaries` or `Intermediate`, packaging command, IDE build, or generated project refresh
+- Otherwise ask the user to close the editor or disable Live Coding, then run their local build command
+
 ## Helper Scripts
 - `scripts/scan_output_log.py --log Saved/Logs/<Project>.log --top 20`: count UE `Warning`, `Error`, and `Fatal` lines by category with samples
 - `scripts/quick_asset_check.py --root . --asset /Game/UI/WBP_HUD`: map `/Game/...` or `Blueprint'/Game/...'` paths to local `.uasset` files

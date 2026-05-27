@@ -17,12 +17,13 @@ Failure fixes:
 - RPC ignored: ensure call direction matches specifier (`Server`, `Client`, `NetMulticast`) and validate ownership/authority
 
 ## Blueprint
-Check these before editing or describing graph wiring:
+Check these before Blueprint asset changes or manual graph handoff:
 - Target Blueprint package path under `/Game/...`
-- Graph name: `EventGraph`, construction script, function graph, macro graph, or animation graph
+- Safe Commandlet scope: asset creation, parent class, default properties, compile/save
+- Manual graph scope: `EventGraph`, construction script, function graph, macro graph, or animation graph
 - Input path: legacy key event, Enhanced Input `UInputAction`, or custom event
-- Pin names from the actual node variant before wiring automated connections
-- Compile result and duplicate input/event nodes after edits
+- Node/event names, pin names, property values, and expected wiring for user steps
+- Compile result and duplicate input/event nodes after changes
 
 Failure fixes:
 - Key press does not fire: check pawn possession, input enabled, UI focus, mapping context registration, and duplicate key/action events
