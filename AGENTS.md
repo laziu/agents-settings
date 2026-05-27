@@ -1,5 +1,7 @@
-- Install payload: `settings/`
-- `settings/AGENTS.md` is symlinked to the appropriate file, e.g. `$CODEX_HOME/AGENTS.md` or `$CLAUDE_CONFIG_DIR/CLAUDE.md`
-- Workflows/profiles: `settings/skills/`, `settings/agents/`
-- Treat `settings/**/*.md` as first-class source for commit messages and change classification
-- Root files are packaging docs/scripts; follow `settings/AGENTS.md` for repo edits
+All rules live in `settings/AGENTS.md`. Load it as the active config when working in this repo.
+
+- Skills: `settings/skills/` (router: `settings/skills/skill-router/SKILL.md`)
+- Agents: `settings/agents/`
+- Refs: `settings/references/`
+
+`settings/` is installed via symlink by `install.ps1`/`install.sh` (e.g. `$CODEX_HOME/AGENTS.md`, `$CLAUDE_CONFIG_DIR/CLAUDE.md`). Root files are packaging/install scripts only.
