@@ -16,6 +16,10 @@
 ## Behavior
 - Files: inspect before scoped edits; preserve unrelated user changes
 - Ambiguity: ask only when outcome-changing; otherwise state a reasonable assumption and proceed
+- Implementation: fail loudly on unexpected errors; add fallbacks/defaults/retries only when requested or required by contract, and report them for review
+- Validation: validate at public/trust boundaries; private helpers trust validated inputs unless a named helper captures a repeated semantic rule
+- Scope: implement only the requested use case; avoid speculative abstractions, generic options, or extra features
+- Review: after complex implementation, self-review the diff for human readability and risk; skip low-risk mechanical edits unless requested or risky
 - Docs: merge clarification answers into existing docs; avoid answer/decision appendices
 - Verification: run the smallest relevant test/lint/typecheck/build/runtime check; report changed files, verification, failures, risk
 - Frontend: verify rendered behavior when practical

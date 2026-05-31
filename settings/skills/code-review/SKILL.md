@@ -39,7 +39,9 @@ Do not edit files during review unless the user asks for fixes.
 
 ## Extra Checks
 - Keep refactors separate from feature/bug behavior
-- Flag silent fallbacks that hide bugs, data loss, or unexpected errors
+- Flag silent fallbacks/defaults/retries/broad catches that hide bugs, data loss, or unexpected errors
+- Flag duplicate parameter validation below a validated public/boundary entry point unless it names a repeated semantic rule
+- Flag abstractions, generic helpers, configuration, or extra features not required by the current use case
 - Identify unreachable/unused code; ask before deleting uncertain code
 - For new dependencies, check existing alternatives, size, maintenance, vulnerabilities, and license
 
