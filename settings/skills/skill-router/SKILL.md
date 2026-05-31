@@ -24,10 +24,10 @@ Route by phase and trigger. Do not force a fixed skill order.
 ## Routing Table
 
 ### Specify
-- `specification`: vague idea, new/significant work, unclear requirements, scope, acceptance, MVP, Not Doing, or durable current truth
+- `specification`: standalone requirements, durable current truth, unclear scope, acceptance, MVP, or Not Doing
 
 ### Plan
-- `planning`: technical approach, repository structure, data flow, contracts, risks, verification strategy, or durable plan
+- `planning`: unstructured idea to Plan, technical approach, repository structure, data flow, contracts, risks, verification strategy, or durable plan
 - `interface-design`: API/schema/command/event/file-format boundary
 - `architecture-decision`: costly-to-reverse decision log or ADR promotion
 - `source-check`: current framework/API docs needed

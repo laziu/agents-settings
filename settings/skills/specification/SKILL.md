@@ -12,6 +12,7 @@ Use when an idea, feature, product, process, or project direction needs durable 
 ## Scope
 - Stop after the spec for spec-only work
 - For implementation work, keep the spec lightweight
+- For a requested planning document from unstructured ideas, let `planning` include lightweight goals, non-goals, assumptions, and acceptance unless a separate spec is useful
 - Leave technical design to `planning`
 - Leave execution order and implementation tasks to `task-breakdown`
 
