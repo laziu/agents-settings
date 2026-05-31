@@ -8,7 +8,8 @@ Install scripts create symlinks from `settings/` into each tool profile. The rep
 
 ```text
 settings/
-  AGENTS.md                 shared global instructions
+  AGENTS.md                 Codex/global instructions
+  CLAUDE.md                 Claude-specific instructions
   skills/*/SKILL.md         shared skills
   agents/shared/*.agent.md  Claude/Copilot agent profiles
   agents/codex/*.toml       Codex custom agents
@@ -27,7 +28,7 @@ settings/
 | Claude Code | `%CLAUDE_CONFIG_DIR%\CLAUDE.md`, `%CLAUDE_CONFIG_DIR%\skills`, `%CLAUDE_CONFIG_DIR%\agents` |
 | GitHub Copilot CLI | `%COPILOT_HOME%\copilot-instructions.md`, `%COPILOT_HOME%\skills`, `%COPILOT_HOME%\agents` |
 
-`settings/AGENTS.md` is installed as each tool's global instruction file. Reusable directories are linked as directories, so new files under `settings/skills/`, `settings/agents/shared/`, and `settings/agents/codex/` appear without reinstalling. Skills are kept as reusable domain workflows and explicit shortcuts. Codex custom agents remain TOML under `~/.codex/agents/` or `.codex/agents/`.
+`settings/AGENTS.md` is installed for Codex, Copilot, and Antigravity. `settings/CLAUDE.md` is installed for Claude Code. Reusable directories are linked as directories, so new files under `settings/skills/`, `settings/agents/shared/`, and `settings/agents/codex/` appear without reinstalling. Skills are kept as reusable domain workflows and explicit shortcuts. Codex custom agents remain TOML under `~/.codex/agents/` or `.codex/agents/`.
 
 ### Per-project (JetBrains IDE)
 

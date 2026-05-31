@@ -1,4 +1,4 @@
-All rules live in `settings/AGENTS.md`. Load it as the active config when working in this repo.
+Codex rules live in `settings/AGENTS.md`. Claude rules live in `settings/CLAUDE.md`. Load the active config for the current agent when working in this repo.
 
 - Skills: `settings/skills/` (router: `settings/skills/skill-router/SKILL.md`)
 - Agents: `settings/agents/`

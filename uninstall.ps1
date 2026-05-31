@@ -192,6 +192,7 @@ if ([string]::IsNullOrWhiteSpace($script:UserProfile)) {
 
 $repoRoot = $PSScriptRoot
 $policySource = Join-Path $repoRoot "settings\AGENTS.md"
+$claudePolicySource = Join-Path $repoRoot "settings\CLAUDE.md"
 $skillsSource = Join-Path $repoRoot "settings\skills"
 $agentsSource = Join-Path $repoRoot "settings\agents"
 $sharedAgentsSource = Join-Path $repoRoot "settings\agents\shared"
@@ -231,7 +232,9 @@ if ($requested -contains "codex") {
 }
 
 if ($requested -contains "claude") {
-    Remove-LinkIfOwned -Source $policySource -Destination (Join-Path $claudeHome "CLAUDE.md")
+    $claudePolicyDestination = Join-Path $claudeHome "CLAUDE.md"
+    Remove-LinkIfOwned -Source $claudePolicySource -Destination $claudePolicyDestination
+    Remove-LinkIfOwned -Source $policySource -Destination $claudePolicyDestination
     Remove-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $claudeHome "skills") -LegacyLinks $legacySkillLinks
     Remove-DirectoryLinks -SourceDirectory $sharedAgentsSource -DestinationDirectory (Join-Path $claudeHome "agents") -LegacyLinks $legacyClaudeAgentLinks
 }

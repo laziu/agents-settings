@@ -340,6 +340,7 @@ if ([string]::IsNullOrWhiteSpace($script:UserProfile)) {
 $script:Timestamp = Get-Date -Format "yyyyMMddHHmmss"
 $repoRoot = $PSScriptRoot
 $policySource = Join-Path $repoRoot "settings\AGENTS.md"
+$claudePolicySource = Join-Path $repoRoot "settings\CLAUDE.md"
 $skillsSource = Join-Path $repoRoot "settings\skills"
 $agentsSource = Join-Path $repoRoot "settings\agents"
 $sharedAgentsSource = Join-Path $repoRoot "settings\agents\shared"
@@ -379,7 +380,29 @@ if ($requested -contains "codex") {
 }
 
 if ($requested -contains "claude") {
-    Install-Link -Source $policySource -Destination (Join-Path $claudeHome "CLAUDE.md") -Kind File
+    $claudePolicyDestination = Join-Path $claudeHome "CLAUDE.md"
+    $existingClaudePolicy = Get-Item -LiteralPath ([System.IO.Path]::GetFullPath($claudePolicyDestination)) -Force -ErrorAction SilentlyContinue
+    $migratedClaudePolicy = $false
+    if ($null -ne $existingClaudePolicy) {
+        $target = Get-ReparseTarget $existingClaudePolicy
+        if ($null -ne $target) {
+            $targetFull = Resolve-LinkTargetPath -LinkPath $claudePolicyDestination -Target $target
+            if ($targetFull -ieq (Get-FullPath $policySource)) {
+                Write-Host "RELINK  $claudePolicyDestination -> $(Get-FullPath $claudePolicySource)"
+                if (-not $DryRun) {
+                    Remove-Item -LiteralPath $claudePolicyDestination -Force
+                }
+                $migratedClaudePolicy = $true
+            }
+        }
+    }
+
+    if ($DryRun -and $migratedClaudePolicy) {
+        Write-Host "LINK    $claudePolicyDestination -> $(Get-FullPath $claudePolicySource)"
+    }
+    else {
+        Install-Link -Source $claudePolicySource -Destination $claudePolicyDestination -Kind File
+    }
     Add-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $claudeHome "skills") -LegacyLinks $legacySkillLinks
     Add-DirectoryLinks -SourceDirectory $sharedAgentsSource -DestinationDirectory (Join-Path $claudeHome "agents") -LegacyLinks $legacyClaudeAgentLinks
 }

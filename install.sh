@@ -364,6 +364,7 @@ GEMINI_CONFIG_DIR="${GEMINI_CONFIG_DIR:-$PROFILE_HOME/.gemini}"
 AGENTS_HOME="${AGENTS_HOME:-$PROFILE_HOME/.agents}"
 
 POLICY_SOURCE="$ROOT/settings/AGENTS.md"
+CLAUDE_POLICY_SOURCE="$ROOT/settings/CLAUDE.md"
 SKILLS_SOURCE="$ROOT/settings/skills"
 AGENTS_SOURCE="$ROOT/settings/agents"
 SHARED_AGENTS_SOURCE="$ROOT/settings/agents/shared"
@@ -385,7 +386,18 @@ if has_target codex; then
 fi
 
 if has_target claude; then
-  link_path "$POLICY_SOURCE" "$CLAUDE_CONFIG_DIR/CLAUDE.md"
+  if [ -L "$CLAUDE_CONFIG_DIR/CLAUDE.md" ] &&
+    [ "$(resolve_link_target "$CLAUDE_CONFIG_DIR/CLAUDE.md" "$(readlink "$CLAUDE_CONFIG_DIR/CLAUDE.md")")" = "$(abs_path "$POLICY_SOURCE")" ]; then
+    printf 'RELINK  %s -> %s\n' "$CLAUDE_CONFIG_DIR/CLAUDE.md" "$(abs_path "$CLAUDE_POLICY_SOURCE")"
+    if [ "$DRY_RUN" -eq 1 ]; then
+      printf 'LINK    %s -> %s\n' "$CLAUDE_CONFIG_DIR/CLAUDE.md" "$(abs_path "$CLAUDE_POLICY_SOURCE")"
+    else
+      rm "$CLAUDE_CONFIG_DIR/CLAUDE.md"
+      link_path "$CLAUDE_POLICY_SOURCE" "$CLAUDE_CONFIG_DIR/CLAUDE.md"
+    fi
+  else
+    link_path "$CLAUDE_POLICY_SOURCE" "$CLAUDE_CONFIG_DIR/CLAUDE.md"
+  fi
   link_directory "$SKILLS_SOURCE" "$CLAUDE_CONFIG_DIR/skills" "$LEGACY_SKILL_LINKS"
   link_directory "$SHARED_AGENTS_SOURCE" "$CLAUDE_CONFIG_DIR/agents" "$LEGACY_CLAUDE_AGENT_LINKS"
 fi
