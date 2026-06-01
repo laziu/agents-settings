@@ -14,7 +14,7 @@ Use for architecture, platform, dependency, data ownership, public API, compatib
 - Fields: status, context, decision, rejected alternatives, consequences, follow-ups
 
 ## Promote To ADR
-Create `docs/decisions/ADR-0001-title.md` only when the decision outlives the current Plan and:
+Create `docs/decisions/ADR-<YYMMDD>-<Title>.md` only when the decision outlives the current Plan and:
 - Affects multiple Plans or subsystems
 - Defines platform, dependency, public API, data ownership, or compatibility policy
 - Needs supersede/deprecate history after the Plan is completed

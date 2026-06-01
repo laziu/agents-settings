@@ -10,7 +10,7 @@ Turn specs or clear requirements into technical plans.
 Use after `specification` or clear requirements when technical approach, structure, data, contracts, risks, or design decisions need durable form. Stay read-only and stop before task generation or implementation unless asked to continue.
 
 ## Plan
-- Durable path: `docs/plans/PLAN-0001-type-title.md`
+- Durable path: `docs/plans/PLAN-<YYMMDD>-<Title>.md`
 - Scratch path only for temporary notes: project convention or `tasks/todo.md`
 - Frontmatter: `status`, `type`, `specs`, optional `decisions`
 - Status: `Draft`, `Active`, `Completed`, `Superseded`, `Abandoned`
