@@ -33,7 +33,7 @@ Route by phase and trigger. Do not force a fixed skill order.
 - `source-check`: current framework/API docs needed
 
 ### Break Down
-- `task-breakdown`: ordered executable tasks, dependencies, parallel work, checkpoints, likely files, or task artifacts
+- `task-breakdown`: workflow or 작업 과정 from a stable plan, ordered executable tasks, dependencies, parallel work, checkpoints, likely files, or task artifacts
 
 ### Build
 - `debugging`: unexpected failure
