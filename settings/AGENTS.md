@@ -31,5 +31,6 @@
 
 ## Extensions
 - Skills: load named skills; otherwise use the smallest useful set via `skills/skill-router/SKILL.md`
+- Source-code reading: use `settings/references/sourcemap.md` when present
 - Skip skills for routine work
 - Agents: follow persona metadata and active tool policy

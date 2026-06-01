@@ -10,6 +10,11 @@ Use when specs, numbered Plans, tasks, or promoted decisions are created or upda
 - Decision: active Plan `## Decisions` by default; promote cross-Plan decisions to `docs/decisions/ADR-0001-title.md`
 - Naming: plural `docs/specs`, `docs/plans`, `docs/decisions`; prefer `docs/decisions` over `docs/adrs`
 
+## Planning Flow
+- Use the sourcemap (see `settings/references/sourcemap.md`) to locate relevant source when `.agents/sourcemap/` exists
+- Read actual source before making Plan claims about files, contracts, data flow, risks, or verification
+- Keep unresolved source gaps or assumptions visible in the Plan
+
 ## Rules
 - Update specs to the intended current state
 - Prefer current specs over old Plans

@@ -29,12 +29,8 @@
 - Ask before VCS/filesystem risk: recursive delete, bulk move, force push/reset/checkout, history rewrite, p4 revert/clean/force sync, submit/shelve deletion
 - Ask before system/product risk: database schema/production data changes, new dependencies, license-sensitive packages, external services, secret/auth/payment/compliance/security-boundary changes, large out-of-scope refactors
 
-## Agent Role
-- For significant work, own Plan authoring and final review
-- If delegation is unavailable, mark the skipped delegated step in the Plan or status before proceeding
-- Direct implementation is acceptable for small scoped edits
-
 ## Extensions
 - Skills: load named skills; otherwise use the smallest useful set via `skills/skill-router/SKILL.md`
+- Source-code reading: use `settings/references/sourcemap.md` when present
 - Skip skills for routine work
 - Agents: follow persona metadata and active tool policy

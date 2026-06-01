@@ -53,6 +53,7 @@ Route by phase and trigger. Do not force a fixed skill order.
 ### Knowledge
 - `documentation`: docs, README, API docs, changelog, comments, specs, or gotchas
 - `context-engineering`: AI context files that affect agent behavior, rules, `settings/**/*.md`, routing, or drift
+- `project-context-bootstrap`: install shared repo AI context
 
 ### Version Control
 - `version-control`: VCS state, diffs, tracked files, branches/streams, commits/changelists, conflicts, or history
