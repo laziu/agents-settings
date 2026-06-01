@@ -10,10 +10,8 @@ Load explicitly named skills and all triggered skills. Use the smallest set that
 ## Task Phases
 Route by phase and trigger. Do not force a fixed skill order.
 
-- Specify: clarify what, why, scope, users, acceptance, assumptions, and Not Doing
-- Plan: design technical approach, interfaces, data, risks, decisions, and verification strategy
-- Break Down: split stable specs/plans into ordered executable tasks
-- Build: implement, debug, migrate, simplify, test, review, and verify
+- Plan: define scope, requirements, acceptance, and Not Doing; design approach, interfaces, data, risks, decisions, and verification strategy; sequence into ordered tasks
+- Build: implement, debug, migrate, simplify, review, test, and verify
 - Deliver: configure gates, deployment, rollout, monitoring, and rollback
 - Cross-cutting: use Knowledge, Version Control, and Domain Overlay skills whenever triggered
 
@@ -23,16 +21,12 @@ Route by phase and trigger. Do not force a fixed skill order.
 
 ## Routing Table
 
-### Specify
-- `specification`: standalone requirements, durable current truth, unclear scope, acceptance, MVP, or Not Doing
-
 ### Plan
+- `specification`: standalone requirements, durable current truth, unclear scope, acceptance, MVP, or Not Doing
 - `planning`: unstructured idea to Plan, technical approach, repository structure, data flow, contracts, risks, verification strategy, or durable plan
 - `interface-design`: API/schema/command/event/file-format boundary
 - `architecture-decision`: costly-to-reverse decision log or ADR promotion
 - `source-check`: current framework/API docs needed
-
-### Break Down
 - `task-breakdown`: workflow or 작업 과정 from a stable plan, ordered executable tasks, dependencies, parallel work, checkpoints, likely files, or task artifacts
 
 ### Build
