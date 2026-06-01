@@ -4,6 +4,16 @@
 - Verification:
 - Boundaries:
 
+## Workflow
+- Plan first unless implementation is explicit: create/update `docs/plans/PLAN-<YYMMDD>-<Title>.md` before edits
+- Plan frontmatter: `status`, `type`, `specs`, optional `decisions`
+- Status: `Draft`, `Active`, `Completed`, `Superseded`, `Abandoned`; type: `define`, `feature`, `change`, `refactor`
+- Body: goal, context, approach, structure, data/contracts, decisions, risks, verification, handoff; keep open questions visible
+- Keep implementation simple and scoped; avoid excessive, verbose, speculative, or over-engineered code
+- Preserve behavior unless requested: inputs, outputs, side effects, order, errors
+- Prefer guard clauses, clear names, simple conditionals, small responsibility splits, and real duplication removal
+- Comments explain why; dead code needs confirmation
+
 ## Sourcemap
 - Location: `.agents/sourcemap/`
 - Use `INDEX.md` and linked entries to find relevant source
