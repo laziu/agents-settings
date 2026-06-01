@@ -21,7 +21,7 @@
 - Scope: implement only the requested use case; avoid speculative abstractions, generic options, or extra features
 - Review: after complex implementation, self-review the diff for human readability and risk; skip low-risk mechanical edits unless requested or risky
 - Docs: merge clarification answers into existing docs; avoid answer/decision appendices
-- Claude review: call Claude Code only when explicitly requested by the user; use `claude -p --no-session-persistence --tools "" "<review prompt>"` with scoped files/diff/output so CLI progress stays observable without saved sessions
+- Claude review: explicit request only; generate a UUID, invoke `claude -p --session-id <uuid> "<review prompt>"` with scoped paths, delete `$HOME/.claude/projects/*/<uuid>.jsonl` after
 - Claude review report: apply actionable feedback within original scope, flag out-of-scope suggestions, and report review status/changes plus invocation path; if `claude --version` fails, review times out, exits non-zero, or input exceeds CLI/token limits, report skip reason
 - Verification: run the smallest relevant test/lint/typecheck/build/runtime check; report changed files, verification, failures, risk
 - Frontend: verify rendered behavior when practical
