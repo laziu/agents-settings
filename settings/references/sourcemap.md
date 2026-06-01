@@ -12,7 +12,7 @@ Use when a task reads or changes source code and the repo has `.agents/sourcemap
 - When code changes make an existing map entry stale, update that entry in the same change
 - Adding a major source area requires a new or updated map entry and an `INDEX.md` link
 - Removing a mapped source area requires removing or updating its map entry and `INDEX.md` link
-- Keep map updates concise: responsibility, key paths, public surface, notes
+- Keep map updates concise: covers, owns, paths, surface, notes
 
 ## Review
 - Use the sourcemap to target source reads during review

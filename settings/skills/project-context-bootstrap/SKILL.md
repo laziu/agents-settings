@@ -20,7 +20,7 @@ model assignments, and token strategy out of the target repo.
 - Use `assets/project-context-template.md`; omit irrelevant sections and examples
 - Inline borrowed skill guidance fully; generated repo context must not name local user skills or paths
 - Include sourcemap only when `.agents/sourcemap/` exists or is created
-- Sourcemap: map roots/packages/features/flows, summarize responsibilities and entry points, keep entries short
+- Sourcemap: group by roots/packages/features/flows; fields: covers, owns, paths, surface, notes
 
 ## Verification
 - Sourcemap files are linked from `INDEX.md` when present
