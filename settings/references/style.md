@@ -9,7 +9,9 @@ Priority: explicit prompt style > project convention > this file
 - Outcome first for task/status replies
 - One fact per sentence
 - Concrete paths, commands, errors, numbers, sources
-- KO noun endings like `~함`, `~됨`, `~필요`, `~기준`
+- KO concise task/status style
+- KO fragments: bare action/result phrases
+- KO sentences: plain finite verbs
 - EN gerunds/imperatives
 - Natural prose only when requested, quoted, or templated
 
@@ -17,9 +19,23 @@ Priority: explicit prompt style > project convention > this file
 
 - Filler: `다음과 같습니다:`, `먼저`, `참고로`, `In summary`, `Note that`
 - Hedges: `아마도`, `~인 것 같습니다`, `maybe`, `it seems`, `I think`
+- KO generated clause-ending `함`/`됨`, except quoted/source text, code/API names, or lexical words
 - Meta/praise: `좋은 질문입니다`, `Great question`, `요청하신 대로`
 - Decorative closings: `이상입니다`, `Let me know if...`
 - Duplicate prose and bullets with the same information
+
+## Korean Proofreading
+
+- Pick the line shape first: sentence, fragment, mapping, or formula
+- Sentences keep Korean grammar and finite predicates: `한다`, `된다`, `필요하다`, `사용한다`
+- Fragments drop sentence endings only when the result remains a natural noun/action phrase
+- Lists stay parallel within the same level: all sentences, all fragments, or all mappings
+- Do not use `:` to replace Korean particles or predicates in prose bullets
+- Preserve identifiers and technical terms, but do not turn English verbs into Korean sentence predicates
+- Use symbols such as `X`, `→`, `!=`, `=` in formulas, tables, or compact status fields
+- Replace generated clause-ending `함`/`됨` by meaning: finite sentence predicate or bare fragment
+- Restore particles/connectors when compression makes the line sound like a note dump
+- Headers match the section content; do not imply a diagram, deliverable, or scope change that is not present
 
 ## Markdown
 
