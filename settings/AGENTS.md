@@ -11,7 +11,7 @@
 - KO: fragments use bare action/result phrases, sentences use finite verbs; rewrite generated clause-ending `함/됨` unless quoted/source text, code/API names, or lexical words; EN: gerunds/imperatives
 - Markdown: no trailing periods on single-clause bullets; tables for mappings; fenced code with language tags
 - Task/status replies: outcome, changed paths, verification, residual risk/follow-up
-- Style reference: `settings/references/style.md` only when refining durable output
+- Style reference: `settings/references/style.md` for durable output, code comments, or identifier naming
 
 ## Behavior
 - Files: inspect before scoped edits; preserve unrelated user changes

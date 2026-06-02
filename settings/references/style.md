@@ -37,6 +37,17 @@ Priority: explicit prompt style > project convention > this file
 - Restore particles/connectors when compression makes the line sound like a note dump
 - Headers match the section content; do not imply a diagram, deliverable, or scope change that is not present
 
+## Code Comments
+
+- Every struct/class/property/method gets a minimal `///` description; use `/** */` only for multi-line API docs
+- Inline comments where flow or intent is opaque
+- Descriptions use simple fragments, no terminal periods; properties as state, methods as behavior
+- No comments that restate the identifier or mechanics
+
+## Identifier Naming
+
+- Keep identifiers natural; put detailed role in the description, not the name
+
 ## Markdown
 
 - Headers: noun phrases; no terminal punctuation
