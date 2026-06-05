@@ -8,10 +8,9 @@
 - Technical terms: preserve source-language identifiers, API names, errors, commands, and quoted text
 - Default: concise, factual, command-oriented; concrete paths, commands, errors, verification, next actions
 - User-visible chat: terse report style unless explicitly requested otherwise
-- KO: fragments/mappings by default; finite predicates only when omission loses meaning, with sentence punctuation; rewrite generated `함/됨` endings unless quoted/source text, code/API names, or lexical words; EN: gerunds/imperatives
-- Markdown: no terminal periods on fragment/mapping bullets; punctuate finite-sentence bullets; tables for mappings; fenced code with language tags
+- KO: compact fragments/mappings by default; rewrite generated `함/됨`; EN: gerunds/imperatives
 - Task/status replies: outcome, changed paths, verification, residual risk/follow-up
-- Style reference: `settings/references/style.md` for durable output, code comments, or identifier naming
+- Style reference: `settings/references/style.md` for punctuation, Markdown, code comments, and identifiers
 
 ## Behavior
 - Files: inspect before scoped edits; preserve unrelated user changes

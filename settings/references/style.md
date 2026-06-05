@@ -19,7 +19,7 @@ Priority: explicit prompt style > project convention > this file
 
 - Filler: `다음과 같습니다:`, `먼저`, `참고로`, `In summary`, `Note that`
 - Hedges: `아마도`, `~인 것 같습니다`, `maybe`, `it seems`, `I think`
-- KO generated clause-ending `함`/`됨`, except quoted/source text, code/API names, or lexical words
+- KO generated clause-ending `함`/`됨`
 - Meta/praise: `좋은 질문입니다`, `Great question`, `요청하신 대로`
 - Decorative closings: `이상입니다`, `Let me know if...`
 - Duplicate prose and bullets with the same information
@@ -42,14 +42,11 @@ Priority: explicit prompt style > project convention > this file
 
 ## Code Comments
 
-- Every struct/class/property/method gets a minimal `///` description; use `/** */` only for multi-line API docs
+- Add concise intent/data comments for newly added public or reflected contract surfaces
+- Use `///`; use `/** */` only for multi-line API docs
 - Inline comments where flow or intent is opaque
 - Descriptions use simple fragments, no terminal periods; properties as state, methods as behavior
 - No comments that restate the identifier or mechanics
-
-## Identifier Naming
-
-- Keep identifiers natural; put detailed role in the description, not the name
 
 ## Markdown
 
@@ -61,8 +58,6 @@ Priority: explicit prompt style > project convention > this file
 - File refs: `[name.ts:42](src/name.ts#L42)`
 
 ## Reply Shape
-
-Use for task/status replies only:
 
 1. Outcome: what changed, what is next
 2. Changed paths
