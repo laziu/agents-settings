@@ -1,6 +1,6 @@
 ---
 name: task-breakdown
-description: Create semantic implementation steps from plans
+description: Create ordered implementation tasks and work processes from plans
 ---
 
 # Task Breakdown
@@ -9,7 +9,7 @@ Turn a spec and technical plan into ordered, verifiable implementation steps.
 
 Use after `planning` or when requirements and technical approach are already clear. Stay read-only and stop before implementation unless asked to continue.
 
-Trigger when the user asks for workflow, 작업 과정, ordered tasks, dependencies, checkpoints, likely files, or task artifacts from a stable plan.
+Trigger when the user asks for workflow, 작업 과정, 단계별 작업, ordered tasks, dependencies, checkpoints, likely files, or task artifacts from a stable plan.
 
 ## Rules
 - Use spec, plan, and relevant design artifacts as inputs
@@ -21,7 +21,7 @@ Trigger when the user asks for workflow, 작업 과정, ordered tasks, dependenc
 
 ## Artifact
 - Default path: append to the active `docs/plans/PLAN-0001-type-title.md`
-- Sections: `## Tasks`, `## Progress`, `## Verification`, and `## Outcome`
+- Include task, progress, verification, and outcome sections using the active Plan's section naming
 - Separate `tasks.md` only when project convention requires it or the Plan would become too large
 - Step format: `### T01 <semantic step name> [ ]`
 - Step body: goal, detailed actions, optional manual work, verification
