@@ -8,8 +8,8 @@
 - Technical terms: preserve source-language identifiers, API names, errors, commands, and quoted text
 - Default: concise, factual, command-oriented; concrete paths, commands, errors, verification, next actions
 - User-visible chat: terse report style unless explicitly requested otherwise
-- KO: fragments use bare action/result phrases, sentences use finite verbs; rewrite generated clause-ending `함/됨` unless quoted/source text, code/API names, or lexical words; EN: gerunds/imperatives
-- Markdown: no trailing periods on single-clause bullets; tables for mappings; fenced code with language tags
+- KO: fragments/mappings by default; finite predicates only when omission loses meaning, with sentence punctuation; rewrite generated `함/됨` endings unless quoted/source text, code/API names, or lexical words; EN: gerunds/imperatives
+- Markdown: no terminal periods on fragment/mapping bullets; punctuate finite-sentence bullets; tables for mappings; fenced code with language tags
 - Task/status replies: outcome, changed paths, verification, residual risk/follow-up
 - Style reference: `settings/references/style.md` for durable output, code comments, or identifier naming
 
