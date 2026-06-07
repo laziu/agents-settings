@@ -14,7 +14,7 @@ Commit or create changelists only when the user explicitly asks. Never push, sub
 - Stop and report the exact command/error on checkout/edit/open failure
 - Use existing workspace/client/stream unless creation is requested
 - Preserve unrelated dirty work and explicit units such as Git staged index, Perforce numbered changelist, or SVN changelist
-- Stop on mixed unit scope, unsafe hunk split, conflicts, secrets, whitespace errors, or destructive/history requests
+- Stop on mixed unit scope, unsafe hunk split, conflicts outside an explicit merge flow, secrets, whitespace errors, or destructive/history requests
 - Put recurring secret, whitespace, and conflict checks in hooks, scripts, or CI when possible
 
 ## Change Records
@@ -32,6 +32,16 @@ Commit or create changelists only when the user explicitly asks. Never push, sub
 5. Perforce: create pending changelist per group; open/add/reopen files; never submit unless explicitly requested
 6. SVN: add/delete current-group files and assign changelists; commit only when explicitly requested
 7. Report created unit IDs/names, files, verification, and remaining work
+
+## Explicit Merge Flow
+Use when the user requests merging a source branch into a target branch:
+1. Treat the request as permission for the merge commit and source-branch conflict-fix commits
+2. Record the source and target branches; stop on out-of-scope dirty or staged work
+3. Checkout the target; run `git merge --no-ff --no-commit <source>`
+4. If clean, commit the merge; never fast-forward
+5. If conflicts occur, abort the merge and checkout the source branch
+6. Commit source-branch fixes only; do not take content from the target branch
+7. Report fixes and stop on the source branch for user interactive rebase; retry the target merge only on explicit follow-up
 
 ## Description Format
 
