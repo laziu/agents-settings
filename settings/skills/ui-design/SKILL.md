@@ -1,6 +1,6 @@
 ---
 name: ui-design
-description: Build production user-facing UI
+description: Production UI surfaces, states, layout, accessibility
 ---
 
 # Frontend UI Engineering

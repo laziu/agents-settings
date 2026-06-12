@@ -1,6 +1,6 @@
 ---
 name: delivery
-description: Configure delivery gates, deployments, and rollback
+description: CI, release gates, deployment, rollout, and rollback
 ---
 
 # Delivery

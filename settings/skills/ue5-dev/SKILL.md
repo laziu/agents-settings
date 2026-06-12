@@ -1,6 +1,6 @@
 ---
 name: ue5-dev
-description: Unreal Engine 5 development workflow
+description: UE5 code, assets, builds, logs, and editor validation
 ---
 
 # UE5 Development

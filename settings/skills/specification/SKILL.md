@@ -1,6 +1,6 @@
 ---
 name: specification
-description: Define what to build, why, scope, and acceptance
+description: Durable scope, acceptance criteria, and non-goals
 ---
 
 # Specification

@@ -1,6 +1,6 @@
 ---
 name: testing
-description: Test behavior changes and regressions
+description: Behavior change, bug fix, edge case, regression proof
 ---
 
 # Testing

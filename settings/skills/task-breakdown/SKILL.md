@@ -1,6 +1,6 @@
 ---
 name: task-breakdown
-description: Create ordered implementation tasks and work processes from plans
+description: Stable plan to ordered executable tasks
 ---
 
 # Task Breakdown

@@ -1,6 +1,6 @@
 ---
 name: performance-optimization
-description: Optimize performance with measurement and profiling
+description: Measured latency, memory, throughput, startup optimization
 ---
 
 # Performance Optimization

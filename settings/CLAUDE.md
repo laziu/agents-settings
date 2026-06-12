@@ -29,7 +29,7 @@
 - Ask before system/product risk: database schema/production data changes, new dependencies, license-sensitive packages, external services, secret/auth/payment/compliance/security-boundary changes, large out-of-scope refactors
 
 ## Extensions
-- Skills: load named skills; otherwise use the smallest useful set via `skills/skill-router/SKILL.md`
+- Skills: load named and metadata-triggered skills; use `references/skill-routing.md` only for ambiguous relationships
 - Source-code reading: use `settings/references/sourcemap.md` when present
-- Skip skills for routine work
+- Skip skills only for one-step commands or trivial edits with no domain, risk, or verification trigger
 - Agents: follow persona metadata and active tool policy

@@ -1,6 +1,6 @@
 ---
 name: context-improvement
-description: Improve AGENTS, Skills, and project context from repeated friction
+description: Approved or repeated agent context fixes
 ---
 
 # Context Improvement
@@ -21,7 +21,7 @@ Use when repeated friction or an explicit request suggests agent context should 
 | Conditional workflow, domain guardrail, or non-obvious verification | `settings/skills/<skill>/SKILL.md` |
 | Longer examples, checklists, schemas, or decision references | `settings/skills/<skill>/references/*` or project references |
 | Repeated deterministic operation | `settings/skills/<skill>/scripts/*` |
-| Skill selection or trigger mismatch | `settings/skills/skill-router/SKILL.md` |
+| Skill trigger mismatch | Affected skill `description` first; `settings/references/skill-routing.md` only for cross-skill relationships |
 
 ## Gate
 - For inferred updates, propose observation, target, behavior change, non-inferable reason, and verification

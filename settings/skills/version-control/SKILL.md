@@ -1,6 +1,6 @@
 ---
 name: version-control
-description: Manage explicit VCS records and history risk
+description: VCS diffs, branches, commits, merges, and history risk
 ---
 
 # Version Control

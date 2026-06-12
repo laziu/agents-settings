@@ -1,6 +1,6 @@
 ---
 name: planning
-description: Design technical plans from specs or clear requirements
+description: Durable technical plans from ideas or requirements
 ---
 
 # Planning

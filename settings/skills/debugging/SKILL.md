@@ -1,6 +1,6 @@
 ---
 name: debugging
-description: Debug errors, failures, and regressions
+description: Failures, regressions, and unexpected behavior
 ---
 
 # Debugging and Error Recovery

@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Review code for merge or release readiness
+description: Merge or release review of code, risks, and tests
 ---
 
 # Code Review and Quality

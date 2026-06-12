@@ -1,6 +1,6 @@
 ---
 name: architecture-decision
-description: Record hard-to-reverse decisions in Plans or ADRs
+description: Hard-to-reverse architecture, dependency, ownership choices
 ---
 
 # Architecture Decision

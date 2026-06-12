@@ -1,6 +1,6 @@
 ---
 name: context-engineering
-description: Keep agent rules and skill context concise
+description: AGENTS, skills, routing, and agent context hygiene
 ---
 
 # Context Engineering

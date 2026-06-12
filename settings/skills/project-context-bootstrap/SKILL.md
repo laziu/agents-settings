@@ -1,6 +1,6 @@
 ---
 name: project-context-bootstrap
-description: Install shared AI context for a repository
+description: Shared repo AI context install or refresh
 ---
 
 # Project Context Bootstrap

@@ -1,6 +1,6 @@
 ---
 name: ue5-pcg
-description: Unreal Engine 5 PCG building generation workflow
+description: UE5 PCG building generation and runtime validation
 ---
 
 # UE5 PCG Building

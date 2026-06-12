@@ -1,6 +1,6 @@
 ---
 name: source-check
-description: Verify current API decisions with official docs
+description: Current official docs for API or framework choices
 ---
 
 # Source Check

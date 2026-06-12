@@ -1,6 +1,6 @@
 ---
 name: code-security
-description: Harden code at security-sensitive boundaries
+description: Auth, PII, payment, storage, or external API risk
 ---
 
 # Security and Hardening

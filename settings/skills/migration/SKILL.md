@@ -1,6 +1,6 @@
 ---
 name: migration
-description: Migrate or remove legacy systems, APIs, and features
+description: Legacy behavior replacement, removal, sunset, consolidation
 ---
 
 # Deprecation and Migration

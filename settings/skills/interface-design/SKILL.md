@@ -1,6 +1,6 @@
 ---
 name: interface-design
-description: Design API/schema/command/event contracts before code
+description: Public API, schema, command, event, file-format contracts
 ---
 
 # API and Interface Design

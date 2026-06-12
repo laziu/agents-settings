@@ -1,6 +1,6 @@
 ---
 name: browser-verification
-description: Verify browser-rendered UI with runtime evidence
+description: Browser UI, DOM, layout, console, screenshot proof
 ---
 
 # Browser Verification

@@ -1,6 +1,6 @@
 ---
 name: documentation
-description: Document README, API docs, changelogs, comments, and project context
+description: README, API docs, changelogs, comments, and gotchas
 ---
 
 # Documentation
