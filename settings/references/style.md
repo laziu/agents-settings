@@ -50,6 +50,7 @@ Priority: explicit prompt style > project convention > this file
 
 ## Markdown
 
+- Generated docs, specs, Plans, ADRs, reports, and tasks use this style before the first draft, not only in final chat
 - Headers: noun phrases; no terminal punctuation
 - Lists: 3+ homogeneous items; no terminal periods on fragment/mapping bullets; punctuate finite sentences
 - Tables: 2+ column comparisons or mappings only

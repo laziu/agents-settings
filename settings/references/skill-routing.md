@@ -14,7 +14,7 @@ Default: load named skills and skills whose `description` metadata matches the t
 | Need | Use | Relationship |
 | --- | --- | --- |
 | Requirements vs design vs task list | `specification`, `planning`, `task-breakdown` | Requirements first when current truth is missing; plans after stable requirements; tasks after stable plans |
-| Specs, numbered Plans, tasks, or promoted decisions | `define-design-workflow.md` plus matching workflow skill | Use the workflow reference for artifact type, naming, status, and plan classification |
+| Specs, Plans, tasks, or promoted decisions | `define-design-workflow.md` plus matching workflow skill | Use the workflow reference for artifact type, naming, status, and plan classification |
 | Public contract changes | `interface-design` plus `specification` or `planning` | Define user-visible contract before implementation details |
 | Hard-to-reverse technical choices | `architecture-decision` plus `planning` | Record only decisions that outlive cheap local rationale |
 | Current API or framework facts decide the design | `source-check` plus active workflow skill | Verify official sources before locking the decision |

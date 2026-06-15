@@ -1,11 +1,11 @@
 # Spec Plan Task Workflow
 
-Use when specs, numbered Plans, tasks, or promoted decisions are created or updated.
+Use when specs, Plans, tasks, or promoted decisions are created or updated.
 
 ## Artifact Map
 
 - Spec: current truth in `docs/specs/README.md` and `docs/specs/<subsystem>.md`
-- Plan: technical design in `docs/plans/PLAN-0001-type-title.md`
+- Plan: technical design in `docs/plans/<title>.md`
 - Task history: `## Tasks`, `## Progress`, `## Verification`, `## Outcome` inside the active Plan
 - Decision: active Plan `## Decisions` by default; promote cross-Plan decisions to `docs/decisions/ADR-0001-title.md`
 - Naming: plural `docs/specs`, `docs/plans`, `docs/decisions`; prefer `docs/decisions` over `docs/adrs`
@@ -20,7 +20,7 @@ Use when specs, numbered Plans, tasks, or promoted decisions are created or upda
 - Prefer current specs over old Plans
 - Do not rewrite completed Plans for new scope
 - Record hard-to-reverse decisions in the active Plan; promote only decisions that outlive the Plan
-- Create or update a numbered Plan before significant implementation work
+- Create or update a Plan before significant implementation work
 
 ## Plan Type
 | Type | Use when |
@@ -34,6 +34,6 @@ Status: `Draft`, `Active`, `Completed`, `Superseded`, `Abandoned`
 
 ## Verification
 - Relevant spec has goals, non-goals, acceptance criteria, and interface-impacting changes
-- Significant execution work has a numbered Plan
+- Significant execution work has a Plan
 - Ordered work has task breakdown with dependencies, checkpoints, and verification
 - Hard-to-reverse decisions are recorded in the Plan or promoted with rationale

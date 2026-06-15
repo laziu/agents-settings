@@ -5,7 +5,7 @@
 - Boundaries:
 
 ## Workflow
-- Plan first unless implementation is explicit: create/update `docs/plans/PLAN-<YYMMDD>-<Title>.md` before edits
+- Plan first unless implementation is explicit: create/update `docs/plans/<title>.md` before edits
 - Plan frontmatter: `status`, `type`, `specs`, optional `decisions`
 - Status: `Draft`, `Active`, `Completed`, `Superseded`, `Abandoned`; type: `define`, `feature`, `change`, `refactor`
 - Body: goal, context, approach, structure, data/contracts, decisions, risks, verification, handoff; keep open questions visible

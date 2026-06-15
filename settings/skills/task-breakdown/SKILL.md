@@ -20,11 +20,12 @@ Trigger when the user asks for workflow, 작업 과정, 단계별 작업, ordere
 - Add manual work only when the user must do something outside code or docs
 
 ## Artifact
-- Default path: append to the active `docs/plans/PLAN-0001-type-title.md`
+- Default path: append to the active `docs/plans/<title>.md`
 - Include task, progress, verification, and outcome sections using the active Plan's section naming
 - Separate `tasks.md` only when project convention requires it or the Plan would become too large
 - Step format: `### T01 <semantic step name> [ ]`
-- Step body: goal, detailed actions, optional manual work, verification
+- Step body: concise work bullets, optional manual work, verification
+- KO task blocks: avoid repeated `목표:`/`상세 작업:` labels unless the template requires them
 - Include exact file paths in detailed actions when known
 - Include dependencies, MVP scope, and independent test criteria
 - Generate test tasks only when tests are requested, required by project policy, or needed as regression proof
