@@ -20,6 +20,8 @@ Choose the cheapest sufficient pair. Escalate for ambiguity, blast radius, repea
 - Check `claude --version`; report skip on failure
 - Generate a UUID; reuse it for the entire session
 - Pipe prompts via stdin: `claude -p --session-id <uuid> --permission-mode plan --model <model> --effort <level> --output-format stream-json --include-partial-messages --verbose`
+- For pasted-context reviews where Claude should not inspect the repo, disable tools and session persistence: `claude -p --session-id <uuid> --permission-mode plan --model <model> --effort <level> --output-format text --tools "" --no-session-persistence --system-prompt "Use only facts pasted in the prompt. Do not use tools or read files. Return final text only."`
+- Do not use `--bare` unless `ANTHROPIC_API_KEY` or `apiKeyHelper` auth is known to work; OAuth/keychain auth is skipped in bare mode.
 - For non-interactive web/source verification, add `--allowedTools WebFetch,WebSearch` or a scoped rule such as `WebFetch(domain:docs.github.com)`; headless `plan` mode can read and research, but web tools may still block on permission prompts unless explicitly allowed
 - Set both `--model` and `--effort` explicitly; never rely on user defaults
 - Use scoped paths with `--add-dir`; do not place positional prompts after variadic options
@@ -33,6 +35,7 @@ Choose the cheapest sufficient pair. Escalate for ambiguity, blast radius, repea
 ## Prompt
 
 - State the call is non-interactive; ask for final text only
+- If the prompt embeds all needed facts, explicitly state that Claude has no usable tools and must not read files, browse, or run commands
 - Ask for skeptical critique within original scope
 - Provide changed paths, user intent, Codex assumptions, verification run, and known residual risks
 
