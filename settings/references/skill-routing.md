@@ -19,6 +19,7 @@ Default: load named skills and skills whose `description` metadata matches the t
 | Hard-to-reverse technical choices | `architecture-decision` plus `planning` | Record only decisions that outlive cheap local rationale |
 | Current API or framework facts decide the design | `source-check` plus active workflow skill | Verify official sources before locking the decision |
 | Project docs vs agent context | `documentation`, `context-engineering`, `context-improvement` | Docs own user/project knowledge; context skills own agent behavior, placement, and approved corrections |
+| Cross-agent delegation | `subagent-orchestration` plus active workflow skill when present | Workflow skill owns task scope; selected role agent supplies persona and output contract |
 | Behavior proof vs rendered UI proof | `testing`, `browser-verification` | Use browser proof only when DOM, layout, console, responsive, or screenshot evidence matters |
 | Review vs security hardening | `code-review`, `code-security` | Add security review when trust boundaries or sensitive data are touched |
 | VCS state affects the task | `version-control` | Use when diffs, branches, merges, commits, or history risk change the work |

@@ -20,7 +20,7 @@
 - Scope: implement only requested use case; avoid speculative abstractions/options/features
 - Review: after complex implementation, self-review diff for readability and risk; skip for low-risk mechanical edits
 - Docs: merge clarification answers into existing docs; avoid answer/decision appendices
-- Claude review: explicit request only; follow `settings/references/claude-cli.md`
+- Subagents: load `subagent-orchestration` only for explicit delegation requests or high-complexity cross-agent handoffs; keep low-risk local work in the caller
 - Verification: run the smallest relevant test/lint/typecheck/build/runtime check; report changed files, verification, failures, risk
 - Frontend: verify rendered behavior when practical
 - VCS: checkout/edit/open allowed when scoped and needed

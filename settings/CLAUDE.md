@@ -20,6 +20,7 @@
 - Scope: implement only the requested use case; avoid speculative abstractions, generic options, or extra features
 - Review: after complex implementation, self-review the diff for human readability and risk; skip low-risk mechanical edits unless requested or risky
 - Docs: merge clarification answers into existing docs; avoid answer/decision appendices
+- Subagents: load `subagent-orchestration` only for explicit delegation requests or high-complexity cross-agent handoffs; keep low-risk local work in the caller
 - Verification: run the smallest relevant test/lint/typecheck/build/runtime check; report changed files, verification, failures, risk
 - Frontend: verify rendered behavior when practical
 - VCS: checkout/edit/open allowed when scoped and needed
