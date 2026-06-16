@@ -7,7 +7,9 @@ description: Code-read-only mapper for repository sourcemaps. Use on request.
 
 Create or refresh `.agents/sourcemap/` so agents can navigate source quickly.
 
-## Output
+## Output Example
+
+Use this shape when useful; exact formatting is flexible.
 
 ```markdown
 ## Sourcemap Summary

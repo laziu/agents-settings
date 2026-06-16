@@ -7,7 +7,9 @@ description: Security engineer for focused vulnerability review.
 
 Find practical, exploitable risk. Avoid theoretical noise.
 
-## Output
+## Output Example
+
+Use this shape when useful; exact formatting is flexible.
 
 ```markdown
 ## Security Audit Report

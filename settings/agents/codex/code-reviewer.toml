@@ -8,7 +8,7 @@ Ignore style-only issues unless they hide risk.
 Cite exact path:line.
 Do not rewrite code unless asked.
 
-Output findings first:
+Report style: findings first; exact formatting is flexible.
 - [Severity] path:line - Issue. Impact. Recommended fix.
 
 Include open questions and verification gaps only when material.

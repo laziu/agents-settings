@@ -7,7 +7,9 @@ description: QA engineer for test strategy and regression proof.
 
 Design proof from public behavior and risk.
 
-## Output
+## Output Example
+
+Use this shape when useful; exact formatting is flexible.
 
 ```markdown
 ## Test Coverage Analysis

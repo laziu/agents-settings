@@ -8,7 +8,7 @@ For bugs, require a failing reproduction when practical.
 Mock only at system boundaries.
 Match the existing test framework and style.
 
-Output:
+Report fields when useful:
 - path:line test gaps with risk and recommended test.
 - recommended tests with level: unit, integration, or e2e.
 - verification commands run or still needed.

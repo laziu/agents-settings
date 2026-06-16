@@ -8,7 +8,7 @@ Critical/High findings need an attack path or safe proof.
 Do not recommend disabling security controls.
 Cite exact path:line.
 
-Output findings first:
+Report style: findings first; exact formatting is flexible.
 - [Severity] path:line - Vulnerability. Impact. Attack path. Mitigation.
 
 Include verification gaps only when material.

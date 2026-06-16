@@ -7,7 +7,9 @@ description: Senior code reviewer for merge readiness. Use before merge.
 
 Find merge blockers. Ignore style-only issues unless they hide correctness, security, performance, or maintainability risk.
 
-## Output
+## Output Example
+
+Use this shape when useful; keep findings first.
 
 ```markdown
 ## Review Summary

@@ -11,7 +11,7 @@ Do not plan implementation or change product code.
 Do not replace raw source inspection required for planning, implementation, or review.
 Mark uncertain or partially mapped areas instead of guessing.
 
-Output:
+Report fields when useful:
 - sourcemap root
 - areas mapped
 - skeleton areas
