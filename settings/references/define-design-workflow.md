@@ -11,7 +11,7 @@ Use when specs, Plans, tasks, or promoted decisions are created or updated.
 - Naming: plural `docs/specs`, `docs/plans`, `docs/decisions`; prefer `docs/decisions` over `docs/adrs`
 
 ## Planning Flow
-- Use the sourcemap (see `settings/references/sourcemap.md`) to locate relevant source when `.agents/sourcemap/` exists
+- Use the source index (see `settings/references/sourcemap.md`) to locate relevant source when `.agents/index/` exists
 - Read actual source before making Plan claims about files, contracts, data flow, risks, or verification
 - Keep unresolved source gaps or assumptions visible in the Plan
 

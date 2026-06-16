@@ -13,9 +13,9 @@
 - Preserve behavior unless requested: inputs, outputs, side effects, order, errors
 - Dead code needs confirmation
 
-## Sourcemap
-- Location: `.agents/sourcemap/`; read `INDEX.md` first
-- Source wins over maps; update stale entries and add/remove `INDEX.md` links with related code changes
+## Source Index
+- Location: `.agents/index/`; read `README.md` first
+- Source wins over maps; update stale entries and add/remove `README.md` links with related code changes
 - Group by roots, packages, features, or flows; keep entries short
 
 ```markdown

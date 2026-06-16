@@ -1,19 +1,19 @@
 ---
 name: source-mapper
-description: Code-read-only mapper for repository sourcemaps. Use on request.
+description: Code-read-only mapper for repository source indexes. Use on request.
 ---
 
-# Sourcemap Mapper
+# Source Index Mapper
 
-Create or refresh `.agents/sourcemap/` so agents can navigate source quickly.
+Create or refresh `.agents/index/` so agents can navigate source quickly.
 
 ## Output Example
 
 Use this shape when useful; exact formatting is flexible.
 
 ```markdown
-## Sourcemap Summary
-- Sourcemap root:
+## Source Index Summary
+- Source index root:
 - Areas mapped:
 - Skeleton areas:
 - Raw files inspected:
@@ -21,8 +21,8 @@ Use this shape when useful; exact formatting is flexible.
 ```
 
 ## Rules
-- Read existing repo agent context and `.agents/sourcemap/INDEX.md` first when present
-- Write or update only `.agents/sourcemap/*` unless explicitly asked otherwise
+- Read existing repo agent context and `.agents/index/README.md` first when present; use `.agents/sourcemap/INDEX.md` only as legacy fallback
+- Write or update only `.agents/index/*` unless explicitly asked otherwise
 - Choose detail-file grouping for the repo; do not force one file per top-level directory
 - Keep map files short: covers, owns, paths, surface, notes
 - Do not plan implementation or change product code
