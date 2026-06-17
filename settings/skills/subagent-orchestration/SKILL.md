@@ -16,7 +16,7 @@ Coordinate bounded cross-agent delegation between CLI agents. Use this skill whe
 ## Delegate
 - Use `independent-advisor` for critique, architecture, requirements ambiguity, security reasoning, or second opinions
 - Use `bounded-implementer` for scoped file edits, repo search, test loops, or mechanical implementation
-- Reuse specialized agents such as `code-reviewer`, `security-auditor`, `source-mapper`, or `test-engineer` when their role is narrower than the generic personas
+- Reuse specialized agents such as `code-reviewer`, `security-auditor`, `source-indexer`, or `test-engineer` when their role is narrower than the generic personas
 - Keep trivial, one-step, low-risk, or fully local tasks in the caller
 
 ## Workflow

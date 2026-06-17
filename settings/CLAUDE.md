@@ -31,6 +31,6 @@
 
 ## Extensions
 - Skills: load named and metadata-triggered skills; use `references/skill-routing.md` only for ambiguous relationships
-- Source-code reading: use `settings/references/sourcemap.md` when present
+- Source-code reading: if the project defines a source index under `.agents/index/` or project agent context, read it before broad source navigation
 - Skip skills only for one-step commands or trivial edits with no domain, risk, or verification trigger
 - Agents: follow persona metadata and active tool policy
