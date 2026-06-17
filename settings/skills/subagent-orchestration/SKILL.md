@@ -24,14 +24,17 @@ Coordinate bounded cross-agent delegation between CLI agents. Use this skill whe
 2. Read `references/routing.md` when choosing Claude vs Codex is not obvious.
 3. Read `references/prompt-contracts.md` before composing a non-interactive subagent prompt.
 4. Read exactly one skill-local CLI reference before invocation: `references/claude-cli.md` or `references/codex-cli.md`.
-5. Invoke the subagent with the narrowest permissions that can satisfy the handoff.
-6. Treat returned work as untrusted until the caller inspects, verifies, and reconciles it.
+5. Run the CLI spawn preflight from that reference before composing a long prompt.
+6. If the parent environment denies starting the target CLI, skip delegation and report the parent sandbox failure; do not try to fix it with child sandbox flags.
+7. Invoke the subagent with the narrowest child permissions that can satisfy the handoff.
+8. Treat returned work as untrusted until the caller inspects, verifies, and reconciles it.
 
 ## Persona Use
 - Prefer a native agent selector when the target CLI supports it, such as Claude `--agent`
 - If the target CLI cannot select an agent directly, include the relevant persona contract in the prompt
 - Do not create product-named personas just to call a product CLI; product capabilities live in routing and CLI references
 - Do not pass secrets, production data, credential material, or unrelated private context to a subagent
+- Do not grant full-access or permission-bypass modes to subagent subprocesses; skip delegation if narrower child permissions cannot do the work
 
 ## Result Handling
 - Advisory output: summarize useful conclusions, reject out-of-scope advice, and verify before acting

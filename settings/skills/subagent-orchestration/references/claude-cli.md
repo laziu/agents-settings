@@ -2,7 +2,7 @@
 
 Use Claude as an advisory subagent for independent critique, architecture and requirements tradeoffs, security or correctness review, and other reasoning-heavy checks.
 
-Verified local surface: Claude Code 2.1.159; re-verify on CLI upgrade.
+Verified local surface: Claude Code 2.1.179; re-verify on CLI upgrade.
 
 ## Routing
 
@@ -20,6 +20,7 @@ Choose the cheapest sufficient pair. Escalate for ambiguity, blast radius, repea
 ## Invocation
 
 - Check `claude --version`; report skip on failure
+- If the parent environment cannot start `claude`, skip delegation and report the parent sandbox failure; child permission flags cannot fix process-spawn denial
 - Generate a UUID; reuse it for the whole subagent session
 - Use `--agent <name>` when a matching installed persona should own the session
 - Use `--agents <json>` only for ad hoc persona definitions that should not become durable harness agents
@@ -34,6 +35,21 @@ $prompt | claude -p --session-id <uuid> --permission-mode plan --model <model> -
 ```powershell
 $prompt | claude -p --session-id <uuid> --permission-mode plan --model <model> --effort <level> --output-format text --tools "" --no-session-persistence --system-prompt "Use only facts pasted in the prompt. Do not use tools or read files. Return final text only."
 ```
+
+## Child Permission Presets
+
+| Need | Use |
+| --- | --- |
+| Pasted-context advisory with no repo access | `--permission-mode plan --tools "" --no-session-persistence` |
+| Repo-aware advisory or planning | `--permission-mode plan --add-dir "<repo>"` |
+| Bounded implementation with most prompts handled automatically | `--permission-mode auto --add-dir "<repo>"` plus a narrow prompt and allowed tools |
+| Accept file edits but keep broader tool prompts possible | `--permission-mode acceptEdits --add-dir "<repo>"` |
+
+- Claude CLI help does not expose a Codex-style `workspace-write` mode; `--add-dir` adds accessible roots, while reads, writes, and prompts still depend on permission mode and tools
+- Prefer `plan` for advisory work because it blocks writes
+- Prefer `auto` or `acceptEdits` for implementation when the caller can tolerate occasional permission prompts
+- Do not use `--permission-mode bypassPermissions` or `--dangerously-skip-permissions` for subagent subprocesses
+- If prompts are likely unacceptable, use Codex with `workspace-write` for the implementation subagent, narrow Claude to advisory review, or skip delegation
 
 - Do not use `--bare` unless `ANTHROPIC_API_KEY` or `apiKeyHelper` auth is known to work; OAuth/keychain auth is skipped in bare mode
 - For non-interactive web/source verification, add `--allowedTools WebFetch,WebSearch` or a scoped rule such as `WebFetch(domain:docs.github.com)`
