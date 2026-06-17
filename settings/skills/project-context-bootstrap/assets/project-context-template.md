@@ -14,16 +14,8 @@
 - Dead code needs confirmation
 
 ## Source Index
-- Location: `.agents/index/`; read `README.md` first
-- Source wins over maps; update stale entries and add/remove `README.md` links with related code changes
+- Location: `.agents/index/`
+- Source, contracts, specs, tests, and build files outrank index entries
+- The index root owns the project source index format and reading rules
+- Update stale entries when paths, entry points, ownership, guardrails, or verification flow change
 - Group by roots, packages, features, or flows; keep entries short
-
-```markdown
-# <Area>
-- Covers: <paths, packages, features, flows, or boundaries>
-- Owns: <brief responsibility>
-- Paths:
-  - `path`: <why it matters>
-- Surface: <APIs, routes, commands, events, or types>
-- Notes: <gotchas, invariants, cross-area dependencies>
-```
