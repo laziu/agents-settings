@@ -8,6 +8,7 @@
 - Technical terms: preserve source-language identifiers, API names, errors, commands, and quoted text
 - Default: concise, factual, command-oriented; concrete paths, commands, errors, verification, next actions
 - User-visible chat: terse report style unless explicitly requested otherwise
+- docs/specs/plans: prefer concise style over verbose sentence chains
 - KO: compact fragments/mappings by default; rewrite generated `함/됨`; EN: gerunds/imperatives
 - Task/status replies: outcome, changed paths, verification, risk/follow-up; omit routine skill steps unless unusual
 - Style reference: `settings/references/style.md` for punctuation, Markdown, code comments, and identifiers
