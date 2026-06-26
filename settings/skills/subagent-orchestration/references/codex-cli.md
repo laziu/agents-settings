@@ -55,7 +55,7 @@ $prompt | codex -a never exec review --uncommitted --ephemeral --json -
 
 - `codex exec` has no direct `--agent` flag in the verified local help
 - Include the selected role persona in the prompt, or use `--profile <name>` only when a matching Codex config profile exists and was intentionally created
-- Do not assume `settings/agents/codex/*.toml` is selected by CLI execution unless a command or profile explicitly routes to it
+- Do not assume profile `agents/*.toml` is selected by CLI execution unless a command or profile explicitly routes to it
 
 ## After
 

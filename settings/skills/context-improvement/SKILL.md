@@ -16,12 +16,12 @@ Use when repeated friction or an explicit request suggests agent context should 
 
 | Signal | Target |
 | --- | --- |
-| User-wide agent behavior, hard boundary, or install-owned rule | `settings/AGENTS.md` or user `AGENTS.md` |
+| User-wide agent behavior, hard boundary, or install-owned rule | Profile `AGENTS.md` or `CLAUDE.md` |
 | Project-only facts, commands, structure, or conventions | Project `AGENTS.md`, README, specs, plans, or references |
-| Conditional workflow, domain guardrail, or non-obvious verification | `settings/skills/<skill>/SKILL.md` |
-| Longer examples, checklists, schemas, or decision references | `settings/skills/<skill>/references/*` or project references |
-| Repeated deterministic operation | `settings/skills/<skill>/scripts/*` |
-| Skill trigger mismatch | Affected skill `description` first; `settings/references/skill-routing.md` only for cross-skill relationships |
+| Conditional workflow, domain guardrail, or non-obvious verification | `skills/<skill>/SKILL.md` |
+| Longer examples, checklists, schemas, or decision references | `skills/<skill>/references/*` or profile/project `references/*` |
+| Repeated deterministic operation | `skills/<skill>/scripts/*` |
+| Skill trigger mismatch | Affected skill `description` first; profile `references/skill-routing.md` only for cross-skill relationships |
 
 ## Gate
 - For inferred updates, propose observation, target, behavior change, non-inferable reason, and verification

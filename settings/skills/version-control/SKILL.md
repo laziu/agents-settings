@@ -51,7 +51,7 @@ Use when the user requests merging a source branch into a target branch:
 <why/context/tradeoffs if useful>
 ```
 
-Classify by behavior impact, not file extension. Treat `settings/**/*.md` as first-class agent source.
+Classify by behavior impact, not file extension. Treat agent context files as first-class agent source.
 
 Type selection:
 | Type | Use |

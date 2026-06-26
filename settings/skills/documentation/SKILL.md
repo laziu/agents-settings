@@ -8,7 +8,7 @@ description: README, API docs, changelogs, comments, and gotchas
 Document useful context, not the obvious what.
 
 ## Boundaries
-- Use `context-engineering` for agent instructions, skills, profiles, routing, or `settings/**/*.md`
+- Use `context-engineering` for agent instructions, skills, profiles, routing, or profile context Markdown
 - Avoid comments that restate code, stale TODOs, commented-out code, and throwaway prototype docs
 
 ## Content

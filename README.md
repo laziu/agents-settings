@@ -24,11 +24,12 @@ settings/
 
 | Tool | Installed links |
 | --- | --- |
-| Codex CLI | `%CODEX_HOME%\AGENTS.md`, `%AGENTS_HOME%\skills`, `%CODEX_HOME%\agents` |
-| Claude Code | `%CLAUDE_CONFIG_DIR%\CLAUDE.md`, `%CLAUDE_CONFIG_DIR%\skills`, `%CLAUDE_CONFIG_DIR%\agents` |
-| GitHub Copilot CLI | `%COPILOT_HOME%\copilot-instructions.md`, `%COPILOT_HOME%\skills`, `%COPILOT_HOME%\agents` |
+| Codex CLI | `%CODEX_HOME%\AGENTS.md`, `%CODEX_HOME%\references`, `%AGENTS_HOME%\skills`, `%CODEX_HOME%\agents` |
+| Claude Code | `%CLAUDE_CONFIG_DIR%\CLAUDE.md`, `%CLAUDE_CONFIG_DIR%\references`, `%CLAUDE_CONFIG_DIR%\skills`, `%CLAUDE_CONFIG_DIR%\agents` |
+| GitHub Copilot CLI | `%COPILOT_HOME%\copilot-instructions.md`, `%COPILOT_HOME%\references`, `%COPILOT_HOME%\skills`, `%COPILOT_HOME%\agents` |
+| Antigravity | `%GEMINI_CONFIG_DIR%\GEMINI.md`, `%GEMINI_CONFIG_DIR%\references`, `%GEMINI_CONFIG_DIR%\skills` |
 
-`settings/AGENTS.md` is installed for Codex, Copilot, and Antigravity. `settings/CLAUDE.md` is installed for Claude Code. Reusable directories are linked as directories, so new files under `settings/skills/`, `settings/agents/shared/`, and `settings/agents/codex/` appear without reinstalling. Skills are kept as reusable domain workflows and explicit shortcuts. Codex custom agents remain TOML under `~/.codex/agents/` or `.codex/agents/`.
+`settings/AGENTS.md` is installed for Codex, Copilot, and Antigravity. `settings/CLAUDE.md` is installed for Claude Code. Reusable directories are linked as directories, so new files under `settings/references/`, `settings/skills/`, `settings/agents/shared/`, and `settings/agents/codex/` appear without reinstalling. Skills are kept as reusable domain workflows and explicit shortcuts. Codex custom agents remain TOML under `~/.codex/agents/` or `.codex/agents/`.
 
 ### Per-project (JetBrains IDE)
 

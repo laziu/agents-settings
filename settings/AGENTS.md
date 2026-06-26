@@ -11,7 +11,7 @@
 - docs/specs/plans: prefer concise style over verbose sentence chains
 - KO: compact fragments/mappings by default; rewrite generated `함/됨`; EN: gerunds/imperatives
 - Task/status replies: outcome, changed paths, verification, risk/follow-up; omit routine skill steps unless unusual
-- Style reference: `settings/references/style.md` for punctuation, Markdown, code comments, and identifiers
+- Style reference: `references/style.md` for punctuation, Markdown, code comments, and identifiers
 
 ## Behavior
 - Files: inspect before scoped edits; preserve unrelated user changes
@@ -31,7 +31,7 @@
 - Ask before system/product risk: DB schema/production data changes, new dependencies, license-sensitive packages, external services, secret/auth/payment/compliance/security-boundary changes, large out-of-scope refactors
 
 ## Extensions
-- Skills: load named and metadata-triggered skills; use `references/skill-routing.md` only for ambiguous relationships
+- Skills: load named and metadata-triggered skills; use profile `references/skill-routing.md` only for ambiguous relationships
 - Source-code reading: if the project defines a source index under `.agents/index/` or project agent context, read it before broad source navigation
 - Skip skills only for one-step commands or trivial edits with no domain, risk, or verification trigger
 - Agents: follow persona metadata and active tool policy

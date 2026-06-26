@@ -194,6 +194,7 @@ $repoRoot = $PSScriptRoot
 $policySource = Join-Path $repoRoot "settings\AGENTS.md"
 $claudePolicySource = Join-Path $repoRoot "settings\CLAUDE.md"
 $skillsSource = Join-Path $repoRoot "settings\skills"
+$referencesSource = Join-Path $repoRoot "settings\references"
 $agentsSource = Join-Path $repoRoot "settings\agents"
 $sharedAgentsSource = Join-Path $repoRoot "settings\agents\shared"
 $codexAgentsSource = Join-Path $repoRoot "settings\agents\codex"
@@ -223,6 +224,7 @@ $sharedAgentsHome = Get-ProfileRoot -EnvironmentName "AGENTS_HOME" -DefaultLeaf 
 
 if ($requested -contains "codex") {
     Remove-LinkIfOwned -Source $policySource -Destination (Join-Path $codexHome "AGENTS.md")
+    Remove-DirectoryLinks -SourceDirectory $referencesSource -DestinationDirectory (Join-Path $codexHome "references")
     Remove-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $sharedAgentsHome "skills") -LegacyLinks $legacySkillLinks
     Remove-DirectoryLinks -SourceDirectory $codexAgentsSource -DestinationDirectory (Join-Path $codexHome "agents") -LegacyLinks $legacyCodexAgentLinks
 
@@ -235,17 +237,20 @@ if ($requested -contains "claude") {
     $claudePolicyDestination = Join-Path $claudeHome "CLAUDE.md"
     Remove-LinkIfOwned -Source $claudePolicySource -Destination $claudePolicyDestination
     Remove-LinkIfOwned -Source $policySource -Destination $claudePolicyDestination
+    Remove-DirectoryLinks -SourceDirectory $referencesSource -DestinationDirectory (Join-Path $claudeHome "references")
     Remove-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $claudeHome "skills") -LegacyLinks $legacySkillLinks
     Remove-DirectoryLinks -SourceDirectory $sharedAgentsSource -DestinationDirectory (Join-Path $claudeHome "agents") -LegacyLinks $legacyClaudeAgentLinks
 }
 
 if ($requested -contains "copilot") {
     Remove-LinkIfOwned -Source $policySource -Destination (Join-Path $copilotHome "copilot-instructions.md")
+    Remove-DirectoryLinks -SourceDirectory $referencesSource -DestinationDirectory (Join-Path $copilotHome "references")
     Remove-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $copilotHome "skills") -LegacyLinks $legacySkillLinks
     Remove-DirectoryLinks -SourceDirectory $sharedAgentsSource -DestinationDirectory (Join-Path $copilotHome "agents") -LegacyLinks $legacyCopilotAgentLinks
 }
 
 if ($requested -contains "antigravity") {
     Remove-LinkIfOwned -Source $policySource -Destination (Join-Path $antigravityHome "GEMINI.md")
+    Remove-DirectoryLinks -SourceDirectory $referencesSource -DestinationDirectory (Join-Path $antigravityHome "references")
     Remove-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $antigravityHome "skills") -LegacyLinks $legacySkillLinks
 }

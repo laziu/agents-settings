@@ -342,6 +342,7 @@ $repoRoot = $PSScriptRoot
 $policySource = Join-Path $repoRoot "settings\AGENTS.md"
 $claudePolicySource = Join-Path $repoRoot "settings\CLAUDE.md"
 $skillsSource = Join-Path $repoRoot "settings\skills"
+$referencesSource = Join-Path $repoRoot "settings\references"
 $agentsSource = Join-Path $repoRoot "settings\agents"
 $sharedAgentsSource = Join-Path $repoRoot "settings\agents\shared"
 $codexAgentsSource = Join-Path $repoRoot "settings\agents\codex"
@@ -371,6 +372,7 @@ $sharedAgentsHome = Get-ProfileRoot -EnvironmentName "AGENTS_HOME" -DefaultLeaf 
 
 if ($requested -contains "codex") {
     Install-Link -Source $policySource -Destination (Join-Path $codexHome "AGENTS.md") -Kind File
+    Add-DirectoryLinks -SourceDirectory $referencesSource -DestinationDirectory (Join-Path $codexHome "references")
     Add-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $sharedAgentsHome "skills") -LegacyLinks $legacySkillLinks
     Add-DirectoryLinks -SourceDirectory $codexAgentsSource -DestinationDirectory (Join-Path $codexHome "agents") -LegacyLinks $legacyCodexAgentLinks
 
@@ -403,17 +405,20 @@ if ($requested -contains "claude") {
     else {
         Install-Link -Source $claudePolicySource -Destination $claudePolicyDestination -Kind File
     }
+    Add-DirectoryLinks -SourceDirectory $referencesSource -DestinationDirectory (Join-Path $claudeHome "references")
     Add-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $claudeHome "skills") -LegacyLinks $legacySkillLinks
     Add-DirectoryLinks -SourceDirectory $sharedAgentsSource -DestinationDirectory (Join-Path $claudeHome "agents") -LegacyLinks $legacyClaudeAgentLinks
 }
 
 if ($requested -contains "copilot") {
     Install-Link -Source $policySource -Destination (Join-Path $copilotHome "copilot-instructions.md") -Kind File
+    Add-DirectoryLinks -SourceDirectory $referencesSource -DestinationDirectory (Join-Path $copilotHome "references")
     Add-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $copilotHome "skills") -LegacyLinks $legacySkillLinks
     Add-DirectoryLinks -SourceDirectory $sharedAgentsSource -DestinationDirectory (Join-Path $copilotHome "agents") -LegacyLinks $legacyCopilotAgentLinks
 }
 
 if ($requested -contains "antigravity") {
     Install-Link -Source $policySource -Destination (Join-Path $antigravityHome "GEMINI.md") -Kind File
+    Add-DirectoryLinks -SourceDirectory $referencesSource -DestinationDirectory (Join-Path $antigravityHome "references")
     Add-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $antigravityHome "skills") -LegacyLinks $legacySkillLinks
 }

@@ -366,6 +366,7 @@ AGENTS_HOME="${AGENTS_HOME:-$PROFILE_HOME/.agents}"
 POLICY_SOURCE="$ROOT/settings/AGENTS.md"
 CLAUDE_POLICY_SOURCE="$ROOT/settings/CLAUDE.md"
 SKILLS_SOURCE="$ROOT/settings/skills"
+REFERENCES_SOURCE="$ROOT/settings/references"
 AGENTS_SOURCE="$ROOT/settings/agents"
 SHARED_AGENTS_SOURCE="$ROOT/settings/agents/shared"
 CODEX_AGENTS_SOURCE="$ROOT/settings/agents/codex"
@@ -377,6 +378,7 @@ LEGACY_COPILOT_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" 
 
 if has_target codex; then
   link_path "$POLICY_SOURCE" "$CODEX_HOME/AGENTS.md"
+  link_directory "$REFERENCES_SOURCE" "$CODEX_HOME/references"
   link_directory "$SKILLS_SOURCE" "$AGENTS_HOME/skills" "$LEGACY_SKILL_LINKS"
   link_directory "$CODEX_AGENTS_SOURCE" "$CODEX_HOME/agents" "$LEGACY_CODEX_AGENT_LINKS"
 
@@ -398,17 +400,20 @@ if has_target claude; then
   else
     link_path "$CLAUDE_POLICY_SOURCE" "$CLAUDE_CONFIG_DIR/CLAUDE.md"
   fi
+  link_directory "$REFERENCES_SOURCE" "$CLAUDE_CONFIG_DIR/references"
   link_directory "$SKILLS_SOURCE" "$CLAUDE_CONFIG_DIR/skills" "$LEGACY_SKILL_LINKS"
   link_directory "$SHARED_AGENTS_SOURCE" "$CLAUDE_CONFIG_DIR/agents" "$LEGACY_CLAUDE_AGENT_LINKS"
 fi
 
 if has_target copilot; then
   link_path "$POLICY_SOURCE" "$COPILOT_HOME/copilot-instructions.md"
+  link_directory "$REFERENCES_SOURCE" "$COPILOT_HOME/references"
   link_directory "$SKILLS_SOURCE" "$COPILOT_HOME/skills" "$LEGACY_SKILL_LINKS"
   link_directory "$SHARED_AGENTS_SOURCE" "$COPILOT_HOME/agents" "$LEGACY_COPILOT_AGENT_LINKS"
 fi
 
 if has_target antigravity; then
   link_path "$POLICY_SOURCE" "$GEMINI_CONFIG_DIR/GEMINI.md"
+  link_directory "$REFERENCES_SOURCE" "$GEMINI_CONFIG_DIR/references"
   link_directory "$SKILLS_SOURCE" "$GEMINI_CONFIG_DIR/skills" "$LEGACY_SKILL_LINKS"
 fi

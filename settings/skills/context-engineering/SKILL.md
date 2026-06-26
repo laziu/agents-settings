@@ -5,7 +5,7 @@ description: AGENTS, skills, routing, and agent context hygiene
 
 # Context Engineering
 
-Use for agent instruction files, skills, profiles, routing, and `settings/**/*.md`.
+Use for agent instruction files, skills, profiles, routing, and profile context Markdown.
 
 ## Ownership
 - `AGENTS.md`: bootstrap, routing, hard boundaries
