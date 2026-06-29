@@ -20,7 +20,7 @@ Use for UE5-specific file checks, API guardrails, build commands, log triage, an
 - Read `references/ue5-checklists.md` before implementing or debugging C++, Blueprint, UI, SaveGame, replication, interaction, packaging, or UE logs
 
 ## Command Patterns
-Discover `.uproject` and UE install path first. Prefer repo scripts.
+Discover `.uproject` and local build command first. Prefer repo scripts and repo-relative project paths. If the UE path or build command is unknown, ask the user.
 
 ```powershell
 & "<UE>\Engine\Build\BatchFiles\Build.bat" <ProjectName>Editor Win64 Development -Project="<Project>.uproject" -WaitMutex
@@ -28,17 +28,32 @@ Discover `.uproject` and UE install path first. Prefer repo scripts.
 & "<UE>\Engine\Build\BatchFiles\RunUAT.bat" BuildCookRun -project="<Project>.uproject" -noP4 -platform=Win64 -clientconfig=Development -build -cook -stage -pak
 ```
 
+## Build
+- After work, run the smallest affected build: the repo script for one touched project area, or an aggregate task/build script for multiple areas.
+- Live Coding/editor-lock failure: if the editor is open, trigger Live Coding once through an existing local command or hook, then retry the same build once. If unavailable or the retry fails, stop and report.
+- Memory exhaustion: retry once with `-MaxParallelActions=4` through the build invocation or supported local override. Do not edit build scripts to set it; do not reduce it to 1.
+- Do not bypass build failures with alternate UE path, copied workspace, deleting `Binaries` or `Intermediate`, packaging command, IDE build, or generated project refresh.
+
+## Editor Coordination
+- Multiple agent sessions may share one Unreal project; never open an additional editor instance. Open, close, restart, or relaunch the shared editor only with explicit user permission.
+- Before an approved shutdown, compile and save unsaved assets. If `Unsaved Changes` appears, save; if `Restore Unsaved Changes` appears on relaunch, ignore it.
+- During approved editor automation, if the editor exits unexpectedly, wait 3 seconds and check for another agent-requested build. If none is running, run the affected build, then relaunch.
+
+## Widget Boundary
+- Prefer Widget Blueprint for design: layout, hover/focus responses, and animations.
+- Put C++ only in non-design logic or required C++ API; skip a C++ widget class when Widget Blueprint is enough.
+- Put application logic in Subsystem, ActorComponent, or ViewModel; prefer `UMVVMViewModelBase` for ViewModel state.
+
 ## Blueprint Boundary
+- Asset edits: write with commandlet first, then verify touched assets with UE_MCP_Bridge/MCP readback. MCP may also be used earlier for inspection or authoring.
 - Commandlet OK: asset creation, parent class assignment, default property edits, compile/save operations
-- EventGraph edits: do not attempt direct graph authoring unless a project script already owns the exact change
+- EventGraph edits: do not attempt direct graph authoring unless project automation explicitly targets the exact graph change
 - Manual handoff: write exact editor steps, expected nodes/events, property values, and verification for EventGraph work
 - Context guard: avoid spending tokens reverse-engineering Blueprint graph internals when a manual path is clearer
 
-## Build Failure Boundary
-- Live Coding/editor lock/mutex/locked binaries/missing local UE path: stop and report
-- Live Coding: trigger existing local Live Coding compile/start command only when the project exposes one
-- Do not bypass with alternate UE path, copied workspace, deleting `Binaries` or `Intermediate`, packaging command, IDE build, or generated project refresh
-- Otherwise ask the user to close the editor or disable Live Coding, then run their local build command
+## Verify
+- Blueprint: compile result and duplicate event/input nodes
+- Packaging: packaged log separate from PIE log
 
 ## Helper Scripts
 - `scripts/scan_output_log.py --log Saved/Logs/<Project>.log --top 20`: count UE `Warning`, `Error`, and `Fatal` lines by category with samples
