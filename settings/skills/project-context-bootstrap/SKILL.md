@@ -1,6 +1,6 @@
 ---
 name: project-context-bootstrap
-description: Shared repo AI context install or refresh
+description: Repo AGENTS, CLAUDE, and source-index bootstrap or refresh
 ---
 
 # Project Context Bootstrap
@@ -10,7 +10,7 @@ model assignments, and token strategy out of the target repo.
 
 ## Outputs
 - Repo `AGENTS.md`, `CLAUDE.md`, or both, based on `assets/project-context-template.md`
-- Optional `.agents/index/` when source navigation context is requested or useful
+- Optional `.agents/index/` when requested or already present
 
 ## Rules
 - Read existing `AGENTS.md`, `CLAUDE.md`, `.agents/index/`, and project docs when present
@@ -18,12 +18,12 @@ model assignments, and token strategy out of the target repo.
 - Merge without deleting unrelated rules or duplicating sections
 - Keep repo-local facts: structure, commands, verification, boundaries, conventions
 - Use `assets/project-context-template.md`; omit irrelevant sections and examples
-- Inline borrowed skill guidance fully; generated repo context must not name local user skills or paths
-- Include source index only when `.agents/index/` exists or is created
+- Generated repo context must not name profile-local Skills or paths; copy only target-repo rules that are actually required
+- Create a source index only when requested; otherwise refresh it only when `.agents/index/` already exists
 - Source index: follow existing project format first; read skill-local `references/source-index.md` before creating or redesigning one
 
 ## Verification
-- Source index files are linked from `README.md` when present
+- Project Agent context points to `.agents/index/` when an index exists
 - Existing context was merged without deleting unrelated rules
 
 ## Maintenance

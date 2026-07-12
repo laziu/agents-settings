@@ -5,7 +5,7 @@ description: UE5 code, assets, builds, logs, and editor validation
 
 # UE5 Development
 
-Use for UE5-specific file checks, API guardrails, build commands, log triage, and asset validation. This is a domain skill, not a replacement for workflow skills.
+Use for UE5-specific file checks, API guardrails, build commands, log triage, and asset validation. Use `ue5-pcg` for PCG building generation rules.
 
 ## Inspect These First
 - C++ or module work: `.uproject`, `Source/*.Target.cs`, `Source/**/*.Build.cs`, touched `Public/` and `Private/` headers
@@ -17,7 +17,10 @@ Use for UE5-specific file checks, API guardrails, build commands, log triage, an
 
 ## Load References
 - Read `references/module-routing.md` before changing `*.Build.cs`, public headers, module dependencies, or runtime/editor boundaries
-- Read `references/ue5-checklists.md` before implementing or debugging C++, Blueprint, UI, SaveGame, replication, interaction, packaging, or UE logs
+- Read `references/cpp-checks.md` for gameplay C++, reflected APIs, or replication mechanics
+- Read `references/blueprint-ui-checks.md` for Blueprint, input, UMG, or Slate work
+- Read `references/state-interaction-checks.md` for SaveGame, replicated state flow, collision, or interaction work
+- Read `references/runtime-checks.md` for logs, packaging, cook, or performance work
 
 ## Command Patterns
 Discover `.uproject` and local build command first. Prefer repo scripts and repo-relative project paths. If the UE path or build command is unknown, ask the user.
@@ -39,11 +42,6 @@ Discover `.uproject` and local build command first. Prefer repo scripts and repo
 - Before an approved shutdown, compile and save unsaved assets. If `Unsaved Changes` appears, save; if `Restore Unsaved Changes` appears on relaunch, ignore it.
 - During approved editor automation, if the editor exits unexpectedly, wait 3 seconds and check for another agent-requested build. If none is running, run the affected build, then relaunch.
 
-## Widget Boundary
-- Prefer Widget Blueprint for design: layout, hover/focus responses, and animations.
-- Put C++ only in non-design logic or required C++ API; skip a C++ widget class when Widget Blueprint is enough.
-- Put application logic in Subsystem, ActorComponent, or ViewModel; prefer `UMVVMViewModelBase` for ViewModel state.
-
 ## Blueprint Boundary
 - Asset edits: write with commandlet first, then verify touched assets with UE_MCP_Bridge/MCP readback. MCP may also be used earlier for inspection or authoring.
 - Commandlet OK: asset creation, parent class assignment, default property edits, compile/save operations
@@ -58,8 +56,3 @@ Discover `.uproject` and local build command first. Prefer repo scripts and repo
 ## Helper Scripts
 - `scripts/scan_output_log.py --log Saved/Logs/<Project>.log --top 20`: count UE `Warning`, `Error`, and `Fatal` lines by category with samples
 - `scripts/quick_asset_check.py --root . --asset /Game/UI/WBP_HUD`: map `/Game/...` or `Blueprint'/Game/...'` paths to local `.uasset` files
-
-## Do Not Spend Context On
-- Generic planning, review, testing, or debugging advice
-- PCG building graph design, shape grammar, lot/facade generation, or procedural-building runtime validation
-- Unreal basics unrelated to touched files, APIs, commands, logs, assets, or packaging settings

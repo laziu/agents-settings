@@ -39,41 +39,40 @@ Keep long explanation in project docs/specs/plans and link to it.
 Use fields in this order:
 
 ```yaml
-id: client-simulation
-owner: Client
-description: Scenario/Episode runtime, project-mode scenario generation, and run outputs.
+id: account-sync
+owner: Sync
+description: Remote account synchronization and local state updates.
 
 paths:
-  - Client/Source/OdiroSim/Public/Scenario/**
-  - Client/Source/OdiroSim/Private/Scenario/**
+  - src/sync/**
 
 workflows:
-  - scenario parsing
-  - episode artifact writing
+  - pull remote account changes
+  - persist synchronized state
 
 entry:
-  - id: contract
-    description: Public scenario, episode, and run file shapes.
+  - id: boundary
+    description: Remote API and local storage contracts.
     read:
-      - contracts/specs
+      - src/sync/contracts
 
   - id: runtime
-    description: Project/run loading and episode scenario generation.
+    description: Fetch, reconcile, and persist flow.
     needs:
-      - contract
+      - boundary
     read:
-      - ProjectRuntimeTypes.h / .cpp
+      - src/sync/runtime
 
 guardrails:
-  - Final user project contract uses one editable `<UserProject>/scenario.json`.
+  - Remote IDs remain stable across local retries.
 
 verify:
-  - when: parser or runtime changes
+  - when: reconciliation behavior changes
     run:
-      - focused Scenario/Episode automation tests
+      - focused sync integration tests
 
 links:
-  - docs/specs/simulation-interface.md
+  - docs/specs/account-sync.md
 ```
 
 Field meanings:
