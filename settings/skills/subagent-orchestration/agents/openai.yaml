@@ -1,4 +1,4 @@
 interface:
   display_name: "Subagent Orchestration"
-  short_description: "Coordinate bounded subagent calls"
-  default_prompt: "Use $subagent-orchestration to delegate a bounded review or implementation task."
+  short_description: "Delegate to Claude or Codex CLI"
+  default_prompt: "Use $subagent-orchestration for explicit Claude or Codex CLI delegation."

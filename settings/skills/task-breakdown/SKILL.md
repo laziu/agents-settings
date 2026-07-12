@@ -1,42 +1,22 @@
 ---
 name: task-breakdown
-description: Stable plan to ordered executable tasks
+description: Ordered implementation tasks from a stable technical plan
 ---
 
 # Task Breakdown
 
-Turn a spec and technical plan into ordered, verifiable implementation steps.
-
-Use after `planning` or when requirements and technical approach are already clear. Stay read-only and stop before implementation unless asked to continue.
-
-Trigger when the user asks for workflow, 작업 과정, 단계별 작업, ordered tasks, dependencies, checkpoints, likely files, or task artifacts from a stable plan.
-
-## Rules
-- Use spec, plan, and relevant design artifacts as inputs
-- Group similar work into semantic steps with names that fit the work
-- Put blocking shared work before dependent work
-- Keep each step independently understandable and verifiable
-- Keep file-level tasks inside the step as detailed actions, not separate top-level task IDs
-- Add manual work only when the user must do something outside code or docs
+Use when a stable spec and technical plan need ordered implementation work. Stay read-only and stop before implementation unless asked to continue.
 
 ## Artifact
-- Default path: append to the active `docs/plans/<title>.md`
-- Include task, progress, verification, and outcome sections using the active Plan's section naming
-- Separate `tasks.md` only when project convention requires it or the Plan would become too large
-- Step format: `### T01 <semantic step name> [ ]`
-- Step body: concise work bullets, optional manual work, verification
-- KO task blocks: avoid repeated `목표:`/`상세 작업:` labels unless the template requires them
-- Include exact file paths in detailed actions when known
-- Include dependencies, MVP scope, and independent test criteria
-- Generate test tasks only when tests are requested, required by project policy, or needed as regression proof
 
-## Split Heuristic
-Split into another top-level step only when work has a distinct semantic goal, dependency boundary, manual checkpoint, or verification path.
-Do not split merely because different files are touched.
-Merge adjacent tiny steps when they are usually implemented and verified together.
+- Append `## Tasks`, `## Progress`, `## Verification`, and `## Outcome` to the active `docs/plans/<title>.md`
+- Use a separate `tasks.md` only when project convention requires it or the Plan becomes impractical
+- Step heading: `### T01 <semantic step name> [ ]`
+- Keep file actions nested under the semantic step
+- Record dependencies, required manual work, and step-specific verification
 
 ## Verification
-- Dependencies are ordered
-- Detailed actions remain nested under semantic steps
-- Each step has verification
-- Manual work is explicit when needed
+
+- Blocking work precedes dependents
+- Each step is independently understandable and verifiable
+- Manual work is explicit

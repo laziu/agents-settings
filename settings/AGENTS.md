@@ -1,37 +1,13 @@
-## Scope
-- Priority: system/developer/tool/safety/direct user > project/VCS-root rules > this file
-- On conflict, state it; follow the higher-priority or lower-risk rule
+## Engineering Policy
+- Fail loudly on unexpected errors; add fallbacks, defaults, retries, or broad catches only when requested or required by contract
+- Validate at public or trust boundaries; avoid repeated internal validation unless a named helper owns a repeated semantic rule
+- Merge clarification answers into the relevant existing document sections instead of appending answer or decision logs
+- Safe local inspection, scoped edits, and relevant checks are allowed
+- Require an explicit request before commit, submit, push, shelve, upload, publish, share, destructive filesystem work, or history-changing VCS work
+- Never remove or weaken tests, commit secrets, or overwrite unrelated user changes
+- Ask before database schema or production-data changes, new dependencies, license-sensitive packages, external services, auth/payment/compliance/security-boundary changes, or large out-of-scope refactors
 
-## Style
-- Language: prompt language for chat/docs/specs/plans/ADRs/reports/tasks unless convention/template says otherwise
-- Code language: project convention for code/comments/identifiers/commit messages; default English
-- Technical terms: preserve source-language identifiers, API names, errors, commands, and quoted text
-- Default: concise, factual, command-oriented; concrete paths, commands, errors, verification, next actions
-- User-visible chat: terse report style unless explicitly requested otherwise
-- docs/specs/plans: prefer concise style over verbose sentence chains
-- KO: compact fragments/mappings by default; rewrite generated `함/됨`; EN: gerunds/imperatives
-- Task/status replies: outcome, changed paths, verification, risk/follow-up; omit routine skill steps unless unusual
-- Style reference: `references/style.md` for punctuation, Markdown, code comments, and identifiers
-
-## Behavior
-- Files: inspect before scoped edits; preserve unrelated user changes
-- Ambiguity: ask only when outcome-changing; otherwise state assumption and proceed
-- Implementation: fail loudly on unexpected errors; add fallbacks/defaults/retries only by request or contract
-- Validation: validate at public/trust boundaries; private helpers trust validated inputs unless a named helper captures a repeated semantic rule
-- Scope: implement only requested use case; avoid speculative abstractions/options/features
-- Review: after complex implementation, self-review diff for readability and risk; skip for low-risk mechanical edits
-- Docs: merge clarification answers into existing docs; avoid answer/decision appendices
-- Subagents: load `subagent-orchestration` only for explicit delegation requests or high-complexity cross-agent handoffs; keep low-risk local work in the caller
-- Verification: run the smallest relevant test/lint/typecheck/build/runtime check; report changed files, verification, failures, risk
-- Frontend: verify rendered behavior when practical
-- VCS: checkout/edit/open allowed when scoped and needed
-- Never without explicit request: commit/submit/push/shelve/upload/publish/share; destructive VCS/filesystem ops
-- Never: remove/weaken tests, commit secrets, overwrite unrelated dirty work
-- Ask before VCS/filesystem risk: recursive delete, bulk move, force push/reset/checkout, history rewrite, p4 revert/clean/force sync, submit/shelve deletion
-- Ask before system/product risk: DB schema/production data changes, new dependencies, license-sensitive packages, external services, secret/auth/payment/compliance/security-boundary changes, large out-of-scope refactors
-
-## Extensions
-- Skills: load named and metadata-triggered skills; use profile `references/skill-routing.md` only for ambiguous relationships
-- Source-code reading: if the project defines a source index under `.agents/index/` or project agent context, read it before broad source navigation
-- Skip skills only for one-step commands or trivial edits with no domain, risk, or verification trigger
-- Agents: follow persona metadata and active tool policy
+## Routing
+- Load named Skills and Skills whose metadata matches the task; use `references/skill-routing.md` only when multiple Skills overlap
+- If `.agents/index/` or project source-index guidance exists, read it before broad source navigation
+- Use `subagent-orchestration` only for explicit Claude or Codex CLI delegation; platform-native subagents use Agent profiles without this Skill

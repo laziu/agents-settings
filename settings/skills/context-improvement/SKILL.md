@@ -1,33 +1,30 @@
 ---
 name: context-improvement
-description: Approved or repeated agent context fixes
+description: Explicit or repeated agent context behavior fixes
 ---
 
 # Context Improvement
 
-Use when repeated friction or an explicit request suggests agent context should change. Use `context-engineering` for edit hygiene.
-
-## Signals
-- Repeated workflow friction, user correction, costly recovered failure, missed verification, wrong Skill routing, or explicit context-update request
-- Ignore one-off low-impact mistakes
-- Prefer the current conversation as evidence; create durable logs only when the user asks for tracking
+Use for explicit context-update requests or repeated high-impact agent failures. Use `context-engineering` for edit hygiene.
 
 ## Target
 
-| Signal | Target |
+| Change | Owner |
 | --- | --- |
-| User-wide agent behavior, hard boundary, or install-owned rule | Profile `AGENTS.md` or `CLAUDE.md` |
-| Project-only facts, commands, structure, or conventions | Project `AGENTS.md`, README, specs, plans, or references |
-| Conditional workflow, domain guardrail, or non-obvious verification | `skills/<skill>/SKILL.md` |
-| Longer examples, checklists, schemas, or decision references | `skills/<skill>/references/*` or profile/project `references/*` |
-| Repeated deterministic operation | `skills/<skill>/scripts/*` |
-| Skill trigger mismatch | Affected skill `description` first; profile `references/skill-routing.md` only for cross-skill relationships |
+| User-wide behavior or hard boundary | Profile `AGENTS.md` or `CLAUDE.md` |
+| Repo-local agent command, structure, convention, or boundary | Project `AGENTS.md` or `CLAUDE.md` |
+| Project fact or durable product knowledge | README, spec, or Plan |
+| Reusable conditional workflow or domain guardrail | Affected Skill |
+| Repeated deterministic operation | Skill script, hook, CI, or test |
+| Trigger mismatch | Skill `description`; use `../../references/skill-routing.md` only for cross-Skill ordering |
 
 ## Gate
-- For inferred updates, propose observation, target, behavior change, non-inferable reason, and verification
-- On approval, edit immediately unless a higher-priority risk gate applies
-- Treat direct context-update requests as approval for that scope
-- No silent edits from speculative preference or low-impact one-off failure
+
+- A direct context-update request approves that scope
+- For inferred changes, propose the observed repeated failure, target, behavior change, and verification before editing
+- Do not create durable rules from speculative preferences or one-off low-impact mistakes
 
 ## Verification
-- Validate changed Skills when practical
+
+- Validate changed metadata and references
+- Confirm the new rule is not already owned elsewhere
