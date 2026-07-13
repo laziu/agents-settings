@@ -401,6 +401,7 @@ if has_target codex; then
 fi
 
 if has_target claude; then
+  link_path "$POLICY_SOURCE" "$CLAUDE_CONFIG_DIR/AGENTS.md"
   if [ -L "$CLAUDE_CONFIG_DIR/CLAUDE.md" ] &&
     [ "$(resolve_link_target "$CLAUDE_CONFIG_DIR/CLAUDE.md" "$(readlink "$CLAUDE_CONFIG_DIR/CLAUDE.md")")" = "$(abs_path "$POLICY_SOURCE")" ]; then
     printf 'RELINK  %s -> %s\n' "$CLAUDE_CONFIG_DIR/CLAUDE.md" "$(abs_path "$CLAUDE_POLICY_SOURCE")"

@@ -254,6 +254,7 @@ if has_target codex; then
 fi
 
 if has_target claude; then
+  remove_link_if_owned "$POLICY_SOURCE" "$CLAUDE_CONFIG_DIR/AGENTS.md"
   remove_link_if_owned "$CLAUDE_POLICY_SOURCE" "$CLAUDE_CONFIG_DIR/CLAUDE.md"
   remove_link_if_owned "$POLICY_SOURCE" "$CLAUDE_CONFIG_DIR/CLAUDE.md"
   remove_directory_links "$REFERENCES_SOURCE" "$CLAUDE_CONFIG_DIR/references"

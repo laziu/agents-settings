@@ -390,6 +390,7 @@ if ($requested -contains "codex") {
 }
 
 if ($requested -contains "claude") {
+    Install-Link -Source $policySource -Destination (Join-Path $claudeHome "AGENTS.md") -Kind File
     $claudePolicyDestination = Join-Path $claudeHome "CLAUDE.md"
     $existingClaudePolicy = Get-Item -LiteralPath ([System.IO.Path]::GetFullPath($claudePolicyDestination)) -Force -ErrorAction SilentlyContinue
     $migratedClaudePolicy = $false

@@ -234,6 +234,7 @@ if ($requested -contains "codex") {
 }
 
 if ($requested -contains "claude") {
+    Remove-LinkIfOwned -Source $policySource -Destination (Join-Path $claudeHome "AGENTS.md")
     $claudePolicyDestination = Join-Path $claudeHome "CLAUDE.md"
     Remove-LinkIfOwned -Source $claudePolicySource -Destination $claudePolicyDestination
     Remove-LinkIfOwned -Source $policySource -Destination $claudePolicyDestination

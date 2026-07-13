@@ -18,17 +18,20 @@ Use for Agent instructions, Skills, profiles, routing, and Agent-facing referenc
 ## Change Gate
 
 - A direct context-update request approves that scope
-- For inferred durable changes, first identify a repeated high-impact failure, target, behavior change, and verification
+- For inferred durable changes, require either an observed recurring or high-impact failure, or a documented or evaluated method that adds non-obvious domain knowledge, decision steps, or evidence gates
+- Popularity alone is insufficient; identify the scope, trigger, intended behavior, conflicts or side effects, and evaluation method
+- Prefer evaluating a maintained Skill or plugin in its original form before distilling or forking it
 - Do not create durable rules from speculative preferences or one-off low-impact mistakes
 
 ## Retain
 
 - Rules the model cannot infer from source, tools, tests, or higher-priority instructions
+- Methods that materially change decisions, actions, or verification and can be narrowly triggered
 - Exact commands, paths, permission boundaries, tool contracts, and observed failure recovery
 
 ## Remove
 
-- General best practices, model-default behavior, tool documentation, and generic process loops
+- Generic advice that does not change a concrete decision, action, or check; redundant model-default behavior; tool documentation; and generic process loops
 - Repeated, stale, contradictory, unrelated, or unenforced instructions
 - Checks better enforced by scripts, hooks, CI, schemas, or tests
 
@@ -37,4 +40,5 @@ Use for Agent instructions, Skills, profiles, routing, and Agent-facing referenc
 - Every retained rule changes local behavior or prevents a concrete local failure
 - Each rule has one owner
 - Skill metadata and references are valid
+- Imported methods have bounded triggers, compatible side effects, and a practical evaluation path
 - Removed content does not weaken hard permission or safety boundaries
