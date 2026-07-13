@@ -346,6 +346,7 @@ $referencesSource = Join-Path $repoRoot "settings\references"
 $agentsSource = Join-Path $repoRoot "settings\agents"
 $sharedAgentsSource = Join-Path $repoRoot "settings\agents\shared"
 $codexAgentsSource = Join-Path $repoRoot "settings\agents\codex"
+$localEnvironmentGenerator = Join-Path $skillsSource "local-environment\scripts\generate.ps1"
 
 $legacySkillLinks = Get-LegacyChildLinks -SourceDirectory $skillsSource -Kind Directory
 $legacyCodexAgentLinks = Get-LegacyChildLinks -SourceDirectory $codexAgentsSource -Kind File -Filter "*.toml"
@@ -369,6 +370,13 @@ $claudeHome = Get-ProfileRoot -EnvironmentName "CLAUDE_CONFIG_DIR" -DefaultLeaf 
 $copilotHome = Get-ProfileRoot -EnvironmentName "COPILOT_HOME" -DefaultLeaf ".copilot"
 $antigravityHome = Get-ProfileRoot -EnvironmentName "GEMINI_CONFIG_DIR" -DefaultLeaf ".gemini"
 $sharedAgentsHome = Get-ProfileRoot -EnvironmentName "AGENTS_HOME" -DefaultLeaf ".agents"
+$localEnvironmentProfile = Join-Path $sharedAgentsHome "context\local-environment.md"
+
+if (-not (Test-Path -LiteralPath $localEnvironmentGenerator)) {
+    throw "Local environment generator not found: $localEnvironmentGenerator"
+}
+
+& $localEnvironmentGenerator -OutputPath $localEnvironmentProfile -DryRun:$DryRun
 
 if ($requested -contains "codex") {
     Install-Link -Source $policySource -Destination (Join-Path $codexHome "AGENTS.md") -Kind File

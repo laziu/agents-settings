@@ -370,11 +370,24 @@ REFERENCES_SOURCE="$ROOT/settings/references"
 AGENTS_SOURCE="$ROOT/settings/agents"
 SHARED_AGENTS_SOURCE="$ROOT/settings/agents/shared"
 CODEX_AGENTS_SOURCE="$ROOT/settings/agents/codex"
+LOCAL_ENVIRONMENT_GENERATOR="$SKILLS_SOURCE/local-environment/scripts/generate.sh"
 
 LEGACY_SKILL_LINKS="$(child_link_specs "$SKILLS_SOURCE" directory)"
 LEGACY_CODEX_AGENT_LINKS="$(child_link_specs "$CODEX_AGENTS_SOURCE" file "*.toml")"
 LEGACY_CLAUDE_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" "$AGENTS_SOURCE" ".md")"
 LEGACY_COPILOT_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" "$AGENTS_SOURCE" ".agent.md")"
+LOCAL_ENVIRONMENT_PROFILE="$AGENTS_HOME/context/local-environment.md"
+
+if [ ! -f "$LOCAL_ENVIRONMENT_GENERATOR" ]; then
+  echo "Local environment generator not found: $LOCAL_ENVIRONMENT_GENERATOR" >&2
+  exit 1
+fi
+
+if [ "$DRY_RUN" -eq 1 ]; then
+  bash "$LOCAL_ENVIRONMENT_GENERATOR" --output "$LOCAL_ENVIRONMENT_PROFILE" --dry-run
+else
+  bash "$LOCAL_ENVIRONMENT_GENERATOR" --output "$LOCAL_ENVIRONMENT_PROFILE"
+fi
 
 if has_target codex; then
   link_path "$POLICY_SOURCE" "$CODEX_HOME/AGENTS.md"

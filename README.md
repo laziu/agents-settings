@@ -31,6 +31,8 @@ settings/
 
 `settings/AGENTS.md` is installed for Codex, Copilot, and Antigravity. `settings/CLAUDE.md` is installed for Claude Code. Reusable directories are linked as directories, so new files under `settings/references/`, `settings/skills/`, `settings/agents/shared/`, and `settings/agents/codex/` appear without reinstalling. Skills are kept as reusable domain workflows and explicit shortcuts. Codex custom agents remain TOML under `~/.codex/agents/` or `.codex/agents/`.
 
+Global install also generates `$AGENTS_HOME/context/local-environment.md` (default `~/.agents/context/local-environment.md`). The `local-environment` Skill reads this machine-local capability cache before choosing environment-sensitive commands. The file is refreshed on each install, is not stored in this repository, and is retained by uninstall.
+
 ### Per-project (JetBrains IDE)
 
 JetBrains AI features have no global instruction file; instructions are read from each project directory. Run `install-project` from a project root to add the links below.

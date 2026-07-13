@@ -1,0 +1,4 @@
+interface:
+  display_name: "Local Environment"
+  short_description: "Use resolved local methods for common tasks"
+  default_prompt: "Use $local-environment to apply the resolved local method for this task."
