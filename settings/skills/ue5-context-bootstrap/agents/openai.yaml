@@ -1,0 +1,6 @@
+interface:
+  display_name: "UE5 Context Bootstrap"
+  short_description: "Install project-local UE5 agent context"
+  default_prompt: "Use $ue5-context-bootstrap to install or refresh UE5 agent context in this project."
+policy:
+  allow_implicit_invocation: false

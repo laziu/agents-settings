@@ -1,4 +1,0 @@
-interface:
-  display_name: "Subagent Orchestration"
-  short_description: "Delegate to Claude or Codex CLI"
-  default_prompt: "Use $subagent-orchestration for explicit Claude or Codex CLI delegation."

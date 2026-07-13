@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent CLI"
+  short_description: "Invoke Claude or Codex CLI subagents"
+  default_prompt: "Use $agent-cli to invoke a Claude or Codex CLI subagent."

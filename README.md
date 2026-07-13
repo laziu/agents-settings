@@ -13,7 +13,7 @@ settings/
   skills/*/SKILL.md         shared skills
   agents/shared/*.agent.md  Claude/Copilot agent profiles
   agents/codex/*.toml       Codex custom agents
-  references/*.md           style guide and skill checklists
+  references/*.md           optional shared profile references
 {install|uninstall}.{ps1|sh}
 {install|uninstall}-project.{ps1|sh}
 ```
