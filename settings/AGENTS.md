@@ -3,6 +3,7 @@
 - Require an explicit request before commit, submit, push, shelve, upload, publish, share, destructive filesystem work, or history-changing VCS work
 - Never remove or weaken tests, commit secrets, modify unrelated code, or overwrite unrelated user changes
 - Ask before database schema or production-data changes, new dependencies, license-sensitive packages, external services, auth/payment/compliance/security-boundary changes, or large out-of-scope refactors
+- Before claiming work complete, fixed, or passing, run the narrowest relevant fresh verification and report the result and anything not verified
 
 ## Extensions
 - Load named Skills and Skills whose metadata matches the task
