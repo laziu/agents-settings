@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [string[]]$Targets = @("codex", "claude", "copilot", "antigravity"),
+    [string[]]$Targets = @("codex", "claude", "copilot", "antigravity", "opencode"),
     [switch]$DryRun,
     [Alias("InstallCodexLegacySkills")]
     [switch]$IncludeCodexLegacySkills
@@ -96,6 +96,28 @@ function Remove-LinkIfOwned {
     if (-not $DryRun) {
         Remove-Item -LiteralPath $destinationFull -Force
     }
+}
+
+function Test-LinkOwned {
+    param(
+        [Parameter(Mandatory = $true)][string]$Source,
+        [Parameter(Mandatory = $true)][string]$Destination
+    )
+
+    $destinationFull = [System.IO.Path]::GetFullPath($Destination)
+    $existing = Get-Item -LiteralPath $destinationFull -Force -ErrorAction SilentlyContinue
+    if ($null -eq $existing) {
+        return $false
+    }
+
+    $target = Get-ReparseTarget $existing
+    if ($null -eq $target) {
+        return $false
+    }
+
+    $sourceFull = Get-FullPath $Source
+    $targetFull = Resolve-LinkTargetPath -LinkPath $destinationFull -Target $target
+    return $targetFull -ieq $sourceFull
 }
 
 function Get-LegacyChildLinks {
@@ -206,10 +228,10 @@ $legacyCopilotAgentLinks = Get-LegacySharedAgentLinks -SourceDirectory $sharedAg
 
 $requested = @($Targets | ForEach-Object { $_.ToLowerInvariant() })
 if ($requested -contains "all") {
-    $requested = @("codex", "claude", "copilot", "antigravity")
+    $requested = @("codex", "claude", "copilot", "antigravity", "opencode")
 }
 
-$validTargets = @("codex", "claude", "copilot", "antigravity")
+$validTargets = @("codex", "claude", "copilot", "antigravity", "opencode")
 foreach ($target in $requested) {
     if ($validTargets -notcontains $target) {
         throw "Unknown target: $target. Valid targets: $($validTargets -join ', ')"
@@ -220,12 +242,13 @@ $codexHome = Get-ProfileRoot -EnvironmentName "CODEX_HOME" -DefaultLeaf ".codex"
 $claudeHome = Get-ProfileRoot -EnvironmentName "CLAUDE_CONFIG_DIR" -DefaultLeaf ".claude"
 $copilotHome = Get-ProfileRoot -EnvironmentName "COPILOT_HOME" -DefaultLeaf ".copilot"
 $antigravityHome = Get-ProfileRoot -EnvironmentName "GEMINI_CONFIG_DIR" -DefaultLeaf ".gemini"
+$xdgConfigHome = Get-ProfileRoot -EnvironmentName "XDG_CONFIG_HOME" -DefaultLeaf ".config"
+$opencodeHome = Join-Path $xdgConfigHome "opencode"
 $sharedAgentsHome = Get-ProfileRoot -EnvironmentName "AGENTS_HOME" -DefaultLeaf ".agents"
 
 if ($requested -contains "codex") {
     Remove-LinkIfOwned -Source $policySource -Destination (Join-Path $codexHome "AGENTS.md")
     Remove-DirectoryLinks -SourceDirectory $referencesSource -DestinationDirectory (Join-Path $codexHome "references")
-    Remove-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $sharedAgentsHome "skills") -LegacyLinks $legacySkillLinks
     Remove-DirectoryLinks -SourceDirectory $codexAgentsSource -DestinationDirectory (Join-Path $codexHome "agents") -LegacyLinks $legacyCodexAgentLinks
 
     if ($IncludeCodexLegacySkills) {
@@ -254,4 +277,23 @@ if ($requested -contains "antigravity") {
     Remove-LinkIfOwned -Source $policySource -Destination (Join-Path $antigravityHome "GEMINI.md")
     Remove-DirectoryLinks -SourceDirectory $referencesSource -DestinationDirectory (Join-Path $antigravityHome "references")
     Remove-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $antigravityHome "skills") -LegacyLinks $legacySkillLinks
+}
+
+if ($requested -contains "opencode") {
+    Remove-LinkIfOwned -Source $policySource -Destination (Join-Path $opencodeHome "AGENTS.md")
+}
+
+if (($requested -contains "codex") -or ($requested -contains "opencode")) {
+    $codexPolicyInstalled = ($requested -notcontains "codex") -and
+        (Test-LinkOwned -Source $policySource -Destination (Join-Path $codexHome "AGENTS.md"))
+    $opencodePolicyInstalled = ($requested -notcontains "opencode") -and
+        (Test-LinkOwned -Source $policySource -Destination (Join-Path $opencodeHome "AGENTS.md"))
+    $sharedSkillsDestination = Join-Path $sharedAgentsHome "skills"
+
+    if ($codexPolicyInstalled -or $opencodePolicyInstalled) {
+        Write-Host "KEEP    $sharedSkillsDestination is used by another installed target"
+    }
+    else {
+        Remove-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory $sharedSkillsDestination -LegacyLinks $legacySkillLinks
+    }
 }

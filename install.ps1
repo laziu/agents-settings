@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [string[]]$Targets = @("codex", "claude", "copilot", "antigravity"),
+    [string[]]$Targets = @("codex", "claude", "copilot", "antigravity", "opencode"),
     [switch]$Force,
     [switch]$DryRun,
     [switch]$InstallCodexLegacySkills
@@ -355,10 +355,10 @@ $legacyCopilotAgentLinks = Get-LegacySharedAgentLinks -SourceDirectory $sharedAg
 
 $requested = @($Targets | ForEach-Object { $_.ToLowerInvariant() })
 if ($requested -contains "all") {
-    $requested = @("codex", "claude", "copilot", "antigravity")
+    $requested = @("codex", "claude", "copilot", "antigravity", "opencode")
 }
 
-$validTargets = @("codex", "claude", "copilot", "antigravity")
+$validTargets = @("codex", "claude", "copilot", "antigravity", "opencode")
 foreach ($target in $requested) {
     if ($validTargets -notcontains $target) {
         throw "Unknown target: $target. Valid targets: $($validTargets -join ', ')"
@@ -369,6 +369,8 @@ $codexHome = Get-ProfileRoot -EnvironmentName "CODEX_HOME" -DefaultLeaf ".codex"
 $claudeHome = Get-ProfileRoot -EnvironmentName "CLAUDE_CONFIG_DIR" -DefaultLeaf ".claude"
 $copilotHome = Get-ProfileRoot -EnvironmentName "COPILOT_HOME" -DefaultLeaf ".copilot"
 $antigravityHome = Get-ProfileRoot -EnvironmentName "GEMINI_CONFIG_DIR" -DefaultLeaf ".gemini"
+$xdgConfigHome = Get-ProfileRoot -EnvironmentName "XDG_CONFIG_HOME" -DefaultLeaf ".config"
+$opencodeHome = Join-Path $xdgConfigHome "opencode"
 $sharedAgentsHome = Get-ProfileRoot -EnvironmentName "AGENTS_HOME" -DefaultLeaf ".agents"
 $localEnvironmentProfile = Join-Path $sharedAgentsHome "context\local-environment.md"
 
@@ -381,7 +383,6 @@ if (-not (Test-Path -LiteralPath $localEnvironmentGenerator)) {
 if ($requested -contains "codex") {
     Install-Link -Source $policySource -Destination (Join-Path $codexHome "AGENTS.md") -Kind File
     Add-DirectoryLinks -SourceDirectory $referencesSource -DestinationDirectory (Join-Path $codexHome "references")
-    Add-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $sharedAgentsHome "skills") -LegacyLinks $legacySkillLinks
     Add-DirectoryLinks -SourceDirectory $codexAgentsSource -DestinationDirectory (Join-Path $codexHome "agents") -LegacyLinks $legacyCodexAgentLinks
 
     if ($InstallCodexLegacySkills) {
@@ -430,4 +431,12 @@ if ($requested -contains "antigravity") {
     Install-Link -Source $policySource -Destination (Join-Path $antigravityHome "GEMINI.md") -Kind File
     Add-DirectoryLinks -SourceDirectory $referencesSource -DestinationDirectory (Join-Path $antigravityHome "references")
     Add-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $antigravityHome "skills") -LegacyLinks $legacySkillLinks
+}
+
+if ($requested -contains "opencode") {
+    Install-Link -Source $policySource -Destination (Join-Path $opencodeHome "AGENTS.md") -Kind File
+}
+
+if (($requested -contains "codex") -or ($requested -contains "opencode")) {
+    Add-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $sharedAgentsHome "skills") -LegacyLinks $legacySkillLinks
 }

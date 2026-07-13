@@ -28,8 +28,9 @@ settings/
 | Claude Code | `%CLAUDE_CONFIG_DIR%\CLAUDE.md`, `%CLAUDE_CONFIG_DIR%\AGENTS.md`, `%CLAUDE_CONFIG_DIR%\references`, `%CLAUDE_CONFIG_DIR%\skills`, `%CLAUDE_CONFIG_DIR%\agents` |
 | GitHub Copilot CLI | `%COPILOT_HOME%\copilot-instructions.md`, `%COPILOT_HOME%\references`, `%COPILOT_HOME%\skills`, `%COPILOT_HOME%\agents` |
 | Antigravity | `%GEMINI_CONFIG_DIR%\GEMINI.md`, `%GEMINI_CONFIG_DIR%\references`, `%GEMINI_CONFIG_DIR%\skills` |
+| OpenCode | `%USERPROFILE%\.config\opencode\AGENTS.md` (`XDG_CONFIG_HOME` overrides `.config`), `%AGENTS_HOME%\skills` |
 
-`settings/AGENTS.md` is installed for Codex, Copilot, and Antigravity. Claude Code receives the same file as `%CLAUDE_CONFIG_DIR%\AGENTS.md`, which `settings/CLAUDE.md` imports. Reusable directories are linked as directories, so new files under `settings/references/`, `settings/skills/`, `settings/agents/shared/`, and `settings/agents/codex/` appear without reinstalling. Skills are kept as reusable domain workflows and explicit shortcuts. Codex custom agents remain TOML under `~/.codex/agents/` or `.codex/agents/`.
+`settings/AGENTS.md` is installed for Codex, Copilot, Antigravity, and OpenCode. Claude Code receives the same file as `%CLAUDE_CONFIG_DIR%\AGENTS.md`, which `settings/CLAUDE.md` imports. OpenCode and Codex share Skills through `%AGENTS_HOME%\skills`. Reusable directories are linked as directories, so new files under `settings/references/`, `settings/skills/`, `settings/agents/shared/`, and `settings/agents/codex/` appear without reinstalling. Skills are kept as reusable domain workflows and explicit shortcuts. Codex custom agents remain TOML under `~/.codex/agents/` or `.codex/agents/`.
 
 Global install also generates `$AGENTS_HOME/context/local-environment.md` (default `~/.agents/context/local-environment.md`). The `local-environment` Skill reads this machine-local capability cache before choosing environment-sensitive commands. The file is refreshed on each install, is not stored in this repository, and is retained by uninstall.
 
@@ -55,6 +56,7 @@ Global install:
 .\install.ps1 -DryRun
 .\install.ps1
 .\install.ps1 -Force
+.\install.ps1 -Targets opencode
 .\install.ps1 -InstallCodexLegacySkills
 ```
 
@@ -78,6 +80,7 @@ Global install:
 ./install.sh --dry-run
 ./install.sh
 ./install.sh --force
+./install.sh --targets opencode
 ./install.sh --codex-legacy-skills
 ```
 

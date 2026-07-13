@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
-TARGETS_CSV="codex,claude,copilot,antigravity"
+TARGETS_CSV="codex,claude,copilot,antigravity,opencode"
 DRY_RUN=0
 INCLUDE_CODEX_LEGACY_SKILLS=0
 
@@ -11,7 +11,7 @@ usage() {
 Usage: ./uninstall.sh [options]
 
 Options:
-  --targets LIST                    Comma-separated targets: codex,claude,copilot,antigravity,all
+  --targets LIST                    Comma-separated targets: codex,claude,copilot,antigravity,opencode,all
   --dry-run                         Print actions without changing files
   --codex-legacy-skills             Also remove links from $CODEX_HOME/skills
   --include-codex-legacy-skills     Alias for --codex-legacy-skills
@@ -57,11 +57,11 @@ for target in "${REQUESTED_RAW[@]}"; do
   target="$(normalize_target "$target")"
   [ -n "$target" ] || continue
   case "$target" in
-    all|codex|claude|copilot|antigravity)
+    all|codex|claude|copilot|antigravity|opencode)
       REQUESTED+=("$target")
       ;;
     *)
-      echo "Unknown target: $target. Valid targets: codex, claude, copilot, antigravity, all" >&2
+      echo "Unknown target: $target. Valid targets: codex, claude, copilot, antigravity, opencode, all" >&2
       exit 1
       ;;
   esac
@@ -156,6 +156,21 @@ remove_link_if_owned() {
   fi
 }
 
+is_link_owned() {
+  local source="$1"
+  local destination="$2"
+  local source_abs
+  local current
+  local current_abs
+
+  [ -L "$destination" ] || return 1
+
+  source_abs="$(abs_path "$source")"
+  current="$(readlink "$destination")"
+  current_abs="$(resolve_link_target "$destination" "$current")"
+  [ "$current_abs" = "$source_abs" ]
+}
+
 child_link_specs() {
   local source_dir="$1"
   local kind="$2"
@@ -227,6 +242,7 @@ CODEX_HOME="${CODEX_HOME:-$PROFILE_HOME/.codex}"
 CLAUDE_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$PROFILE_HOME/.claude}"
 COPILOT_HOME="${COPILOT_HOME:-$PROFILE_HOME/.copilot}"
 GEMINI_CONFIG_DIR="${GEMINI_CONFIG_DIR:-$PROFILE_HOME/.gemini}"
+OPENCODE_CONFIG_HOME="${XDG_CONFIG_HOME:-$PROFILE_HOME/.config}/opencode"
 AGENTS_HOME="${AGENTS_HOME:-$PROFILE_HOME/.agents}"
 
 POLICY_SOURCE="$ROOT/settings/AGENTS.md"
@@ -245,7 +261,6 @@ LEGACY_COPILOT_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" 
 if has_target codex; then
   remove_link_if_owned "$POLICY_SOURCE" "$CODEX_HOME/AGENTS.md"
   remove_directory_links "$REFERENCES_SOURCE" "$CODEX_HOME/references"
-  remove_directory_links "$SKILLS_SOURCE" "$AGENTS_HOME/skills" "$LEGACY_SKILL_LINKS"
   remove_directory_links "$CODEX_AGENTS_SOURCE" "$CODEX_HOME/agents" "$LEGACY_CODEX_AGENT_LINKS"
 
   if [ "$INCLUDE_CODEX_LEGACY_SKILLS" -eq 1 ]; then
@@ -273,4 +288,24 @@ if has_target antigravity; then
   remove_link_if_owned "$POLICY_SOURCE" "$GEMINI_CONFIG_DIR/GEMINI.md"
   remove_directory_links "$REFERENCES_SOURCE" "$GEMINI_CONFIG_DIR/references"
   remove_directory_links "$SKILLS_SOURCE" "$GEMINI_CONFIG_DIR/skills" "$LEGACY_SKILL_LINKS"
+fi
+
+if has_target opencode; then
+  remove_link_if_owned "$POLICY_SOURCE" "$OPENCODE_CONFIG_HOME/AGENTS.md"
+fi
+
+if has_target codex || has_target opencode; then
+  shared_skills_in_use=0
+  if ! has_target codex && is_link_owned "$POLICY_SOURCE" "$CODEX_HOME/AGENTS.md"; then
+    shared_skills_in_use=1
+  fi
+  if ! has_target opencode && is_link_owned "$POLICY_SOURCE" "$OPENCODE_CONFIG_HOME/AGENTS.md"; then
+    shared_skills_in_use=1
+  fi
+
+  if [ "$shared_skills_in_use" -eq 1 ]; then
+    printf 'KEEP    %s is used by another installed target\n' "$AGENTS_HOME/skills"
+  else
+    remove_directory_links "$SKILLS_SOURCE" "$AGENTS_HOME/skills" "$LEGACY_SKILL_LINKS"
+  fi
 fi
