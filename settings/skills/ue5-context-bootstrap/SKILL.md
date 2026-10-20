@@ -20,7 +20,7 @@ Install verified UE5 workflow context into a target repository. Edit Agent conte
 1. Read `references/context-candidates.md`.
 2. Use `assets/project-ue5-context.md` as a section outline.
 3. Default to the nearest applicable `AGENTS.md`; update `CLAUDE.md` only when it already exists or the user requests it.
-4. Fill only rules supported by project files, commands, tools, or explicit user requirements.
+4. Fill only rules supported by project files, commands, tools, explicit user requirements, or the user defaults in `references/context-candidates.md`.
 5. Remove unused headings and placeholders before writing.
 6. Merge with existing context without duplicating or replacing unrelated rules.
 
@@ -36,4 +36,4 @@ Install verified UE5 workflow context into a target repository. Edit Agent conte
 
 - Referenced paths, commands, modules, plugins, and tools exist or are explicitly user-supplied
 - The resulting section is self-contained and contains no unresolved placeholders
-- Every retained rule is project-specific or prevents an observed project failure
+- Every retained rule is project-specific, a listed user default, or prevents an observed project failure
