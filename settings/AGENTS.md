@@ -29,6 +29,7 @@ Judge every request on its merits; the wording only decides how to act on that j
 
 - Files on disk outrank memory, earlier reads, and conversation history; the user may edit between turns. Before editing or discussing a file in scope, check it for changes and build on its current content
 - Treat changes you did not make as intentional: never revert or drop them; flag suspicious ones instead
+- Edit existing files in place. Rewrite a whole file only when nearly all of it changes, right after re-reading it, keeping untouched parts verbatim; never overwrite one through shell redirection
 - When memory conflicts with a file, follow the file and fix the memory
 
 ## Verification
