@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Git Bash copies instead of linking unless native symlinks are forced.
+export MSYS=winsymlinks:nativestrict
+
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 TARGETS_CSV="codex,claude,copilot,antigravity,opencode"
 FORCE=0
