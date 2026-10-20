@@ -35,6 +35,11 @@ Use for Agent instructions, Skills, profiles, routing, and Agent-facing referenc
 - Repeated, stale, contradictory, unrelated, or unenforced instructions
 - Checks better enforced by scripts, hooks, CI, schemas, or tests
 
+## Commit Type
+
+- Classify by agent behavior impact, not file type: `feat` adds behavior or rules, `fix` corrects behavior, `refactor` preserves behavior
+- Use `docs` only for purely explanatory changes with no agent behavior impact
+
 ## Verification
 
 - Every retained rule changes local behavior or prevents a concrete local failure
