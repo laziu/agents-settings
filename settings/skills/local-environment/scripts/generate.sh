@@ -45,8 +45,37 @@ case "$output_path" in
   *) output_path="$PWD/$output_path" ;;
 esac
 
+output_dir="$(dirname "$output_path")"
+owned_keys="Platform|Shell|Bash|POSIX shell|Text search|Files|JSON|VCS|Scripting|JavaScript|Raster|Media"
+
+existing_keys() {
+  tr -d '\r' < "$output_path" | sed -n -E 's/^- ([^:]+):.*/\1/p'
+}
+
+action="GENERATE"
+if [ -s "$output_path" ]; then
+  action="MERGE"
+  merge_error=""
+  for heading in "# Local Environment" "## Host" "## Tasks"; do
+    if ! tr -d '\r' < "$output_path" | grep -qxF "$heading"; then
+      merge_error="missing '$heading'"
+      break
+    fi
+  done
+  if [ -z "$merge_error" ]; then
+    duplicate_key="$(existing_keys | grep -xE "$owned_keys" | sort | uniq -d | head -n 1)"
+    if [ -n "$duplicate_key" ]; then
+      merge_error="duplicate '- $duplicate_key:'"
+    fi
+  fi
+  if [ -n "$merge_error" ]; then
+    echo "Cannot merge existing $output_path: $merge_error. Move it to $output_dir/local-environment.save.md and rerun." >&2
+    exit 1
+  fi
+fi
+
 if [ "$dry_run" -eq 1 ]; then
-  printf 'GENERATE %s\n' "$output_path"
+  printf '%s %s\n' "$action" "$output_path"
   exit 0
 fi
 
@@ -183,12 +212,54 @@ else
   lines+=("- Media: \`ffmpeg\`")
 fi
 
-output_dir="$(dirname "$output_path")"
+# Replace owned lines in place, append missing ones to their section, and keep every other line.
+merge_profile() {
+  awk -v owned="$owned_keys" -v present="$(existing_keys | paste -sd '|' -)" '
+    BEGIN {
+      n = split(owned, list, "|"); for (i = 1; i <= n; i++) is_owned[list[i]] = 1
+      n = split(present, list, "|"); for (i = 1; i <= n; i++) is_present[list[i]] = 1
+    }
+    function line_key(line) { return substr(line, 3, index(line, ":") - 3) }
+    function flush(   n, i, keys) {
+      n = split(missing[section], keys, "|")
+      for (i = 1; i <= n; i++) if (keys[i] != "") print emitted[keys[i]]
+      for (; blanks > 0; blanks--) print ""
+    }
+    { sub(/\r$/, "") }
+    FNR == NR {
+      if ($0 ~ /^## /) section = $0
+      else if ($0 ~ /^Generated: /) generated = $0
+      else if ($0 ~ /^- [^:]+:/) {
+        key = line_key($0); emitted[key] = $0
+        if (!(key in is_present)) missing[section] = missing[section] key "|"
+      }
+      next
+    }
+    FNR == 1 { section = "" }
+    /^## / { flush(); section = $0; print; next }
+    /^$/ { blanks++; next }
+    {
+      for (; blanks > 0; blanks--) print ""
+      if ($0 ~ /^Generated: /) { print generated; next }
+      if ($0 ~ /^- [^:]+:/ && line_key($0) in is_owned) {
+        if (line_key($0) in emitted) print emitted[line_key($0)]
+        next
+      }
+      print
+    }
+    END { flush() }
+  ' - "$output_path"
+}
+
 mkdir -p "$output_dir"
 temporary_path="$(mktemp "$output_dir/.local-environment.XXXXXX")"
 trap 'rm -f "$temporary_path"' EXIT
-printf '%s\n' "${lines[@]}" > "$temporary_path"
+if [ "$action" = "MERGE" ]; then
+  printf '%s\n' "${lines[@]}" | merge_profile > "$temporary_path"
+else
+  printf '%s\n' "${lines[@]}" > "$temporary_path"
+fi
 mv -f "$temporary_path" "$output_path"
 trap - EXIT
 
-printf 'GENERATED %s\n' "$output_path"
+printf '%sD %s\n' "$action" "$output_path"

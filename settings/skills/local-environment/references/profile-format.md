@@ -11,6 +11,13 @@ Use this file as the output contract for both generators.
 - Exclude project-specific tools, credentials, services, environment values, and volatile state.
 - Let project instructions and current observations override the cache.
 
+## Existing Profile
+
+- Generators own the `Generated:` line and the `- <Key>:` lines listed in both scripts' owned-key list
+- Replace owned lines in place, append missing ones to the end of their section, and drop owned keys the current generator does not emit
+- Keep every other line unchanged
+- Stop without writing when the title, `## Host`, or `## Tasks` heading is missing or an owned key repeats; tell the user to move the file to `local-environment.save.md`
+
 ## Example
 
 ```markdown

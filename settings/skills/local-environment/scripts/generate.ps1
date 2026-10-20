@@ -64,9 +64,127 @@ if ([string]::IsNullOrWhiteSpace($OutputPath)) {
     $OutputPath = Join-Path $agentsHome "context\local-environment.md"
 }
 
+$ownedKeys = @("Platform", "Shell", "Bash", "POSIX shell", "Text search", "Files", "JSON", "VCS", "Scripting", "JavaScript", "Raster", "Media")
+
+function Get-LineKey {
+    param([string]$Line)
+
+    if ($Line -match '^- ([^:]+):') {
+        return $Matches[1]
+    }
+
+    return $null
+}
+
+# Replace owned lines in place, append missing ones to their section, and keep every other line.
+function Merge-Profile {
+    param(
+        [string[]]$Generated,
+        [string[]]$Existing
+    )
+
+    $present = @($Existing | ForEach-Object { Get-LineKey $_ } | Where-Object { $null -ne $_ })
+    $emitted = @{}
+    $missing = @{}
+    $generatedHeader = $null
+    $section = ""
+    foreach ($line in $Generated) {
+        $key = Get-LineKey $line
+        if ($line.StartsWith("## ")) {
+            $section = $line
+        }
+        elseif ($line.StartsWith("Generated: ")) {
+            $generatedHeader = $line
+        }
+        elseif ($null -ne $key) {
+            $emitted[$key] = $line
+            if ($present -cnotcontains $key) {
+                if (-not $missing.ContainsKey($section)) {
+                    $missing[$section] = [System.Collections.Generic.List[string]]::new()
+                }
+                $missing[$section].Add($line)
+            }
+        }
+    }
+
+    $result = [System.Collections.Generic.List[string]]::new()
+    $blanks = 0
+    $section = ""
+    $flush = {
+        if ($missing.ContainsKey($section)) {
+            $result.AddRange($missing[$section])
+        }
+        for (; $blanks -gt 0; $blanks--) { $result.Add("") }
+    }
+
+    foreach ($line in $Existing) {
+        if ($line.StartsWith("## ")) {
+            . $flush
+            $section = $line
+            $result.Add($line)
+            continue
+        }
+
+        if ($line -eq "") {
+            $blanks++
+            continue
+        }
+
+        for (; $blanks -gt 0; $blanks--) { $result.Add("") }
+        $key = Get-LineKey $line
+        if ($line.StartsWith("Generated: ")) {
+            $result.Add($generatedHeader)
+        }
+        elseif ($null -ne $key -and $ownedKeys -ccontains $key) {
+            if ($emitted.ContainsKey($key)) {
+                $result.Add($emitted[$key])
+            }
+        }
+        else {
+            $result.Add($line)
+        }
+    }
+    . $flush
+
+    return $result.ToArray()
+}
+
 $outputFull = [System.IO.Path]::GetFullPath($OutputPath)
+$existingLines = @()
+if (Test-Path -LiteralPath $outputFull) {
+    $existingLines = @(Get-Content -LiteralPath $outputFull)
+}
+
+if ($existingLines.Count -gt 0) {
+    $mergeError = $null
+    foreach ($heading in @("# Local Environment", "## Host", "## Tasks")) {
+        if ($existingLines -cnotcontains $heading) {
+            $mergeError = "missing '$heading'"
+            break
+        }
+    }
+
+    if ($null -eq $mergeError) {
+        $duplicate = $existingLines |
+            ForEach-Object { Get-LineKey $_ } |
+            Where-Object { $ownedKeys -ccontains $_ } |
+            Group-Object -CaseSensitive |
+            Where-Object { $_.Count -gt 1 } |
+            Select-Object -First 1
+        if ($null -ne $duplicate) {
+            $mergeError = "duplicate '- $($duplicate.Name):'"
+        }
+    }
+
+    if ($null -ne $mergeError) {
+        $savePath = Join-Path (Split-Path -Parent $outputFull) "local-environment.save.md"
+        throw "Cannot merge existing ${outputFull}: $mergeError. Move it to $savePath and rerun."
+    }
+}
+
+$action = if ($existingLines.Count -gt 0) { "MERGE" } else { "GENERATE" }
 if ($DryRun) {
-    Write-Host "GENERATE $outputFull"
+    Write-Host "$action $outputFull"
     return
 }
 
@@ -206,6 +324,10 @@ else {
     $lines += '- Media: `ffmpeg`'
 }
 
+if ($action -eq "MERGE") {
+    $lines = @(Merge-Profile -Generated $lines -Existing $existingLines)
+}
+
 $parent = Split-Path -Parent $outputFull
 New-Item -ItemType Directory -Path $parent -Force | Out-Null
 $temporaryPath = Join-Path $parent (".local-environment.{0}.tmp" -f [guid]::NewGuid().ToString("N"))
@@ -220,4 +342,4 @@ finally {
     }
 }
 
-Write-Host "GENERATED $outputFull"
+Write-Host "${action}D $outputFull"
