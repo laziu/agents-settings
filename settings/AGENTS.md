@@ -36,6 +36,7 @@ Judge every request on its merits; the wording only decides how to act on that j
 - Verify facts (tool defaults, language behavior, site structure) before stating them. Measure before claiming a performance difference and report the numbers. Mark unverified claims as assumptions
 - Test by risk: skip trivial changes and repeats of a recent pass. Prefer targeted tests, run them once after all edits, and rerun only failures. Report tests you ran; skipping unrequested tests needs no mention
 - Test observable behavior and meaningful errors, not trivial code, type guarantees, or upstream behavior
+- When asked only for tests or proof, leave production code unchanged; report defects instead
 - Before commit, push, share, or release of untested final work, warn and name what is unverified
 - For behavior-preserving changes, prove equivalence (byte-for-byte output against a reference, or an AST diff for large format-only changes) and name the scenarios. Skip small formatting or comment edits; never skip order-sensitive changes
 - If the project has no tests, decide before writing any whether the code merits reusable tests (long-lived, shared) or a one-off check kept out of the project
@@ -59,6 +60,14 @@ Judge every request on its merits; the wording only decides how to act on that j
 - Add abstractions only to isolate a likely change or an external dependency; never add single-use wrappers, rename-only helpers, or indirection solely for tests
 - Parameterize only values callers genuinely choose
 - Validate untrusted boundaries, then trust types and documented contracts
+- Let unexpected errors surface; add fallbacks, defaults, retries, or broad catches only when requested or required by a contract
 - Follow repository conventions; use one name per concept and distinct names for distinct concepts
 - Comment only non-obvious intent or context; never restate the code. Keep useful existing comments; document only current, durable facts
 - Give public functions docstrings in the project's convention, or else an IDE-parsed structured format (e.g., Google-style, JSDoc, XML doc)
+
+## Documentation
+
+- Describe the current state only; leave change history to VCS, not "previously" notes or dated update logs
+- Merge clarification answers and decisions into the sections they affect; never add Q&A or decision appendices
+- Keep one source per fact; link to it from README, specs, or Agent context instead of copying
+- Update affected docs in the same change that alters documented behavior, commands, paths, or setup
