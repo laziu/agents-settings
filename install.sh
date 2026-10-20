@@ -244,119 +244,56 @@ remove_directory_links() {
   done <<< "$legacy_specs"
 }
 
-child_link_specs() {
-  local source_dir="$1"
-  local kind="$2"
-  local pattern="${3:-*}"
-  local source
-
-  [ -d "$source_dir" ] || return 0
-
-  if [ "$kind" = "file" ]; then
-    for source in "$source_dir"/$pattern; do
-      [ -f "$source" ] || continue
-      printf '%s\t%s\n' "$(basename "$source")" "$source"
-    done
-    return
-  fi
-
-  for source in "$source_dir"/*; do
-    [ -d "$source" ] || continue
-    printf '%s\t%s\n' "$(basename "$source")" "$source"
-  done
-}
-
-shared_agent_legacy_specs() {
-  local source_dir="$1"
-  local legacy_source_dir="$2"
-  local extension="$3"
-  local source
-  local name
-
-  [ -d "$source_dir" ] || return 0
-
-  for source in "$source_dir"/*.agent.md; do
-    [ -f "$source" ] || continue
-    name="$(basename "$source" .agent.md)"
-    printf '%s%s\t%s/%s.md\n' "$name" "$extension" "$legacy_source_dir" "$name"
-  done
-}
-
-is_owned_legacy_dir() {
-  local destination_dir="$1"
-  local legacy_specs="${2-}"
-  local entry
-  local name
-  local current
+is_settings_link() {
+  local destination="$1"
   local current_abs
-  local expected_abs
-  local matches
-  local child_count=0
-  local spec_count=0
-  local destination_name
-  local source_path
-  declare -A expected_targets=()
 
-  while IFS=$'\t' read -r destination_name source_path; do
-    [ -n "$destination_name" ] || continue
-    expected_targets["$destination_name"]+=$(printf '%s\n' "$(abs_path "$source_path")")
-    spec_count=$((spec_count + 1))
-  done <<< "$legacy_specs"
-
-  [ -d "$destination_dir" ] && [ ! -L "$destination_dir" ] || return 1
-  [ "$spec_count" -gt 0 ] || return 1
-
-  while IFS= read -r -d '' entry; do
-    child_count=$((child_count + 1))
-    [ -L "$entry" ] || return 1
-    name="$(basename "$entry")"
-    [ -n "${expected_targets[$name]+set}" ] || return 1
-
-    current="$(readlink "$entry")"
-    current_abs="$(resolve_link_target "$entry" "$current")"
-    matches=0
-    while IFS= read -r expected_abs; do
-      [ -n "$expected_abs" ] || continue
-      if [ "$current_abs" = "$expected_abs" ]; then
-        matches=1
-        break
-      fi
-    done <<< "${expected_targets[$name]}"
-    [ "$matches" -eq 1 ] || return 1
-  done < <(find "$destination_dir" -mindepth 1 -maxdepth 1 -print0)
-
-  [ "$child_count" -gt 0 ] || return 1
-  return 0
+  [ -L "$destination" ] || return 1
+  current_abs="$(resolve_link_target "$destination" "$(readlink "$destination")")"
+  case "$current_abs" in
+    "$SETTINGS_ROOT"/*) return 0 ;;
+  esac
+  return 1
 }
 
-remove_owned_legacy_dir() {
-  local destination_dir="$1"
-  local entry
-
-  while IFS= read -r -d '' entry; do
-    rm "$entry"
-  done < <(find "$destination_dir" -mindepth 1 -maxdepth 1 -print0)
-  rmdir "$destination_dir"
-}
-
-link_directory() {
+# Link each child separately so tool-managed entries can share the directory.
+link_children() {
   local source_dir="$1"
   local destination_dir="$2"
-  local legacy_specs="${3-}"
-  local source_abs
+  local entry
 
-  if is_owned_legacy_dir "$destination_dir" "$legacy_specs"; then
-    source_abs="$(abs_path "$source_dir")"
-    printf 'MIGRATE %s owned legacy links\n' "$destination_dir"
-    if [ "$DRY_RUN" -eq 1 ]; then
-      printf 'LINK    %s -> %s\n' "$destination_dir" "$source_abs"
-      return
+  if [ -L "$destination_dir" ]; then
+    if ! is_settings_link "$destination_dir" && [ "$FORCE" -ne 1 ]; then
+      echo "Existing link points elsewhere: $destination_dir. Use --force to replace it." >&2
+      exit 1
     fi
 
-    remove_owned_legacy_dir "$destination_dir"
+    printf 'UNLINK  %s\n' "$destination_dir"
+    if [ "$DRY_RUN" -eq 1 ]; then
+      for entry in "$source_dir"/*; do
+        [ -e "$entry" ] || continue
+        printf 'LINK    %s -> %s\n' "$destination_dir/$(basename "$entry")" "$(abs_path "$entry")"
+      done
+      return
+    fi
+    rm "$destination_dir"
   fi
 
-  link_path "$source_dir" "$destination_dir"
+  if [ -d "$destination_dir" ] && [ ! -L "$destination_dir" ]; then
+    for entry in "$destination_dir"/*; do
+      if is_settings_link "$entry" && [ ! -e "$entry" ]; then
+        printf 'REMOVE  %s\n' "$entry"
+        if [ "$DRY_RUN" -ne 1 ]; then
+          rm "$entry"
+        fi
+      fi
+    done
+  fi
+
+  for entry in "$source_dir"/*; do
+    [ -e "$entry" ] || continue
+    link_path "$entry" "$destination_dir/$(basename "$entry")"
+  done
 }
 
 PROFILE_HOME="${HOME:?HOME is required}"
@@ -367,19 +304,15 @@ GEMINI_CONFIG_DIR="${GEMINI_CONFIG_DIR:-$PROFILE_HOME/.gemini}"
 OPENCODE_CONFIG_HOME="${XDG_CONFIG_HOME:-$PROFILE_HOME/.config}/opencode"
 AGENTS_HOME="${AGENTS_HOME:-$PROFILE_HOME/.agents}"
 
+SETTINGS_ROOT="$ROOT/settings"
 POLICY_SOURCE="$ROOT/settings/AGENTS.md"
 CLAUDE_POLICY_SOURCE="$ROOT/settings/CLAUDE.md"
 SKILLS_SOURCE="$ROOT/settings/skills"
 REFERENCES_SOURCE="$ROOT/settings/references"
-AGENTS_SOURCE="$ROOT/settings/agents"
 SHARED_AGENTS_SOURCE="$ROOT/settings/agents/shared"
 CODEX_AGENTS_SOURCE="$ROOT/settings/agents/codex"
 LOCAL_ENVIRONMENT_GENERATOR="$SKILLS_SOURCE/local-environment/scripts/generate.sh"
 
-LEGACY_SKILL_LINKS="$(child_link_specs "$SKILLS_SOURCE" directory)"
-LEGACY_CODEX_AGENT_LINKS="$(child_link_specs "$CODEX_AGENTS_SOURCE" file "*.toml")"
-LEGACY_CLAUDE_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" "$AGENTS_SOURCE" ".md")"
-LEGACY_COPILOT_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" "$AGENTS_SOURCE" ".agent.md")"
 LOCAL_ENVIRONMENT_PROFILE="$AGENTS_HOME/context/local-environment.md"
 
 if [ ! -f "$LOCAL_ENVIRONMENT_GENERATOR" ]; then
@@ -395,11 +328,11 @@ fi
 
 if has_target codex; then
   link_path "$POLICY_SOURCE" "$CODEX_HOME/AGENTS.md"
-  link_directory "$REFERENCES_SOURCE" "$CODEX_HOME/references"
-  link_directory "$CODEX_AGENTS_SOURCE" "$CODEX_HOME/agents" "$LEGACY_CODEX_AGENT_LINKS"
+  link_path "$REFERENCES_SOURCE" "$CODEX_HOME/references"
+  link_children "$CODEX_AGENTS_SOURCE" "$CODEX_HOME/agents"
 
   if [ "$INSTALL_CODEX_LEGACY_SKILLS" -eq 1 ]; then
-    link_directory "$SKILLS_SOURCE" "$CODEX_HOME/skills" "$LEGACY_SKILL_LINKS"
+    link_children "$SKILLS_SOURCE" "$CODEX_HOME/skills"
   fi
 fi
 
@@ -417,22 +350,22 @@ if has_target claude; then
   else
     link_path "$CLAUDE_POLICY_SOURCE" "$CLAUDE_CONFIG_DIR/CLAUDE.md"
   fi
-  link_directory "$REFERENCES_SOURCE" "$CLAUDE_CONFIG_DIR/references"
-  link_directory "$SKILLS_SOURCE" "$CLAUDE_CONFIG_DIR/skills" "$LEGACY_SKILL_LINKS"
-  link_directory "$SHARED_AGENTS_SOURCE" "$CLAUDE_CONFIG_DIR/agents" "$LEGACY_CLAUDE_AGENT_LINKS"
+  link_path "$REFERENCES_SOURCE" "$CLAUDE_CONFIG_DIR/references"
+  link_children "$SKILLS_SOURCE" "$CLAUDE_CONFIG_DIR/skills"
+  link_children "$SHARED_AGENTS_SOURCE" "$CLAUDE_CONFIG_DIR/agents"
 fi
 
 if has_target copilot; then
   link_path "$POLICY_SOURCE" "$COPILOT_HOME/copilot-instructions.md"
-  link_directory "$REFERENCES_SOURCE" "$COPILOT_HOME/references"
-  link_directory "$SKILLS_SOURCE" "$COPILOT_HOME/skills" "$LEGACY_SKILL_LINKS"
-  link_directory "$SHARED_AGENTS_SOURCE" "$COPILOT_HOME/agents" "$LEGACY_COPILOT_AGENT_LINKS"
+  link_path "$REFERENCES_SOURCE" "$COPILOT_HOME/references"
+  link_children "$SKILLS_SOURCE" "$COPILOT_HOME/skills"
+  link_children "$SHARED_AGENTS_SOURCE" "$COPILOT_HOME/agents"
 fi
 
 if has_target antigravity; then
   link_path "$POLICY_SOURCE" "$GEMINI_CONFIG_DIR/GEMINI.md"
-  link_directory "$REFERENCES_SOURCE" "$GEMINI_CONFIG_DIR/references"
-  link_directory "$SKILLS_SOURCE" "$GEMINI_CONFIG_DIR/skills" "$LEGACY_SKILL_LINKS"
+  link_path "$REFERENCES_SOURCE" "$GEMINI_CONFIG_DIR/references"
+  link_children "$SKILLS_SOURCE" "$GEMINI_CONFIG_DIR/skills"
 fi
 
 if has_target opencode; then
@@ -440,5 +373,5 @@ if has_target opencode; then
 fi
 
 if has_target codex || has_target opencode; then
-  link_directory "$SKILLS_SOURCE" "$AGENTS_HOME/skills" "$LEGACY_SKILL_LINKS"
+  link_children "$SKILLS_SOURCE" "$AGENTS_HOME/skills"
 fi

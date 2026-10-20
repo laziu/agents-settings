@@ -157,26 +157,6 @@ function Get-LegacyChildLinks {
         })
 }
 
-function Get-LegacySharedAgentLinks {
-    param(
-        [string]$SourceDirectory,
-        [string]$LegacySourceDirectory,
-        [string]$DestinationExtension
-    )
-
-    if (-not (Test-Path -LiteralPath $SourceDirectory)) {
-        return @()
-    }
-
-    return @(Get-ChildItem -LiteralPath $SourceDirectory -File -Filter "*.agent.md" -Force | ForEach-Object {
-        $agentName = $_.Name -replace "\.agent\.md$", ""
-        [pscustomobject]@{
-            Source = Join-Path $LegacySourceDirectory "$agentName.md"
-            DestinationName = "$agentName$DestinationExtension"
-        }
-    })
-}
-
 function Remove-DirectoryLinks {
     param(
         [string]$DestinationDirectory,
@@ -217,14 +197,12 @@ $policySource = Join-Path $repoRoot "settings\AGENTS.md"
 $claudePolicySource = Join-Path $repoRoot "settings\CLAUDE.md"
 $skillsSource = Join-Path $repoRoot "settings\skills"
 $referencesSource = Join-Path $repoRoot "settings\references"
-$agentsSource = Join-Path $repoRoot "settings\agents"
 $sharedAgentsSource = Join-Path $repoRoot "settings\agents\shared"
 $codexAgentsSource = Join-Path $repoRoot "settings\agents\codex"
 
 $legacySkillLinks = Get-LegacyChildLinks -SourceDirectory $skillsSource -Kind Directory
 $legacyCodexAgentLinks = Get-LegacyChildLinks -SourceDirectory $codexAgentsSource -Kind File -Filter "*.toml"
-$legacyClaudeAgentLinks = Get-LegacySharedAgentLinks -SourceDirectory $sharedAgentsSource -LegacySourceDirectory $agentsSource -DestinationExtension ".md"
-$legacyCopilotAgentLinks = Get-LegacySharedAgentLinks -SourceDirectory $sharedAgentsSource -LegacySourceDirectory $agentsSource -DestinationExtension ".agent.md"
+$legacySharedAgentLinks = Get-LegacyChildLinks -SourceDirectory $sharedAgentsSource -Kind File -Filter "*.agent.md"
 
 $requested = @($Targets | ForEach-Object { $_.ToLowerInvariant() })
 if ($requested -contains "all") {
@@ -263,14 +241,14 @@ if ($requested -contains "claude") {
     Remove-LinkIfOwned -Source $policySource -Destination $claudePolicyDestination
     Remove-DirectoryLinks -SourceDirectory $referencesSource -DestinationDirectory (Join-Path $claudeHome "references")
     Remove-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $claudeHome "skills") -LegacyLinks $legacySkillLinks
-    Remove-DirectoryLinks -SourceDirectory $sharedAgentsSource -DestinationDirectory (Join-Path $claudeHome "agents") -LegacyLinks $legacyClaudeAgentLinks
+    Remove-DirectoryLinks -SourceDirectory $sharedAgentsSource -DestinationDirectory (Join-Path $claudeHome "agents") -LegacyLinks $legacySharedAgentLinks
 }
 
 if ($requested -contains "copilot") {
     Remove-LinkIfOwned -Source $policySource -Destination (Join-Path $copilotHome "copilot-instructions.md")
     Remove-DirectoryLinks -SourceDirectory $referencesSource -DestinationDirectory (Join-Path $copilotHome "references")
     Remove-DirectoryLinks -SourceDirectory $skillsSource -DestinationDirectory (Join-Path $copilotHome "skills") -LegacyLinks $legacySkillLinks
-    Remove-DirectoryLinks -SourceDirectory $sharedAgentsSource -DestinationDirectory (Join-Path $copilotHome "agents") -LegacyLinks $legacyCopilotAgentLinks
+    Remove-DirectoryLinks -SourceDirectory $sharedAgentsSource -DestinationDirectory (Join-Path $copilotHome "agents") -LegacyLinks $legacySharedAgentLinks
 }
 
 if ($requested -contains "antigravity") {

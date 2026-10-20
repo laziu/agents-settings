@@ -193,22 +193,6 @@ child_link_specs() {
   done
 }
 
-shared_agent_legacy_specs() {
-  local source_dir="$1"
-  local legacy_source_dir="$2"
-  local extension="$3"
-  local source
-  local name
-
-  [ -d "$source_dir" ] || return 0
-
-  for source in "$source_dir"/*.agent.md; do
-    [ -f "$source" ] || continue
-    name="$(basename "$source" .agent.md)"
-    printf '%s%s\t%s/%s.md\n' "$name" "$extension" "$legacy_source_dir" "$name"
-  done
-}
-
 remove_directory_links() {
   local source_dir="$1"
   local destination_dir="$2"
@@ -249,14 +233,12 @@ POLICY_SOURCE="$ROOT/settings/AGENTS.md"
 CLAUDE_POLICY_SOURCE="$ROOT/settings/CLAUDE.md"
 SKILLS_SOURCE="$ROOT/settings/skills"
 REFERENCES_SOURCE="$ROOT/settings/references"
-AGENTS_SOURCE="$ROOT/settings/agents"
 SHARED_AGENTS_SOURCE="$ROOT/settings/agents/shared"
 CODEX_AGENTS_SOURCE="$ROOT/settings/agents/codex"
 
 LEGACY_SKILL_LINKS="$(child_link_specs "$SKILLS_SOURCE" directory)"
 LEGACY_CODEX_AGENT_LINKS="$(child_link_specs "$CODEX_AGENTS_SOURCE" file "*.toml")"
-LEGACY_CLAUDE_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" "$AGENTS_SOURCE" ".md")"
-LEGACY_COPILOT_AGENT_LINKS="$(shared_agent_legacy_specs "$SHARED_AGENTS_SOURCE" "$AGENTS_SOURCE" ".agent.md")"
+LEGACY_SHARED_AGENT_LINKS="$(child_link_specs "$SHARED_AGENTS_SOURCE" file "*.agent.md")"
 
 if has_target codex; then
   remove_link_if_owned "$POLICY_SOURCE" "$CODEX_HOME/AGENTS.md"
@@ -274,14 +256,14 @@ if has_target claude; then
   remove_link_if_owned "$POLICY_SOURCE" "$CLAUDE_CONFIG_DIR/CLAUDE.md"
   remove_directory_links "$REFERENCES_SOURCE" "$CLAUDE_CONFIG_DIR/references"
   remove_directory_links "$SKILLS_SOURCE" "$CLAUDE_CONFIG_DIR/skills" "$LEGACY_SKILL_LINKS"
-  remove_directory_links "$SHARED_AGENTS_SOURCE" "$CLAUDE_CONFIG_DIR/agents" "$LEGACY_CLAUDE_AGENT_LINKS"
+  remove_directory_links "$SHARED_AGENTS_SOURCE" "$CLAUDE_CONFIG_DIR/agents" "$LEGACY_SHARED_AGENT_LINKS"
 fi
 
 if has_target copilot; then
   remove_link_if_owned "$POLICY_SOURCE" "$COPILOT_HOME/copilot-instructions.md"
   remove_directory_links "$REFERENCES_SOURCE" "$COPILOT_HOME/references"
   remove_directory_links "$SKILLS_SOURCE" "$COPILOT_HOME/skills" "$LEGACY_SKILL_LINKS"
-  remove_directory_links "$SHARED_AGENTS_SOURCE" "$COPILOT_HOME/agents" "$LEGACY_COPILOT_AGENT_LINKS"
+  remove_directory_links "$SHARED_AGENTS_SOURCE" "$COPILOT_HOME/agents" "$LEGACY_SHARED_AGENT_LINKS"
 fi
 
 if has_target antigravity; then
