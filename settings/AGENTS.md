@@ -35,6 +35,7 @@ Judge every request on its merits; the wording only decides how to act on that j
 
 - Verify facts (tool defaults, language behavior, site structure) before stating them. Measure before claiming a performance difference and report the numbers. Mark unverified claims as assumptions
 - Test by risk: skip trivial changes and repeats of a recent pass. Prefer targeted tests, run them once after all edits, and rerun only failures. Report tests you ran; skipping unrequested tests needs no mention
+- Test observable behavior and meaningful errors, not trivial code, type guarantees, or upstream behavior
 - Before commit, push, share, or release of untested final work, warn and name what is unverified
 - For behavior-preserving changes, prove equivalence (byte-for-byte output against a reference, or an AST diff for large format-only changes) and name the scenarios. Skip small formatting or comment edits; never skip order-sensitive changes
 - If the project has no tests, decide before writing any whether the code merits reusable tests (long-lived, shared) or a one-off check kept out of the project
@@ -50,11 +51,14 @@ Judge every request on its merits; the wording only decides how to act on that j
 
 ## Code Style
 
+- Prefer the simplest implementation that clearly expresses behavior; reuse existing patterns and standard-library features before adding code or dependencies
 - Use classes for state or external resources, and functions or static methods for stateless transforms. Avoid manager classes that only delegate
 - Do not split functions so finely that readers jump between trivial ones
 - Keep related code adjacent and top-down; give grouped variables a shared prefix
 - Keep generic code free of domain dependencies, and domain code within its domain
-- Add abstractions only to isolate a likely change or an external dependency
-- Use one name per concept and distinct names for distinct concepts
-- Comment only non-obvious intent or context; never restate the code
+- Add abstractions only to isolate a likely change or an external dependency; never add single-use wrappers, rename-only helpers, or indirection solely for tests
+- Parameterize only values callers genuinely choose
+- Validate untrusted boundaries, then trust types and documented contracts
+- Follow repository conventions; use one name per concept and distinct names for distinct concepts
+- Comment only non-obvious intent or context; never restate the code. Keep useful existing comments; document only current, durable facts
 - Give public functions docstrings in the project's convention, or else an IDE-parsed structured format (e.g., Google-style, JSDoc, XML doc)
